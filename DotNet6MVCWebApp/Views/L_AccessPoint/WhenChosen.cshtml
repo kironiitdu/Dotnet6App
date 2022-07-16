@@ -1,0 +1,23 @@
+﻿@model DotNet6MVCWebApp.Models.BeggarViewModel
+
+<h1>You've met beggar </h1>
+@*<a href="<%: Url.Action("InteractionWithBeggar", "Listing", new { name = "John", contact = "calgary, vancouver" }) %>">
+    <span>People</span>
+</a>*@
+@using (Html.BeginForm("InteractionWithBeggar", "L_AccessPoint", FormMethod.Post))
+{
+    <input asp-for="Characters.Id" hidden class="form-control" />
+    <input asp-for="Characters.CharacterName" hidden class="form-control" />
+
+    <input asp-for="Beggars.Id" hidden class="form-control" />
+    <input asp-for="Beggars.BeggarName" hidden class="form-control" />
+
+    <input type="submit" id="cmdAction" style="margin-top:10px" class="btn btn btn-primary" value="Pay him some money" />
+}
+
+@using (Html.BeginForm("PlayersDeath", "L_AccessPoint", FormMethod.Post))
+{
+    <input asp-for="Characters.Id" hidden class="form-control" />
+    <input asp-for="Characters.CharacterName" hidden class="form-control" />
+    <input type="submit"  style="margin-top:10px" class="btn btn-danger" value="Reject the proposal" />
+}

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Member>
+
+
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                <img src="~/ImageName/Cover/@item.ImageName"
+                 class="rounded-square"
+                 height="250" width="282"
+                 style="border:1px;margin: 2px 2px 2px 2px "
+                 asp-append-version="true" accept="image/*" />
+                <div class="card-body">
+                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-memberId="@item.MemberId">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.MemberId">Edit</a>
+                </div>
+            </div>
+          
+        </div>
+
+
+
+    }
+</div>

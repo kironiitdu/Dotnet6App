@@ -1,0 +1,64 @@
+﻿@model DotNet6MVCWebApp.Models.Basket
+
+<form method="post" asp-controller="Yonny" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Material" class="col-md-2 form-label"></label>
+        <input asp-for="Material" class="col-md-6 form-control" />
+        <span asp-validation-for="Material" class="form-span-error"></span>
+    </div>
+
+    <div class="form-group" style="padding-bottom:20px">
+        <label asp-for="Sharp" class="col-md-2 form-label"></label>
+        <input asp-for="Sharp" class="col-md-6 form-control" />
+        <span asp-validation-for="Sharp" class="form-span-error"></span>
+    </div>
+    @*I would like to also create custom amounts of new Fruit in this form.*@
+    <div style="padding-bottom:20px">
+         <button type="button" class="btn btn-primary" onclick="AddRow()">Add Fruit</button>
+    </div>
+   
+    <div id="dataTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Color</th>
+                    <th>Taste</th>
+                </tr>
+            </thead>
+            <tbody id="FruitList" data-count="0">
+              
+            </tbody>
+        </table>
+    </div>
+    <input type="submit" class="btn btn-success" value="Submit" />
+</form>
+
+@section Scripts {
+<script>
+    /*
+         . Hidding table on load
+    */
+      document.getElementById('dataTable').style.display ='none';
+
+      function AddRow()
+      {
+          var countVal = parseInt($('#FruitList').attr('data-count'));
+          var html = '';
+          html += '<tr>';
+          html += '<td><input type="text" name="Fruits[' + countVal + '].Id" class="form-control"/></td>';
+          html += '<td><input type="text" name="Fruits[' + countVal + '].Color" class="form-control"/></td>';
+           html += '<td><input type="text" name="Fruits[' + countVal + '].Taste" class="form-control"/></td>';
+          html += '</tr>';
+
+          $('#FruitList').append(html);
+          countVal += 1;
+          $('#FruitList').attr('data-count', countVal);
+      /*
+         . Showing table when adding item into 
+      */
+           document.getElementById('dataTable').style.display ='block';
+       
+      }
+</script>
+}

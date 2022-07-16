@@ -1,0 +1,57 @@
+﻿@model DotNet6MVCWebApp.Models.Todo
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Item</h2>
+
+@using (Html.BeginForm("Edit", "Todo", FormMethod.Post))
+{
+    <div class="col-sm-3">
+        <div class="form-group">
+            @Html.EditorFor(m => m.ItemId,
+        new { htmlAttributes = new {@class = "form-control",type="hidden"} })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.EditorFor(m => m.Description,
+        new { htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(m=>m.Description)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.StartDate)
+            @Html.EditorFor(m => m.StartDate,
+        new { htmlattributes = new { @class = "form-control datepicker",
+        type="date" } })
+            @Html.ValidationMessageFor(m=>m.StartDate)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EndDate)
+            @Html.EditorFor(m => m.EndDate,
+        new { htmlattributes = new { @class = "form-control datepicker",
+        type="date"} })
+            @Html.ValidationMessageFor(m=>m.EndDate)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TestDate)
+            @Html.TextBoxFor(model => model.TestDate, "{0:d/M/yyyy}",new { id="textTodate", @class = "form-control", type = "text" })
+        </div>
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+}
+
+
+
+@section scripts {
+<script>
+        $(document).ready(function () {
+
+            $("#textTodate").click(function (e) {
+               $("#textTodate").prop('type','date');
+            });
+        
+    });
+
+</script>
+    }

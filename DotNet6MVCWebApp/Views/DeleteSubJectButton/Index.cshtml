@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.StudentSubjectViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Student Subject</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                <td>
+                    @{
+                        if (item.IsDelete)
+                        {
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-subId="@item.SubId">Delete</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

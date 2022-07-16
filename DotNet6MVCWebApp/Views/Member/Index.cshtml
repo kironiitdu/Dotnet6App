@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Member>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Member List</h2>
+
+
+
+<a asp-action="CreateMemberView" class="btn btn-primary">Create New</a>
+<form method="post" action="/Home/SortBy">
+    Search By  <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="btnNavbarSearch" />
+    <input type="submit" value="Go" class="btn btn-primary" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                Member Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    <img src="~/ImageName/Cover/@item.ImageName"
+                     class="rounded-square"
+                     height="50" width="75"
+                     style="border:1px"
+                     asp-append-version="true" accept="image/*" />
+                    @*<span><a href="@item.ImageName">@item.ImageName</a></span>
+                    <input type="checkbox" id="CheckBoxId" class="form-check-input" style="margin-top:16px;border:1px solid" /><span><strong>Upload New File</strong></span>
+                    <div id="chooseFile"><input type="file" name="photo" accept="image/*" /></div>*@
+                </td>
+                <td>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-memberId="@item.MemberId">Details</a> |  <a asp-action="Edit" class="btn btn-success" asp-route-memberId="@item.MemberId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

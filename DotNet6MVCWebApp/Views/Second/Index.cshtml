@@ -1,0 +1,48 @@
+﻿@using DotNet6MVCWebApp.Enums
+@model DotNet6MVCWebApp.Models.SecondModel
+
+
+<div class="row">
+    <div class="form-group">
+        <form class="form-group" method="post" asp-controller="Second" asp-action="AddSecond">
+            <table style="border-spacing: 12px;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><strong>Enter Seconds</strong></td>
+                    <td><input asp-for="Seconds" class="form-control" /></td>
+                    <td><button type="submit" class="btn btn-primary">Convert Second In Minutes</button></td>
+                    <td>You have Entered-<strong>@ViewBag.Minutes</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Set Dropdown Default Value From Enum</strong></td>
+                    <td>
+                         @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Gender))), new { @class = "form-control" })
+                        <select asp-for="Gender" class = "form-control" asp-items="@Html.GetEnumSelectList<Gender>()">
+                        </select>
+                    </td>
+                      <td>@Html.DropDownList("Gender", Html.GetEnumSelectList<Gender>(),  new { @class = "form-control" })</td>
+
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
+
+
+@*@Html.DropDownListFor(
+    model => model.Gender,
+    Enum.GetNames(typeof(Gender))
+    .Select(e => new SelectListItem { Text = e }),
+    "-- Please Select --",
+    new { @class = "form-control"})
+
+    @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Gender))), "---Please Select ---", new { @class = "rwd-select" })*@
+@*<select asp-for="Gender" asp-items="ViewBag.Genders"></select>*@
+

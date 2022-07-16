@@ -1,0 +1,132 @@
+﻿<script type="text/javascript">
+    alert("Ckicl");
+    function Submit() {
+            if (confirm("Are you sure you want to submit ?")) {
+                document.getElementById('anchortag').href += "?isTrue=true";
+            } else {
+                document.getElementById('anchortag').href += "?isTrue=false";
+            }
+            return true;
+        }
+</script>
+
+@Html.ActionLink("Submit", "SomeMethod", "Restaurant", new { @onclick = "return Submit()", id = "anchortag" })
+
+@Html.ActionLink(
+    "Delete",
+    "DeleteAction",
+    "Restaurant",
+    new { confirm = true, other_parameter = "some_more_parameter" },
+    new { onclick = "return confirm('Do you really want to delete this product?')" })
+
+<div id="dialog-confirm" title="Custom Button">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span></p>
+</div>
+<br />
+<div id="confirmModal" title="Modal">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span></p>
+</div>
+
+<input type="button" value="Custom Pop Up" class="btn btn-info" " onclick="btnPopUp('1')" />
+
+
+<div class="modal fade" id="continue-conformation" tabindex="-1" role="dialog" aria-labelledby="continueformation">
+    <div class="modal-dialog" style="width:501px !important;margin:0 auto;">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#d9534f;color:white;">
+                <h4 class="modal-title" id="continue-conformation">
+                    Continue Confirmation
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <span>
+                                Are you sure you want to continue?
+                            </span>
+                            <strong id="deletedValueName">
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <input type="submit" id="CancelButton" class="btn btn-danger" value="Cancel" onclick="cancelConfirm(1)" />
+                    <input type="submit" class="btn btn-primary" value="Continue" onclick="continueConfirm('1')" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+<script type="text/javascript">
+       //this is only display bootstrap modal pop up dialog
+       var btnPopUp = function (val) {
+           alert("btnPopUp");
+           $('#deletedValueName').text(val);
+           $('#continue-conformation').modal('show');
+
+       }
+
+         var cancelConfirm = function (val) {
+              $("#continue-conformation").modal('hide');
+       }
+
+    var deleteData = function () {
+       $('#divLoading').show();
+       var id = $('#id').val();
+
+      }
+       //call this function after click on confirm delete button
+       var continueConfirm = function (val) {
+       $('#divLoading').show();
+    console.log(val);
+      alert(val);
+
+
+           $.ajax({
+           type: "GET",
+           url: '@Url.Action("ContinueAction","Restaurant")',
+            data: { isContinue: val},
+           success: function (result) {
+              $("#continue-conformation").modal('hide');
+           },
+           error: function () {
+               $("#continue-conformation").modal('hide');
+           }
+          });
+      }
+</script>
+}
+@*@section scripts {
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                    <script>
+                                 $(document).ready(function () {
+
+                                     var deleteConfirm = function (val) {
+                               $('#deletedValueName').text(val);
+                               $('#delete-conformation').modal('show');
+                           }
+                                     $("#dialog-confirm").dialog({
+
+                                         resizable: false,
+                                         height: "auto",
+                                         width: 400,
+                                         modal: true,
+                                         buttons: {
+                                           "Continue": function() {
+                                             $('#delete-conformation').modal('show');
+                                           },
+                                           Cancel: function() {
+                                          alert("Click Cancel");
+                                                   }
+                                                 }
+                                               });
+
+                        });
+                    </script>
+                        }*@

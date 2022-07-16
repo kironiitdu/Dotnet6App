@@ -1,0 +1,49 @@
+﻿@{
+        ViewBag.Title = "Home Page";
+    }
+
+    @*This is our form which will feed our user input and drive our search results output*@
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-6">
+                <form id="searchMe">
+                    <label>Enter City and State or Zip Code</label>
+                    <input type="text" id="citystate" name="citystate" />
+                    <label>Enter Your Wedding Date</label>
+                    <input class="datefield" data-val="true" data-val-required="Date is required" id="weddingDate" name="weddingDate" type="date" value="1/11/1989" />
+                    <label>Enter Your Guest Count</label>
+                    <input type="text" id="guestcount" name="guestcount" />
+                    <button type="submit" class="btn btn-primary">Search for Venues</button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        @*This is where we want our search results to appear when user hits submit on our form*@
+        <div id="SearchResult"></div>
+    </div>
+
+
+
+
+    @section scripts {
+    <script>
+        $(document).ready(function () {
+            //When the user hit the submit button we will post the form results to our partial view controller
+            $('#searchMe').submit(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/_SearchResults",
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        //When then load our partial view into our containing div on the main page
+                        $('#SearchResult').html(result);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+    }

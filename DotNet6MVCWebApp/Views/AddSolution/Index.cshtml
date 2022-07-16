@@ -1,0 +1,28 @@
+﻿@model DotNet6MVCWebApp.Models.HataCozumViewModel 
+
+
+
+<p><strong>@ViewBag.Minutes</strong></p>
+<form class="form-group" method="post" asp-controller="AddSolution" asp-action="AddSolutionFrom">
+        <div>
+            @*<label>Who's solving the error?</label>
+            @Html.DropDownListFor(x => x.HatayiCozenKullaniciID, (List<SelectListItem>)ViewBag.hatayicozenkisi1, new { @class = "form-control" })*@
+        </div>
+        <div>
+            <label>CozulenHata Adi</label>
+            @*<input asp-for="CozulenHataAdi" class="form-control" placeholder="Enter animal name" /><span asp-validation-for="CozulenHataAdi"></span>*@
+            @Html.TextBoxFor(x => x.CozulenHataAdi, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+          <div>
+            <label>CozumAciklama</label>
+              @Html.TextBoxFor(x => x.CozumAciklama, new { htmlAttributes = new { @class = "form-control" } })
+          @*   <input asp-for="CozumAciklama" class="form-control" placeholder="Enter animal name" /><span asp-validation-for="CozulenHataAdi"></span>*@
+        </div>
+         <div>
+            <label>Enter Second</label>
+              @Html.TextBoxFor(x => x.Seconds, new { htmlAttributes = new { @class = "form-control" } })
+          @*   <input asp-for="CozumAciklama" class="form-control" placeholder="Enter animal name" /><span asp-validation-for="CozulenHataAdi"></span>*@
+        </div>
+       
+        <button type="submit" class="btn-primary">Save Solution</button>
+    </form>

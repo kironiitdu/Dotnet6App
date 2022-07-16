@@ -1,0 +1,71 @@
+﻿@model DotNet6MVCWebApp.Models.MemberViewModel
+<div>
+    <form asp-action="CreateMember" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div><input type="hidden" asp-for="Member.MemberId" />
+        <div>
+            <h4><strong>Member Details</strong> </h4>
+
+            <table class="table table-sm table-bordered table-striped">
+
+                <tr>
+                    <th> <label asp-for="Member.Name"></label></th>
+                    <td> <input asp-for="Member.Name" class="form-control" placeholder="Enter member name" /><span asp-validation-for="Member.Name"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Member.Gender"></label></th>
+               
+                    <td>
+                        <select asp-for="Member.Gender" class="form-control">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    <span asp-validation-for="Member.Gender"></span>
+                
+                </td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Member.DOB"></label></th>
+                    <td> <input asp-for="Member.DOB" class="form-control" placeholder="Enter animal category" /><span asp-validation-for="Member.DOB"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Photo"></label></th>
+                    <td>
+                         <strong>Upload New File</strong> <div id="chooseFile"><input type="file" name="photo"  accept="image/*" /></div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>  <button type="submit" class="btn btn-primary" style="width:107px">Save Info</button></th>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("Back To List", "MemberList", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-success" })</th>
+                    <td> </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //On Edit Page Load Hiding the upload option
+        //$("#chooseFile").hide();
+
+        //When upload check box clicked showing the upload option
+        //$('#CheckBoxId').mousedown(function() {
+        //    if (!$(this).is(':checked')) {
+        //         this.checked = true;
+        //        $("#chooseFile").show();
+        //    }
+        //    else{
+        //        $("#chooseFile").hide();
+        //    }
+        //});
+
+    });
+</script>
+}

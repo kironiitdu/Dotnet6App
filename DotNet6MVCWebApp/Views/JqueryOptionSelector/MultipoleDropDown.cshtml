@@ -1,0 +1,207 @@
+﻿<table style="border-spacing: 50px;">
+
+    <tr class="col-md-8">
+        <td>
+            <div class="form-group">
+                <select id="txtCupA" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <select id="txtCupB" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group">
+                <select id="txtCupC" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <select id="txtCupD" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-group">
+                <select id="txtCupE" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <select id="txtCupF" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            <div class="form-group">
+                <select id="txtCupG" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <select id="txtCupH" class="form-control">
+                    <option value="SWEET">SWEET</option>
+                    <option value="SOUR">SOUR</option>
+                    <option value="SALTY">SALTY</option>
+                    <option value="BITTER">BITTER</option>
+                    <option value="UMAMI">UMAMI</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                    <option value="WATER">WATER</option>
+                </select>
+            </div>
+        </td>
+    </tr>
+
+
+</table>
+<input type="submit" id="shuffleDropDown" value="GENERATE" style="width:164px" class="btn btn-primary" />
+
+
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+
+        $(document).ready(function () {
+
+           function funcArrayShuffle(array) {
+
+              var currentIndex = array.length, temporaryValue, randomIndex;
+                      while (0 !== currentIndex) {
+                        randomIndex = Math.floor(Math.random() * currentIndex);
+                        currentIndex -= 1;
+                        temporaryValue = array[currentIndex];
+                        array[currentIndex] = array[randomIndex];
+                        array[randomIndex] = temporaryValue;
+                  }
+          return array;
+    }
+
+
+     $("#shuffleDropDown").click(function(){
+
+                      /*
+                      ============
+                       Algorithm
+                      ============
+                      1.Get the each dropdown Id
+                      2.Get Each Dropdown List by Dropdown Id Item and Shuffle the array
+                      3.Get the each dropdown list by its Id
+                      4.Get Each Dropdown By its Id and make the older dropdown empty
+                      5.Loop through each Dropdown shuffled Item and populate each dropdownList
+
+                      */
+
+                 //Loop through each dropdown and implement the algorithm
+                 $("select").each(function(e,i){
+
+                      //Get the each dropdown Id
+                      var getEachDropdownId =  "#"+$(i).attr("id");
+
+                      //getting the each dropdown list by its Id
+                      var options = $(getEachDropdownId + " option");
+                      var allDropdownList = $.map(options, e => $(e).val())
+
+                      //Get Each Dropdown List Item and Shuffle the array
+                      var shuffleddItemList  = funcArrayShuffle(allDropdownList);
+
+                      //Getting Each Dropdown Id
+                      var getEachDropdownId = $(i).attr("id");
+
+                      //Set qoute on each Id for Making it as ID
+                      var getEachDropdownId =  `#${getEachDropdownId}`
+
+                      //Get Each Dropdown By its Id and make the older dropdown empty
+                      var dropdown = $(getEachDropdownId);
+                      dropdown.empty();
+
+                      //Loop through each Dropdown shuffle Item and populate each dropdownList
+                        $.each(shuffleddItemList, function (index, item) {
+                           // console.log(index,item);
+                            dropdown.append(
+                                $('<option>', {
+                                    value: item,
+                                    text: item
+                                }, '</option>'))
+                              });
+
+
+                  });//End of Each
+
+
+      });// End Of BTN
+
+
+        });// End Of Ready
+</script>
+        }

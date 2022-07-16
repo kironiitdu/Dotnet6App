@@ -1,0 +1,100 @@
+﻿@model DotNet6MVCWebApp.Models.UserModel
+
+<div id="login-div">
+    @using (Html.BeginForm("PostPaymetInfo", "Restaurant", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td></td>
+                <td><strong style="text-decoration:underline;margin-left:25px;">Payment Gateway</strong></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Username)</td>
+                <td>@Html.EditorFor(model => model.Username,new { htmlAttributes = new { @class = "form-control"}})
+                <td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Username)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.Password) </td>
+                <td>@Html.EditorFor(model => model.Password,new { htmlAttributes = new { @class = "form-control",type = "password"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Password)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.FirstName) </td>
+                <td>@Html.EditorFor(model => model.FirstName,new { htmlAttributes = new { @class = "form-control"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.FirstName)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.LastName) </td>
+                <td>@Html.EditorFor(model => model.LastName,new { htmlAttributes = new { @class = "form-control"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.LastName)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.CardNum) </td>
+                <td>@Html.EditorFor(model => model.CardNum,new { htmlAttributes = new { @class = "form-control"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.CardNum)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.ExpDate) </td>
+                <td>@Html.EditorFor(model => model.ExpDate,new { htmlAttributes = new { @class = "form-control"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.ExpDate)</td>
+            </tr>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.CVV) </td>
+                <td>@Html.EditorFor(model => model.CVV,new { htmlAttributes = new { @class = "form-control"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.CVV)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><strong style="text-decoration:underline;margin-left:25px;">User Purchase Info</strong></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.UserPurchaseinfo.PurchaseAmount) </td>
+                <td>@Html.EditorFor(model => model.UserPurchaseinfo.PurchaseAmount,new { htmlAttributes = new { @class = "form-control",type = "number"}})</td>
+            </tr>
+             <tr>
+                <td>@Html.LabelFor(model => model.UserPurchaseinfo.CardFunds) </td>
+                <td>@Html.EditorFor(model => model.UserPurchaseinfo.CardFunds,new { htmlAttributes = new { @class = "form-control",type = "number"}})</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="name" class="btn btn-success" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>

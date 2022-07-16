@@ -1,0 +1,53 @@
+﻿@model DotNet6MVCWebApp.Models.CreateAnimalViewModel
+@{
+    ViewBag.Title = "CreateAnimal";
+}
+
+<h4>Create New Animal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="InbarAnimal" asp-action="CreateAnimal" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Animal.Name" class="control-label"></label>
+                <input asp-for="Animal.Name" class="form-control" />
+                <span asp-validation-for="Animal.Name" class="text-danger"></span>
+            </div>
+
+        @*    <div class="form-group">
+                <label asp-for="Animal.BirthDate" class="control-label"></label>
+                <input asp-for="Animal.BirthDate" class="form-control" />
+                <span asp-validation-for="Animal.BirthDate" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="Animal.Description" class="control-label"></label>
+                <input asp-for="Animal.Description" class="form-control" />
+                <span asp-validation-for="Animal.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Animal.Category">Category</label>
+                <select asp-for="Animal.Category" asp-items="ViewBag.Categories" class ="form-control" id="category"></select>
+                <span asp-validation-for="Animal.Category" />
+
+                    <a asp-controller="Admin" asp-action="CreateCategory">
+                        <input type="button" value="Add new category"/>
+                    </a>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input type="file" asp-for="Photo" accept="image/*" class="form-control-file"/>
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable< DotNet6MVCWebApp.Models.Todo>
+@{
+    ViewBag.Title = "Edit";
+}
+
+@{
+    ViewBag.Title = "Index";
+    int count = 0;
+}
+
+<h2>List of todo items</h2>
+<a href="/home/add" class="btn btn-primary">Add New Item</a>
+<form method="post" action="/Home/SortBy">
+    Sort By @Html.DropDownList("Sortby", new SelectList(new List<string>() { "Start Date", "End Date" }),
+    new { htmlAttributes = new {@class = "form-control"}})
+    <input type="submit" value="Go" class="btn btn-primary" />
+</form>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Serial No</th>
+            <th>Item Id</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var v in Model)
+            {
+                <tr>
+                    <td>
+                        @(count=count+1)
+                    </td>
+                    <td>
+                        @v.ItemId
+                    </td>
+                    <td>
+                        @v.Description
+                    </td>
+                    <td>
+                        @v.StartDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @v.EndDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = v.ItemId }, new { @class = "btn btn-primary" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = v.ItemId }, new { @class = "btn btn-danger" })
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+and Edit.cshtml as below

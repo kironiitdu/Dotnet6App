@@ -1,0 +1,21 @@
+﻿@model Dotnet6MVC.Models.TaxViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-action="NewTaxes" asp-controller="Tax" method="post" autocomplete="off">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Tax Name</label>
+            <input type="text" asp-for="Tax.TaxName" class="form-control" id="TazName" placeholder="Tax Name" />
+            <span class="text-danger" asp-validation-for="Tax.TaxName"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">CREATE</button>
+            </div>
+        </div>
+    </div>
+
+</form>

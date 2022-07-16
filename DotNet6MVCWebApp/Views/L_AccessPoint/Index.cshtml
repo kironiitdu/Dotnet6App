@@ -1,0 +1,29 @@
+﻿@model DotNet6MVCWebApp.Models.dadosPassar
+@using (Html.BeginForm("ExportToexcel_Click", "L_AccessPoint", FormMethod.Post))
+{
+    <input asp-for="AcessoVisita" hidden class="form-control" />
+    <input asp-for="tempo" hidden class="form-control" />
+    <input asp-for="ApZona" hidden class="form-control" />
+
+    @for (int i = 0; i < Model.dados2.Count; i++)
+    {
+        
+        <tr >
+            <td>
+                <label><strong>Id</strong></label>
+                @Html.TextBoxFor(model => model.dados2[i].ap_id)
+            </td>
+            <td>
+                <label><strong>Name</strong></label>
+                @Html.TextBoxFor(model => model.dados2[i].ap_name)
+            </td>
+            <td>
+                <label><strong>Year</strong></label>
+                @Html.EditorFor(model => model.dados2[i].year)
+            </td>
+
+        </tr>
+        <br />
+    }
+    <input type="submit" d="cmdAction" style="margin-top:10px" class="btn btn btn-primary" value="Export To Excel" />
+}

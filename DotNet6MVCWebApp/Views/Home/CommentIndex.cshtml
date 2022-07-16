@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+        <div class="form-group">
+            <div class="col-md-6">
+                <form id="commentPartial">
+                    <label>Enter your comment</label>
+                    <input type="text" id="Content" name="Content" placeholder="Enter your comment" />
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        @*This is where your comment partial view will appear appear when user hits submit on our form*@
+        <div id="commentDisplay"></div>
+    </div>
+
+
+
+
+    @section scripts {
+    <script>
+        $(document).ready(function () {
+            //When the user hit the submit button we will post the form results to our partial view controller
+            $('#commentPartial').submit(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/_CommentIndex",
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        //When then load our partial view into our containing div on the main page
+                        $('#commentDisplay').html(result);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+    }

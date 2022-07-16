@@ -1,0 +1,24 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Comment>
+
+<div class="panel panel-primary">
+        <div class="panel-heading">
+           
+        </div>
+        <div class="panel-body">
+            @if (Model != null || Model.Count() < 1)
+            {
+                using (Html.BeginForm("_CommentIndexWithDbOperation", "Home", FormMethod.Post))
+                {
+                    foreach (var item in Model)
+                    {
+                        <p>@item.Content</p>
+                      
+                    }
+                }
+            }
+            else
+            {
+               <p>No results found</p>
+            }
+        </div>
+    </div>

@@ -1,0 +1,83 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<table style="border-spacing: 12px;">
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td><strong>Dropdown</strong></td>
+        <td>
+            <select id="txtCupA" class="form-control">
+                <option value="SWEET">SWEET</option>
+                <option value="SOUR">SOUR</option>
+                <option value="SALTY">SALTY</option>
+                <option value="BITTER">BITTER</option>
+                <option value="UMAMI">UMAMI</option>
+                <option value="WATER">WATER</option>
+                <option value="WATER">WATER</option>
+                <option value="WATER">WATER</option>
+            </select>
+
+        </td>
+        <td>
+            <input type="submit" id="shuffleDropDown" value="Shuffle Value" class="btn btn-primary" />
+        </td>
+
+    </tr>
+
+</table>
+ 
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+
+        $(document).ready(function () {
+
+           function funcArrayShuffle(array) {
+
+              var currentIndex = array.length, temporaryValue, randomIndex;
+                      while (0 !== currentIndex) {
+                        randomIndex = Math.floor(Math.random() * currentIndex);
+                        currentIndex -= 1;
+                        temporaryValue = array[currentIndex];
+                        array[currentIndex] = array[randomIndex];
+                        array[randomIndex] = temporaryValue;
+                  }
+          return array;
+    }
+
+        $("#shuffleDropDown").click(function(){
+            copyToClipboard();
+                  //Getting the current dropdown List
+                  var options = $('#txtCupA option');
+                  var values = $.map(options, e => $(e).val())
+
+                  //Make It random
+                   var shuffleddItemList  = funcArrayShuffle(values);
+
+                 //Made the older drowdownList empty
+                  var dropdown =$('#txtCupA');
+                    dropdown.empty();
+
+                  //Loop through the Shaffle array item and made the New Random Dropdown List
+                    $.each(shuffleddItemList, function (index, item) {
+                        console.log(index,item);
+                        dropdown.append(
+                            $('<option>', {
+                                value: item,
+                                text: item
+                            }, '</option>'))
+                          });
+        });
+
+
+        });
+</script>
+        }

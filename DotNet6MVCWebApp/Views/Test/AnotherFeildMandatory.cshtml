@@ -1,0 +1,222 @@
+﻿
+@*@model DotNet6MVCWebApp.ViewModel.Complaint_form_Model*@
+
+@{
+    ViewData["Title"] = "Complaint Form";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+               <div class="Complaint_Form">
+
+          <h1 class="complaint_heading">
+              <span style="font-size: 25.6px; color: #222; font-weight: 300; Text-transform:uppercase; line-height: 35.8333px; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif">Complaints</span>
+          </h1>
+
+          <div class="entry-content">
+            
+            <h4 style="font-size: 19.2px; color: #222; font-weight: 700; Text-transform:uppercase; line-height: 26.8833px; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif">Complaint Lodgement Form</h4>
+            <p>Your complaint will be inquired by our Service Standard and Quality – 
+                Complaint Management Division. Depending upon the nature of the complaint, 
+                we will respond to you at the earliest possible.
+            </p>
+
+          </div>
+
+          <h1 class="complaint_heading">
+              <span style="font-size: 18px; color: #222; font-weight: 700; Text-transform:uppercase; line-height: 26.8833px; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif">User Details</span>
+          </h1>
+
+
+          <form method="post">
+
+          <!--Checking if customer's account exist or not-->
+          <div class="customer_checking">
+              <label for="customer_check" style="font-weight: 500; color: rgb(68, 68, 68); font-size: 14px; font-weight: 700; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">Allied Bank Customer<span style="color: rgb(185, 74, 72);">*</span></label>
+              
+              <input type="radio" id="yes" name="customer_check" value="Yes" required>
+                <label for="Yes">Yes</label>
+              
+                <input type="radio" id="no" name="customer_check" value="No">
+              <label for="no">No</label>
+          </div>
+
+          <div class="form-row">
+
+              <!--Customer's Full Name-->
+              <div class="individual_form">
+                  <label for="fullname" style="font-weight: 500;">Full Name<span style="color: rgb(185, 74, 72);">*</span></label>
+                  <input type="text" id="fullname" name="fullname" required>
+              </div>
+
+              <!--Customer's CNIC-->
+              <div class="individual_form">
+                  <label for="cnic" style="font-weight: 500;">CNIC/SNIC<span style="color: rgb(185, 74, 72);">*</span></label>
+                  <input type="text" id="cnic" name="cnic" required>
+              </div>
+
+          </div>
+          
+          <div class="form-row">
+
+              <!--Customer's area of concern-->
+              <div class="individual_form">
+
+                  <label for="concerned_area" style="font-weight: 500;">Please select the area of concern<span style="color: rgb(185, 74, 72);">*</span></label>
+
+                    <select id="concerned_area" name="concerned_area" style="width: 300px; background-color: #FFFFFF; color: rgb(85, 85, 85);" required>
+                      <option selected="true" disabled="disabled"></option>    
+                      <option value="Branch Banking Services">Branch Banking Services</option>
+                      <option value="Debit/Credit/Prepaid Card">Debit/Credit/Prepaid Card</option>
+                      <option value="My ABL Internet / Mobile Banking">My ABL Internet / Mobile Banking</option>
+                      <option value="Phone Banking Services">Phone Banking Services</option>
+                      <option value="Loan / Trade Products ">Loan / Trade Products</option>
+                      <option value="Others">Others</option>
+                    </select>
+
+                </div>
+
+              <!--Customer's Complaint-->
+              <div class="individual_form">
+
+                  <label id="complaint" style="font-weight: 500;">Complaint Details<span style="color: rgb(185, 74, 72);">*</span></label>
+                  <textarea id="complaint_textarea" name="complaint" rows="4" cols="50" required></textarea>
+
+              </div>
+
+          </div>
+
+          <p style="font-weight: bold; color: #707070;">Note: ABL Customers are requested to provide account details in the complaint description above.</p>
+
+          <div class="form-row">
+
+              <!--Incident Date-->
+              <div class="individual_form">
+
+                  <label for="incident_date" style="font-weight: 500;">Date of Incident<span style="color: rgb(185, 74, 72);">*</span></label>
+                  <input type="date" id="incident_date" name="incident_date" required>
+
+              </div>
+
+              <!--Name of the branch-->
+              <div class="individual_form">
+
+                  <label for="branch_name" style="font-weight: 500;">Branch Name</label>
+                  <input type="text" id="branch_name" name="branch_name">
+
+              </div>
+          </div>
+
+          <div class="form-row">
+
+              <!--Medium through which the customer should be contacted-->
+              <div class="individual_form">
+
+                  <label for="preffered_communication_medium" style="font-weight: 500;">Please select the preferred medium for communication<span style="color: rgb(185, 74, 72);">*</span></label>
+                  
+                  <div class="check_div">
+
+                      <input type="radio" id="Call_Back" name="preffered_communication_medium" value="Call Back" required>
+                      <label for="Call Back">Call Back</label>
+
+                  </div>
+
+                  <div class="check_div">
+
+                      <input type="radio" id="Email" name="preffered_communication_medium" value="Email">
+                      <label for="Email">Email</label>
+
+                  </div>
+              </div>
+
+              <!--Time to contact customer-->
+              <div class="individual_form_Check">
+
+                  <label id="preffered_call_time" style="font-weight: 500;">Please select the preferred time to call you<span style="color: rgb(185, 74, 72);">*</span></label>
+                  
+                  <div class="check_div">
+                      
+                      <input type="checkbox" id="Morning" name="preffered_call_time" value="Morning" required>
+                      <label for="Morning">Morning</label>
+
+                  </div>
+
+                  <div class="check_div">
+                      
+                      <input type="checkbox" id="Afternoon" name="preffered_call_time" value="Afternoon">
+                      <label for="Afternoon">Afternoon</label>
+
+                  </div>
+
+                  <div class="check_div">
+
+                      
+                      <input type="checkbox" id="Evening" name="preffered_call_time" value="Evening">
+                      <label for="Evening">Evening</label>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="form-row">
+
+
+              <!--Customer's contact number-->
+              <div class="individual_form">
+
+                  <label for="customer_number" style="font-weight: 500;">Contact Number<span style="color: rgb(185, 74, 72);">*</span></label>
+                  <input type="text" id="customer_number" name="customer_number" required>
+
+              </div>
+
+              <!--Customer's Email Address-->
+              <div class="individual_form">
+
+                  <label for="email_address" style="font-weight: 500;">Email Address<span style="color: rgb(185, 74, 72);">**</span></label>
+                  <input type="text" id="email_address" name="email_address" required>
+
+              </div>
+          </div>
+
+          <p style="color: rgb(102, 102, 102); font-size: 14px; font-weight: 400px;"><em>*indicates mandatory fields.<br>
+          ** indicates mandatory field in case communication preference is email.</em></p>
+
+          <input id="submitFrom" style="background: #072b5d !important;border-color: #14365f !important;color: #fff !important;border: 0;padding: 10px 30px;" type="submit" value="Submit"/>
+
+        </form>
+
+      </div>
+        </form>
+    </div>
+</div>
+
+ 
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+
+        $(document).ready(function () {
+
+        //Your Submit Button Event
+        $("#submitFrom").click(function(){
+            //Check If the Email Radio Button Clicked
+            if($('#Email').is(':checked')){ 
+                //Gettiing the email address
+                  var emailAddress = $("#email_address").val();
+                  //Checking if the email address empty
+                   if (emailAddress === "") {
+                       alert("Sorry, Email No cannot be empty!");
+                       $('#email_address').focus();
+                        return false;
+                     }
+
+                }
+                //End Checeking
+                alert("Valid Submitssion");
+        });
+
+        });
+</script>
+        }

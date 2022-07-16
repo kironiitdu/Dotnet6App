@@ -1,0 +1,27 @@
+﻿@model DotNet6MVCWebApp.Models.Comment
+
+@{
+    ViewData["Title"] = "CommentIndexWithDb";
+}
+
+<form asp-action="_CommentIndexWithDbOperation" asp-controller="Home" method="post" autocomplete="off">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Tax Name</label>
+            <input type="text" asp-for="@Model.Content" class="form-control" id="Content" placeholder="Enter Content" />
+            <span class="text-danger" asp-validation-for="@Model.Content"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Post Commnet</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+@await Html.PartialAsync("_CommentIndexWithDbOperation")
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

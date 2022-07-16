@@ -1,0 +1,22 @@
+﻿@using DotNet6MVCWebApp.Enums
+<div class="row">
+    <div class="form-group">
+        <form class="form-group" method="post" asp-controller="Second" asp-action="AddSecond">
+            <table style="border-spacing: 12px;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td><strong>Set Dropdown Default Value From Enum</strong></td>
+                    <td>@Html.DropDownList("Gender", Html.GetEnumSelectList<Gender>(),  new { @class = "form-control" })</td>
+
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>

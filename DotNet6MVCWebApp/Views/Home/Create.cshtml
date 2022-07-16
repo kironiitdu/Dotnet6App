@@ -1,0 +1,83 @@
+﻿@model DotNet6MVCWebApp.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genres" class="control-label"></label>
+                <div>
+                    Action<input type="checkbox" name="GenresList" value="Action" />
+                    Adventure<input type="checkbox" name="GenresList" value="Adventure" />
+                    Thriller<input type="checkbox" name="GenresList" value="Thriller" />
+                    Horror<input type="checkbox" name="GenresList" value="Horror" />
+                </div>
+                <span asp-validation-for="Genres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <div>
+                    Fiction<input type="radio" asp-for="Type" value="Fiction" />
+                    Non-Fiction<input type="radio" asp-for="Type" value="Non-Fiction" />
+                </div>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MininumAge" class="control-label"></label>
+                <select asp-for="MininumAge" class="form-control">
+                    <option value="12">12</option>
+                    <option value="23">23</option>
+                    <option value="34">34</option>
+                    <option value="45">45</option>
+                </select>
+                <span asp-validation-for="MininumAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div class="border backgroundWhite">
+    <form asp-action="Lock">
+        <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Customers list</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-danger text-white" asp-action="Lock">
+                <i class="fa-solid fa-lock"></i>
+            </a>
+        </div>
+    </div>
+    <br />
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                   CheckBox <input class="form-check-input customer-check-box" name="customerCheckboxes" type="checkbox" value="IAmCheckboxValue">
+                </td>
+            </tr>
+
+        </table>
+         <div class="form-group">
+                <input type="submit" value="Submit Checkbox Value" class="btn btn-primary" />
+            </div>
+    </div>
+    </form>
+    
+</div>

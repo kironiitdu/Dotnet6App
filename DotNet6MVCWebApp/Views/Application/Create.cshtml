@@ -1,0 +1,46 @@
+﻿@model DotNet6MVCWebApp.ViewModel.ApplicationFormViewModel
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="AppFirstName" class="col-md-2 form-label"></label>
+        <input asp-for="AppFirstName" class="col-md-6 form-control" />
+        <span asp-validation-for="AppFirstName" class="form-span-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppLastName" class="col-md-2 form-label"></label>
+        <input asp-for="AppLastName" class="col-md-6 form-control" />
+        <span asp-validation-for="AppLastName" class="form-span-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StateId" class="col-md-2 form-label"></label>
+        <select asp-for="StateId" asp-items="@Model.States" class="form-control">
+            <option></option>
+        </select>
+        <span asp-validation-for="StateId" class="form-span-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppDateOfBirth" class="col-md-2 form-label"></label>
+        <input asp-for="AppDateOfBirth" type="date" class="col-md-6 form-control" />
+        <span asp-validation-for="AppDateOfBirth" class="form-span-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppTotalPersonsOccupy" class="col-md-2 form-label"></label>
+        <input asp-for="AppTotalPersonsOccupy" type="number"  class="col-md-6 form-control" />
+        <span asp-validation-for="AppTotalPersonsOccupy" class="form-span-error"></span>
+    </div>
+
+    <p class="terms-conditions-text">“I AGREE TO THE TERMS AND CONDITIONS”</p>
+    <div class="form-group">
+        <input asp-for="AppAgreeToTerms" class="col-md-6 form-check-input">
+        <label asp-for="AppAgreeToTerms" class="col-md-2 form-label"></label>
+        <span asp-validation-for="AppAgreeToTerms" class="form-span-error"></span>
+    </div>
+
+<div class="form-group">
+    <input type="submit" value="Submit Rental Application" class="btn btn-primary" />
+</div>
+</form>

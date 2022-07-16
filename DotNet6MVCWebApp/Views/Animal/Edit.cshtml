@@ -1,0 +1,86 @@
+﻿@model DotNet6MVCWebApp.Models.CreateAnimalViewModel
+
+
+
+<div>
+    <form asp-action="EditAnimal" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div><input type="hidden" asp-for="Animal!.AnimalId" id="Space" />
+        <div>
+            <h4><strong>Animal Details</strong> </h4>
+
+            <table class="table table-sm table-bordered table-striped">
+
+                <tr>
+                    <th> <label asp-for="Animal!.Name"></label></th>
+                    <td> <input asp-for="Animal!.Name" class="form-control" placeholder="Enter animal name" /><span asp-validation-for="Animal!.Name"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Animal!.Description"></label></th>
+                    <td> <input asp-for="Animal!.Description" class="form-control" placeholder="Enter animal description" /><span asp-validation-for="Animal!.Description"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Animal!.Category"></label></th>
+                    <td> <input asp-for="Animal!.Category" class="form-control" placeholder="Enter animal category" /><span asp-validation-for="Animal!.Category"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="Photo"></label></th>
+                    <td>
+                        <img src="~/images/@Model.Animal!.PhotoUrl"
+                             class="rounded-square"
+                             height="50" width="75"
+                             style="border:1px"
+                             asp-append-version="true" accept="image/*" />
+                        <span><a href="@Model.ImageURL">@Model.ImageURL</a></span>
+                        <input type="checkbox" id="CheckBoxId" class="form-check-input" style="margin-top:16px;border:1px solid" /><span><strong>Upload New File</strong></span>
+                        <div id="chooseFile"><input type="file" name="photo"  accept="image/*" /></div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th> <label>Updated On Local Time</label></th>
+                    <td> <input asp-for="Animal!.LocalTime" class="form-control" disabled /><span asp-validation-for="Animal!.Category"></span></td>
+                </tr>
+                <tr>
+                    <th> <label>Updated On UTC Time</label></th>
+                    <td> <input asp-for="Animal!.UTCTime" class="form-control" disabled /><span asp-validation-for="Animal!.Category"></span></td>
+                </tr>
+                <tr>
+                    <th> <label>Updated On Azure Time</label></th>
+                    <td> <input asp-for="Animal!.AzureTime" class="form-control" disabled /><span asp-validation-for="Animal!.Category"></span></td>
+                </tr>
+                <tr>
+                    <th>  <button type="submit" class="btn btn-primary" style="width:107px">Update</button></th>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("Back To List", "Index", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-success" })</th>
+                    <td> </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //On Edit Page Load Hiding the upload option
+        $("#chooseFile").hide();
+
+        //When upload check box clicked showing the upload option
+        $('#CheckBoxId').mousedown(function() {
+            if (!$(this).is(':checked')) {
+                 this.checked = true;
+                $("#chooseFile").show();
+            }
+            else{
+                $("#chooseFile").hide();
+            }
+        });
+
+    });
+</script>
+}

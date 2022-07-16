@@ -1,0 +1,58 @@
+﻿
+
+@model DotNet6MVCWebApp.Models.Attribute    
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="AttributeName" class="control-label"></label>
+        <input asp-for="AttributeName" class="form-control" />
+        <span asp-validation-for="AttributeName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="AttributeName" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" asp-for="UserCanChangeValue" /> @Html.DisplayNameFor(model => model.UserCanChangeValue)
+        </label>
+    </div>
+    <button type="button" onclick="AddRow()">Add row</button>    //add button
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Prompt Change</th>
+                    <th>Show on Invoice</th>
+                </tr>
+            </thead>
+            <tbody id="AttributeValueList" data-count="0">         //add id  and data-count
+                INSERT DYNAMIC NEW VALUE FORM?
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form> 
+@section Scripts {
+  @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    <script>
+        function AddRow()
+        {
+            var countVal = parseInt($('#AttributeValueList').attr('data-count'));    
+            var html = '';
+            html += '<tr>';
+            html += '<td><input type="text" name="Values[' + countVal + '].Value" class="form-control"/></td>';
+            html += '<td><input type="checkbox" name="Values[' + countVal + '].PromptChange" value="true"/></td>';
+            html += '<td><input type="checkbox" name="Values[' + countVal + '].ShowonInvoice" value="true"/></td>';
+            html += '</tr>';
+ 
+            $('#AttributeValueList').append(html);    
+            countVal += 1;
+            $('#AttributeValueList').attr('data-count', countVal);
+        }
+    </script>
+}
