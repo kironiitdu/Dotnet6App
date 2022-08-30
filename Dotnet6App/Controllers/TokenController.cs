@@ -55,7 +55,7 @@ namespace Dotnet6App.Controllers
 
         private async Task<MicrosftPublicKeyList> GetYourBotKeys()
         {
-            string tokenUrl = $"https://login.microsoftonline.com/d6d49420-f39b-4df7-a1dc-d59a935871db/discovery/keys?appid=4d7fcb19-e29f-48e0-a58d-96181c11431c";
+            string tokenUrl = $"https://login.microsoftonline.com//discovery/keys?appid=";
             var tokenRequest = new HttpRequestMessage(HttpMethod.Get, tokenUrl);
 
             dynamic json;
@@ -77,8 +77,8 @@ namespace Dotnet6App.Controllers
             tokenRequest.Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 ["grant_type"] = "client_credentials",
-                ["client_id"] = "4d7fcb19-e29f-48e0-a58d-96181c11431c",
-                ["client_secret"] = "Q4L7Q~u9Cu4fCay1h2bhUiiJ6M7I4KchF9Gv2",
+                ["client_id"] = "",
+                ["client_secret"] = "",
                 ["scope"] = "https://api.botframework.com/.default"
             });
 
@@ -128,7 +128,7 @@ namespace Dotnet6App.Controllers
         public async Task<ClaimsPrincipal> Authenticate(string jwt)
         {
             var openIdMetadataAddress = "https://login.microsoftonline.com/botframework.com/v2.0/.well-known/openid-configuration";
-            var issuer = "https://sts.windows.net/d6d49420-f39b-4df7-a1dc-d59a935871db/";
+            var issuer = "https://sts.windows.net//";
             var audience = "https://api.botframework.com";
 
             var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
