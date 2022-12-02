@@ -1,9 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DotNet6MVCWebApp.Data;
+using DotNet6MVCWebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet6MVCWebApp.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+
+        public StudentController(IWebHostEnvironment environment, ApplicationDbContext context)
+        {
+            _environment = environment;
+            _context = context;
+        }
+
+
         public IActionResult Index()
         {
             return View();
@@ -12,6 +24,52 @@ namespace DotNet6MVCWebApp.Controllers
         {
 
             return View();
+        }
+
+        public IActionResult Create()
+        {
+          
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddStudent(Student obj)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+
+                    if (obj.ID == 0)
+                    {
+                        _context.Students.Add(obj);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    return RedirectToAction("StudentList");
+
+                }
+                return RedirectToAction("Create");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("StudentList");
+            }
+        }
+        public IActionResult StudentList()
+        {
+            try
+            {
+                var stdList = _context.Students;
+
+
+                return View(stdList);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
         }
         //public List<Eventrole> AddandGetStudents(Students obj)
         //{

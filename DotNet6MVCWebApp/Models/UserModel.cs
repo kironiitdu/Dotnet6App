@@ -13,6 +13,7 @@ namespace DotNet6MVCWebApp.Models
         public string CardNum { get; set; }
         public DateTime ExpDate { get; set; }
         public string CVV { get; set; }
+        public bool isApproved { get; set; }
 
         public UserPurchaseinfo UserPurchaseinfo { get; set; }
     }

@@ -1,6 +1,13 @@
-﻿using DotNet6MVCWebApp.Data;
+﻿using ClosedXML.Excel;
+using DotNet6MVCWebApp.Data;
+using DotNet6MVCWebApp.Enums;
+using DotNet6MVCWebApp.Middleware;
 using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -28,7 +35,12 @@ namespace DotNet6MVCWebApp.Controllers
         }
 
 
-
+        [HttpGet]
+        public async Task<IActionResult> GetProg()
+        {
+            var listProg = _context.Animals.ToList();
+            return Json(listProg);
+        }
         public async Task<int> AddAnimal(Animal animal)
         {
             _context.Add(animal!);
@@ -45,6 +57,7 @@ namespace DotNet6MVCWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateMember(MemberViewModel model, IFormFile photo)
         {
+
             if (photo == null || photo.Length == 0)
             {
                 return Content("File not selected");
@@ -70,22 +83,102 @@ namespace DotNet6MVCWebApp.Controllers
                 ImageName = model.Member.ImageName,
                 ImageLocation = path,
             };
+
             _context.Add(member);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+                Exception innerException = ex;
+                while (innerException.InnerException != null)
+                {
+                    innerException = innerException.InnerException;
+                }
+
+                if (innerException.Message.Contains("Violation of UNIQUE KEY constraint"))
+                {
+                    ModelState.AddModelError(string.Empty, "Same Name or Email found!");
+                    return View("CreateMemberView");
+                }
+
+                ModelState.AddModelError(string.Empty, "Error Message");
+
+                return View();
+            }
+            
+
+
             return RedirectToAction("MemberList");
+
+
+
+
+
 
         }
         public IActionResult CreateMemberView()
         {
+            var httpContext = new DefaultHttpContext();
 
             return View();
         }
 
         public IActionResult ViewUser(string Identifier)
         {
-            
+
             return View();
         }
+        //    private List<Users> users = new List<Users>
+        //{
+        //    new Users { UserId = 1, UserName = "Farhatun" },
+        //    new Users { UserId = 2, UserName = "Kiron" },
+        //    new Users { UserId = 3, UserName = "Farid" },
+        //    new Users { UserId = 4, UserName = "Tamanna" },
+
+        //};
+        public IActionResult Excel()
+        {
+            //Getting Member List
+            var membersList = _context.Members.ToList();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("MemberList");
+                var currentRow = 1;
+
+                //Excel Header
+                worksheet.Cell(currentRow, 1).Value = "MemberId";
+                worksheet.Cell(currentRow, 2).Value = "Name";
+                worksheet.Cell(currentRow, 3).Value = "Gender";
+                worksheet.Cell(currentRow, 4).Value = "DOB";
+
+                //Excel Body
+                foreach (var member in membersList)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = member.MemberId;
+                    worksheet.Cell(currentRow, 2).Value = member.Name;
+                    worksheet.Cell(currentRow, 3).Value = member.Gender;
+                    worksheet.Cell(currentRow, 4).Value = member.DOB;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Members.xlsx");
+                }
+            }
+        }
+        // [CustomAuthorizationMiddleware(claimType: "Role", "CanRead")]
+        // [Authorize(Role.Admin, Permission.Read)]
         public IActionResult MemberList(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -104,7 +197,7 @@ namespace DotNet6MVCWebApp.Controllers
 
         }
 
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -193,10 +286,67 @@ namespace DotNet6MVCWebApp.Controllers
         public async Task<IActionResult> EditMember(int memberId)
         {
 
-
+            var data = GetAllFilter(1);
 
             var memeber = await _context.Members.FindAsync(memberId); // Getting member by Id from database
             return View(new MemberViewModel() { Member = memeber });
+
+        }
+
+        public async Task<IActionResult> EditActivity(int? activityId)
+        {
+            if (activityId == null)
+            {
+                return NotFound();
+            }
+
+            //var activityItem = await _context.ActivityItem.FindAsync(id);
+            //if (activityItem == null)
+            //{
+            //    return NotFound();
+            //}
+            //ViewData["ActivityTypeId"] = new SelectList(_context.ActivityType, "ActivityTypeId", "ActivityTypeName", activityItem.ActivityTypeId);
+
+
+            var activityItem = await _context.ActivityItems.FindAsync(activityId); // Getting member by Id from database
+            return View(activityItem);
+
+        }
+
+        public IActionResult ActivityList()
+        {
+            var activityList = _context.ActivityItems.ToList();
+            return View(activityList);
+
+        }
+        public async Task<IActionResult> GetAllFilter(int id)
+        {
+            try
+            {
+                string query = @"select ID,CustomerID,CustomerName,CustomerEmail from Order where ID = @ID ";
+                DataTable table = new DataTable();
+                string sqlDataSource = "Server=WX-6899;Database=TestIdentityDatabase;Trusted_Connection=True;MultipleActiveResultSets=true";
+                SqlDataReader myReader;
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+                {
+                    myCon.Open();
+                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                    {
+                        myCommand.Parameters.AddWithValue("@ID", id);
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);
+                        myReader.Close();
+                        myCon.Close();
+                    }
+                }
+                return new JsonResult(table);
+            }
+            catch (global::System.Exception)
+            {
+
+                throw;
+            }
+
 
         }
 
@@ -262,6 +412,43 @@ namespace DotNet6MVCWebApp.Controllers
         {
             var animal = _context.Animals.ToList();
             return View(animal);
+        }
+
+        public IActionResult RandomMemberList()
+        {
+            var members = _context.Animals.ToList();
+            var rnd = new Random();
+            var randomized = members.OrderBy(item => rnd.Next());
+
+            List<Animal> newRandomList = new List<Animal>();
+
+            foreach (var value in randomized)
+            {
+                newRandomList.Add(value);
+            }
+            return Ok(newRandomList);
+        }
+        [HttpGet]
+        public IActionResult GetBackendData()
+        {
+            var myData = new
+            {
+                Host = @"sftp.myhost.gr",
+                UserName = "my_username",
+                Password = "my_password",
+                SourceDir = "/export/zip/mypath/",
+                FileName = 1
+            };
+            var bigCities = new List<string>()
+                    {
+                        "New York",
+                        "London",
+                        "Mumbai",
+                        "Chicago"
+                    };
+
+
+            return Ok(myData);
         }
     }
 

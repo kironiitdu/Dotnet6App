@@ -1,0 +1,72 @@
+﻿<div class="container">
+    <div class="form-group">
+        <input type="radio" name="country" value="UnitedStates" /><span><strong> United States</strong></span>
+        <input type="radio" name="country" value="Canada" /> <span><strong> Canada</strong></span>
+        <input type="radio" name="country" value="India" /> <span><strong> India</strong></span>
+    </div>
+    <br />
+    <table class="table table-sm table-bordered table-striped">
+        <tr>
+            <td> <span><strong>City</strong></span> <input class="form-control" placeholder="Enter City" /></td>
+            <td>
+                <span><strong>State/Province</strong></span>
+                <select class="form-control" id="ddlState"> </select>
+            </td>
+            <td><span><strong>Zip/Postal Code</strong></span><input id="zip" class="form-control" placeholder="Enter Zip/Postal Code" /> </td>
+            <td><input type="submit" style="margin-top:22px" value="Search" class="btn btn-primary" /></td>
+           
+        </tr>
+      
+    </table>
+    
+</div>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var ddlState = $('#ddlState');
+            ddlState.empty();
+            ddlState.append($("<option></option>").val('').html('Choose State'));
+            $('input[type=radio][name=country]').change(function () {
+                var country = "";
+                if (this.value == 'UnitedStates') {
+                  country = "USA"
+                }
+                else if (this.value == 'Canada') {
+                    country = "Canada"
+                }
+                else if (this.value == 'India') {
+                    country = "INDIA"
+                }
+
+                if (country != "") {
+                    var ddlState = $('#ddlState');
+                    ddlState.empty();
+                    ddlState.append($("<option></option>").val('').html('Please wait ...'));
+
+
+                    $.ajax({
+                        url: 'http://localhost:5094/CascadingDropdown/GetStateByCountryName',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { countryName: country },
+                        success: function (d) {
+
+                            ddlState.empty(); // Clear the please wait
+                            ddlState.append($("<option></option>").val('').html('Choose State'));
+                            $.each(d, function (i, states) {
+                                ddlState.append($("<option></option>").val(states.stateId).html(states.stateName));
+                            });
+                        },
+                        error: function () {
+                            alert('Error!');
+                        }
+                    });
+                }
+
+            });
+
+        });
+    </script>
+}

@@ -18,6 +18,8 @@ namespace Dotnet6App.Controllers
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
+
+
         [ApiVersion("1.0")]
         [Route("api/Restaurants")]
         [HttpGet]
@@ -46,7 +48,7 @@ namespace Dotnet6App.Controllers
             //}
             // return new string[] { "Restaurent value1", "Restaurent value2" };
         }
-
+       
 
         [Route("api/Restaurants")]
         [HttpGet]
@@ -74,9 +76,9 @@ namespace Dotnet6App.Controllers
             }
             return false;
         }
-        
-    
 
+      
+       
         [Route("api/Restaurants")]
         [HttpGet]
         public async Task<bool> AssignDataSourceWithHandeler(string Id, CatalogItem dataSource)

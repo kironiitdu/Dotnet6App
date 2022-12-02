@@ -1,0 +1,84 @@
+﻿@*<div class="modal" tabindex="-1" role="dialog" id="formModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="formModal">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<a onclick="BindTempDataToJavascript('@Url.Action("TempDataView","Todo",null,Context.Request.Scheme)','Bind Temp Data To Javascript')" class="btn btn-success text-white"><i class="fas fa-random"></i> Bind Temp Data To Javascript</a>
+
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"> </script>
+<script type="text/javascript">
+
+    BindTempDataToJavascript = (url, title) => {
+        //Retriving Temp Data and Binding to Javascript variable 
+        var tempData = ('@TempData["error"]');
+        alert(tempData);
+        console.log(tempData);
+        $("#formModal").find(".modal-body").html(tempData);
+        $("#formModal").find(".modal-title").html(tempData);
+        $("#formModal").modal('show');
+    };
+</script>
+*@
+
+<body>
+    @if (TempData["error"] != null)
+    {
+        <div class="modal fade" tabindex="-1" id="modal3"
+         data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        @TempData["error"]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary button button4">Sign</button>
+                        <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                            Hide
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (TempData["error"] == "Edit")
+    {
+        //This is the problem. In temporary breakpoint , it skips this part.
+       
+        @section Scripts{
+
+        <script type="text/javascript">
+         
+            const modal = document.getElementById("modal3")
+            $(window).on('load', function () {
+                console.log(modal);
+                alert("Debug");
+                modal.style.display = "block";
+                $("#modal3").find(".modal-header").html('@TempData["error"]');
+                $("#modal3").find(".modal-title").html(('@TempData["error"]'));
+                $("#modal3").modal('show');
+            });
+            function closeModal() {
+                modal.style.display = "none";
+               
+            }
+            $("#btnHideModal").click(function () {
+                $("#modal3").modal('hide');
+            });
+        </script>
+
+    }
+    }
+     @if (TempData["error"] == "Add")
+    { 
+    }
+</body>

@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Dotnet6App.Data;
 using Dotnet6App.Interface;
 using Dotnet6App.Repository;
@@ -33,10 +34,13 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //add mjml service
 
@@ -49,6 +53,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMvc(config =>
+{
+
+}).AddXmlSerializerFormatters();
+
 
 var app = builder.Build();
 

@@ -1,0 +1,64 @@
+﻿@model DotNet6MVCWebApp.Models.FinalProduct
+
+<form id="InsertForm">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-group">
+     <label asp-for="ProductTitleId" class="control-label"></label>
+     <select asp-for="ProductTitleId" asp-items="@ViewBag.ProductTitles" class="form-control" id="txtProductTitleId" name="SearchItem">
+         <option value="0" disabled selected>Select an item...</option>
+     </select>
+   
+       
+  </div>
+  <div class="form-group">
+     <label asp-for="ProductTypeId" class="control-label"></label>
+     <select asp-for="ProductTypeId" asp-items="@ViewBag.ProductTypes" class="form-control" id="txtProductTypeId" name="SearchItem">
+        <option value="0" disabled selected>Select an item...</option>
+     </select>
+     <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+     <label asp-for="SizeId" class="control-label"></label>
+     <select asp-for="SizeId" asp-items="@ViewBag.Sizes" id="txtSizeId" class="form-control" name="SearchItem">
+         <option value="0" disabled selected>Select an item...</option>
+     </select>
+     <span asp-validation-for="SizeId" class="text-danger"></span>
+  </div>                
+  <div class="form-group">
+     <label asp-for="FinalProductId" class="control-label"></label>
+     <select asp-for="FinalProductId" asp-items="@ViewBag.FinalProducts" class="form-control" dir="rtl" id="txtFinalProductId">
+         <option value="0" disabled selected>Select an item...</option>
+     </select>
+     <span asp-validation-for="FinalProductId" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+     <button type="submit" class="btn">Insert</button>
+  </div>
+</form>
+    
+<script>
+   $(document).ready(function () {
+       $('[name = SearchItem]').change(function () {
+          var _url = '@Url.Action("FindFinalProductCode", "Order")';
+          $.ajax({
+                url: _url,
+                type: "Post",
+                data: {
+                        ProductTitleId: $("#txtProductTitleId option:selected").val(),
+                        ProductTypeId: $("#txtProductTypeId option:selected").val(),
+                        SizeId: $("#txtSizeId option:selected").val(),
+                },
+                success: function (data) {
+                        $("#txtFinalProductId").empty();
+                        $("#txtFinalProductId").append('<option value="' + "0" + '">' + "Select an item..." + '</option>');
+                        $("#txtFinalProductId").items(data);  ///????
+                        });
+                },
+                error: function (data) {
+                        alert(data);
+                }
+           });
+    
+         });
+     });    
+</script>

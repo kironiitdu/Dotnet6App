@@ -1,0 +1,145 @@
+﻿<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Category</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlCategory"></select><br />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">SubCategorie</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlSubCategorie"></select>
+                <br />
+
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-6">
+                <input id="Submit" value="Submit" class="btn btn-primary" />
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+
+
+</div>
+
+<table id="userTable_info">
+    <thead>
+        <tr>
+            <th>Id </th>
+            <th>Controller </th>
+            <th>Page_name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tBody"> </tbody>
+</table>
+
+
+@section scripts {
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#userTable_info').hide();
+
+            var ddlCategory = $('#ddlCategory');
+            ddlCategory.append($("<option></option>").val('').html('Please Select Category'));
+            $.ajax({
+                url: 'http://localhost:5094/CascadingDropdown/LoadCategory',
+                type: 'GET',
+                dataType: 'json',
+                success: function (d) {
+                    console.log(d);
+                    $.each(d, function (i, productCategories) {
+                        console.log(i);
+                        console.log(productCategories);
+
+                        ddlCategory.append($("<option></option>").val(productCategories.productCategorieId).html(productCategories.productCategorieName));
+                    });
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+
+            //State details by country id
+
+            $("#ddlCategory").change(function () {
+
+
+                var productCategorieId = parseInt($(this).val());
+                console.log(productCategorieId);
+                if (!isNaN(productCategorieId)) {
+                    var ddlSubCategorie = $('#ddlSubCategorie');
+                    ddlSubCategorie.empty();
+                    ddlSubCategorie.append($("<option></option>").val('').html('Please wait ...'));
+
+
+                    $.ajax({
+                        url: 'http://localhost:5094/CascadingDropdown/GetSubCategory',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { productCategorieId: productCategorieId },
+                        success: function (d) {
+
+                            ddlSubCategorie.empty(); // Clear the please wait
+                            ddlSubCategorie.append($("<option></option>").val('').html('Select Sub Categorie'));
+                            $.each(d, function (i, subCategories) {
+                                ddlSubCategorie.append($("<option></option>").val(subCategories.productSubCategorieId).html(subCategories.productSubCategorieName));
+                            });
+                        },
+                        error: function () {
+                            alert('Error!');
+                        }
+                    });
+                }
+
+
+            });
+
+
+            //On Submit Method
+
+            $("#Submit").click(function () {
+               
+                var ddlCategory = parseInt($("#ddlCategory").val());
+                var ddlSubCategorie = parseInt($("#ddlSubCategorie").val());
+
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:5094/Member/GetShopmap',
+                    dataType: "json",
+                    data: { cityName: ddlCategory, areaName: ddlSubCategorie },
+                    success: function (response) {
+                        console.log(response);
+                        $.each(response, function (index, value) {
+                            var tr = "<tr>";
+                            tr += "<td>" + value.ulogo_id + "</td>";
+                            tr += "<td>" + value.controller + "</td>";
+                            tr += "<td>" + value.page_name + "</td>";
+                            tr += "<td>" +  "<input type='button' id='" + value.id + "'  class='btn btn-warning' onclick='EditFunc(" + value.id + ")' value='Edit'>" + "  " + "<input type='button' id='" + value.id + "'  class='btn btn-danger' onclick='DeleteFunc(" + value.id + ")' value='Delete'>" + "</td>" + "</tr>";
+
+                            $("#tBody").append(tr);
+                        });
+                        $("#userTable_info").DataTable();
+                        $('#userTable_info').show();
+                    }
+                });
+            });
+
+        });
+    </script>
+        }

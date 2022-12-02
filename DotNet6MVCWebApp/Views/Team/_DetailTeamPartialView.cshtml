@@ -1,0 +1,63 @@
+﻿@model DotNet6MVCWebApp.Models.Team
+
+@{
+    ViewData["Title"] = "_DetailTeamPartialView";
+}
+<div class="modal fade" role="dialog" tabindex="-1" id="@("DetailTeam-"+Model.TeamId)" aria-labelledby="DetailTeamLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location.reload()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div>
+
+                <dl class="row">
+                    <div style="margin-left:10px">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.TeamName)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.TeamName)
+                        </dd>
+                        .......
+
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.TeamMembers)
+                        </dt>
+                        <dd class="col-sm-10">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Member name</th>
+                                        <th>Birth date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.TeamMembers.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input asp-for="@Model.TeamMembers[i].MemberName" id="xyzTest_@Model.TeamId" class="form-control-plaintext"/>
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model.TeamMembers[i].BirthDate" class="form-control-plaintext"  />
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </dd>
+                    </div>
+
+                </dl>
+
+            </div>
+        </div>
+    </div>
+</div>
+

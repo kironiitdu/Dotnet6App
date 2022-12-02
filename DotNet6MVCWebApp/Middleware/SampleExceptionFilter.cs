@@ -13,6 +13,7 @@ namespace DotNet6MVCWebApp.Middleware
 
         public void OnException(ExceptionContext context)
         {
+
             if (!_hostEnvironment.IsDevelopment())
             {
                 // Don't display exception details unless running in Development.

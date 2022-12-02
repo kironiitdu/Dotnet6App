@@ -1,0 +1,42 @@
+﻿@model DotNet6MVCWebApp.Models.UserInfo
+<div>
+    <form asp-action="OnPost" asp-controller="AdoDotNetUserUpdate" method="post" enctype="multipart/form-data">
+
+        <div>
+            <h4><strong>Upate Info</strong> </h4>
+
+            <table class="table table-sm table-bordered table-striped">
+
+                <tr>
+                    <th> <label asp-for="id"></label></th>
+                    <td> <input asp-for="id" class="form-control" readonly placeholder="Enter name" /><span asp-validation-for="id"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="name"></label></th>
+                    <td> <input asp-for="name" class="form-control" placeholder="Enter name" /><span asp-validation-for="name"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="email"></label></th>
+                    <td> <input asp-for="email" class="form-control" placeholder="Enter email" /><span asp-validation-for="email"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="phone"></label></th>
+                    <td> <input asp-for="phone" class="form-control" placeholder="Enter phone" /><span asp-validation-for="phone"></span></td>
+                </tr>
+                <tr>
+                    <th> <label asp-for="address"></label></th>
+                    <td> <input asp-for="address" class="form-control" placeholder="Enter address" /><span asp-validation-for="address"></span></td>
+                </tr>
+                <tr>
+                    <th>  <button type="submit" class="btn btn-primary" style="width:107px">Update</button></th>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("Back To List", "Index", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-success" })</th>
+                    <td> </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</div>

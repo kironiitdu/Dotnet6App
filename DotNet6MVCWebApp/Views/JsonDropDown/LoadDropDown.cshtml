@@ -1,15 +1,24 @@
 ﻿@model Category
-<div>
+
+<form method="post" asp-controller="JsonDropDown" asp-action="SelectTagGetValue">
+    <div>
 
     <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
     <label asp-for="CategoryId"></label>
+    
     <select asp-for="CategoryId"
             class="form-control"
+            name="CategoryName"
             asp-items="@(new SelectList(Enumerable.Empty<SelectListItem>(),"Value", "Text"))">
+             
     </select>
-
+  
 
 </div>
+     <input type="submit" class="btn btn-success" value="Submit" />
+</form>
+
+
 
 @section scripts {
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>

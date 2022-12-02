@@ -1,0 +1,43 @@
+﻿<div class="modal" tabindex="-1" role="dialog" id="formModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="formModal">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<a onclick="CreateOrganization('@Url.Action("AddOrEdit","Todo",null,Context.Request.Scheme)','New Organization')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Organization</a>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"> </script>
+<script type="text/javascript">
+
+
+    CreateOrganization = (url, title) => {
+        alert(url);
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: {
+                'id': 1
+            },
+            success: function (res) {
+                console.log(res);
+                $("#formModal").find(".modal-body").html(res.skills);
+                $("#formModal").find(".modal-title").html(res.developerName);
+                $("#formModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                console.log(response);
+                alert("error");
+            }
+        })
+    };
+</script>

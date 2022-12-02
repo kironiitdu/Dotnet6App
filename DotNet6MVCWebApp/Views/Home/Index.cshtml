@@ -6,3 +6,122 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+@*@{
+    foreach (var item in @ViewBag.AllActionList)
+    {
+        var controller = @item.Controller.Remove(@item.Controller.Length - 10);
+    <a asp-action="@item.Action" asp-controller="@controller">@controller :@item.Action </a>
+    <br />
+
+    }
+}*@
+<table id="listingTable" class="table table-sm table-bordered table-striped">
+</table>
+
+
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" id="btn_prev" href="javascript:prevPage()">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#"><strong>page:</strong><span id="page"></span></a></li>
+        <li class="page-item"><a class="page-link" id="btn_next" href="javascript:nextPage()">Next</a></li>
+    </ul>
+</nav>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        var current_page = 1;
+        var records_per_page = 10;
+
+        //Load All Controller
+        function httpGet(theUrl) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false); // false for synchronous request
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+        var theUrl = "http://localhost:5094/Home/ConAction";
+
+
+        //var objJson = [
+        //    { adName: "AdName 1" },
+        //    { adName: "AdName 2" },
+        //    { adName: "AdName 3" },
+        //    { adName: "AdName 4" },
+        //    { adName: "AdName 5" },
+        //    { adName: "AdName 6" },
+        //    { adName: "AdName 7" },
+        //    { adName: "AdName 8" },
+        //    { adName: "AdName 9" },
+        //    { adName: "AdName 10" }
+        //]; // Can be obtained from another source, such as your objJson variable
+
+        var objJson = JSON.parse(httpGet(theUrl));
+        console.log(objJson);
+
+        function prevPage() {
+            if (current_page > 1) {
+                current_page--;
+                changePage(current_page);
+            }
+        }
+
+        function nextPage() {
+            if (current_page < numPages()) {
+                current_page++;
+                changePage(current_page);
+            }
+        }
+
+        function changePage(page) {
+            var btn_next = document.getElementById("btn_next");
+            var btn_prev = document.getElementById("btn_prev");
+            var listing_table = document.getElementById("listingTable");
+            var page_span = document.getElementById("page");
+
+            // Validate page
+            if (page < 1) page = 1;
+            if (page > numPages()) page = numPages();
+
+            listing_table.innerHTML = "";
+
+            for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) {
+                //var controllerActionLink = objJson[i].controller.slice(10, -1);
+                //console.log(controllerActionLink);
+                var controllerName = objJson[i].controller.substr(0, objJson[i].controller.length - 10);
+                var actionName = objJson[i].action;
+                var fullLink = controllerName + "/" + actionName;
+                var actionLink = "<a href = 'http://localhost:5094/" + fullLink + "'>" + fullLink + "</a>";
+                listing_table.innerHTML += actionLink + "<br>";
+            }
+            page_span.innerHTML = page;
+
+            if (page == 1) {
+                btn_prev.style.visibility = "disable";
+            } else {
+                btn_prev.style.visibility = "visible";
+            }
+
+            if (page == numPages()) {
+                btn_next.style.visibility = "disable";
+            } else {
+                btn_next.style.visibility = "visible";
+            }
+        }
+
+        function numPages() {
+            return Math.ceil(objJson.length / records_per_page);
+        }
+
+        window.onload = function () {
+            changePage(1);
+        };
+        //Jquery
+        $(document).ready(function () {
+
+
+        });
+
+    </script>
+}

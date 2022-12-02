@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.StaffDetailVM>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaffName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                Staff Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StaffId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityName)
+                </td>
+                <td>
+                    <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.StaffId">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.StaffId">Edit</a> |  <a asp-controller="Application" asp-action="DownloadImage" class="btn btn-info" asp-route-imageName="@item.StaffId">Download</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

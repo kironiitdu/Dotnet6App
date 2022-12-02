@@ -9,7 +9,30 @@ namespace DotNet6MVCWebApp.Controllers
         {
             new Country() { CountryId =101, CountryName ="INDIA", },
             new Country() { CountryId =102, CountryName ="USA", }, 
-            new Country() { CountryId =103, CountryName ="UK", }
+            new Country() { CountryId =103, CountryName ="UK", },
+            new Country() { CountryId =104, CountryName ="Canada", },
+        };
+
+        public static List<ProductCategorie> ListOfProductCategory = new List<ProductCategorie>()
+        {
+            new ProductCategorie() { ProductCategorieId =101, ProductCategorieName ="Backend", },
+            new ProductCategorie() { ProductCategorieId =102, ProductCategorieName ="Frontend", },
+            new ProductCategorie() { ProductCategorieId =103, ProductCategorieName ="Database", }
+        };
+        public static List<ProductSubCategorie> ListOfSubCategorie = new List<ProductSubCategorie>()
+        {
+            //Backend
+            new ProductSubCategorie() { ProductCategorieId =101, ProductSubCategorieId =1, ProductSubCategorieName = "C#" },
+            new ProductSubCategorie() { ProductCategorieId =101, ProductSubCategorieId =2, ProductSubCategorieName = "Java" },
+            new ProductSubCategorie() { ProductCategorieId =101, ProductSubCategorieId =3, ProductSubCategorieName = "Python" }, 
+            //Frontend
+            new ProductSubCategorie() { ProductCategorieId =102, ProductSubCategorieId =4, ProductSubCategorieName = "Javascript" },
+            new ProductSubCategorie() { ProductCategorieId =102, ProductSubCategorieId =5, ProductSubCategorieName = "React" },
+            new ProductSubCategorie() { ProductCategorieId =102, ProductSubCategorieId =6, ProductSubCategorieName = "Angular" },
+            //Database
+            new ProductSubCategorie() { ProductCategorieId =103, ProductSubCategorieId =7, ProductSubCategorieName = "SQL Server" },
+            new ProductSubCategorie() { ProductCategorieId =103, ProductSubCategorieId =8, ProductSubCategorieName = "My SQL" },
+            new ProductSubCategorie() { ProductCategorieId =103, ProductSubCategorieId =9, ProductSubCategorieName = "Postgres SQL" },
         };
         public static List<State> ListOfState = new List<State>()
         {
@@ -25,6 +48,10 @@ namespace DotNet6MVCWebApp.Controllers
             new State() { CountryId =103, StateId =7, StateName = "London" },
             new State() { CountryId =103, StateId =8, StateName = "Cardif" },
             new State() { CountryId =103, StateId =9, StateName = "Sundarland" },
+             //Candada
+            new State() { CountryId =104, StateId =10, StateName = "Alberta" },
+            new State() { CountryId =104, StateId =11, StateName = "Ontario" },
+            new State() { CountryId =104, StateId =12, StateName = "Manitoba" },
         };
         public static List<District> ListOfDistrict = new List<District>()
         {
@@ -41,10 +68,40 @@ namespace DotNet6MVCWebApp.Controllers
             new District() { DistrictId =103, StateId =8, DistrictName = "District Of Cardif" },
             new District() { DistrictId =103, StateId =9, DistrictName = "District Of Sundarland" },
         };
+        
+
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult IndexProduct()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<ActionResult> LoadCategory()
+        {
+            var productCategories =  ListOfProductCategory.ToList();
+
+            return Ok(productCategories);
+
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetSubCategory(int productCategorieId)
+        {
+            var subCategories = ListOfSubCategorie.Where(cId => cId.ProductCategorieId == productCategorieId).ToList();
+
+            return Ok(subCategories);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProductCategory(SubmitModel model)
+        {
+
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<ActionResult> LoadCountry()
@@ -63,6 +120,15 @@ namespace DotNet6MVCWebApp.Controllers
             return Ok(state);
 
         }
+        [HttpGet]
+        public async Task<ActionResult> GetStateByCountryName(string countryName)
+        {
+            int getCountryId = ListOfCountry.Where(name => name.CountryName == countryName).Select(id => id.CountryId).FirstOrDefault();
+            var state = ListOfState.Where(cId => cId.CountryId == getCountryId).ToList();
+
+            return Ok(state);
+
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetDistrict(int stateId)
@@ -73,12 +139,25 @@ namespace DotNet6MVCWebApp.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> AddCountryStateDistrict(SubmitModel model)
         {
            
             return RedirectToAction("Index");
         }
+    }
+
+    public class ProductCategorie
+    {
+        public int ProductCategorieId { get; set; }
+        public string? ProductCategorieName { get; set; }
+    }
+    public class ProductSubCategorie
+    {
+        public int ProductSubCategorieId { get; set; }
+        public string? ProductSubCategorieName { get; set; }
+        public int ProductCategorieId { get; set; }
     }
     public class Country
     {

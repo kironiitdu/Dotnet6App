@@ -1,0 +1,41 @@
+﻿@model DotNet6MVCWebApp.Models.ActivityItem
+
+@{
+    ViewData["Title"] = "Edit";
+   
+}
+
+<h1>Edit</h1>
+
+<h4>ActivityItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ActivityItemId" />
+            <div class="form-group">
+                <label asp-for="ActivityName" class="control-label"></label>
+                <input asp-for="ActivityName" class="form-control" />
+                <span asp-validation-for="ActivityName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatetModified" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DatetModified" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="ActivityList">Back to List</a>
+</div>

@@ -8,19 +8,38 @@ namespace DotNet6MVCWebApp.Controllers
     //private readonly SignInManager<ApplicationUser> signInManager;
     public class LoginController : Controller
     {
+        public static HttpResponseMessage CallPage(HttpRequest request, string name, string args)
+        {
+            HttpClient client = new HttpClient();
+            using var newRequest = new HttpRequestMessage(new HttpMethod(request.Method), args);
+            using HttpResponseMessage response = client.SendAsync(newRequest).Result;
+
+            return response;
+        }
 
 
-        //[HttpGet("internal-signin")]
-        //public ChallengeResult InternalSignIn(string returnUrl = "/")
-        //{
-        //    var redirectUrl = Url.Page("/Account/ExternalLogin", pageHandler: "Callback", values: new { returnUrl, area = "Identity" });
-        //    var properties = _signInManager.ConfigureExternalAuthenticationProperties(AzureADDefaults.AuthenticationScheme, redirectUrl);
-        //    return new ChallengeResult(AzureADDefaults.AuthenticationScheme, properties);
-        //}
         [HttpGet]
         public IActionResult Login(string? returnurl)
         {
+           // string url = HttpContext.Current.Request.Url.AbsoluteUri;
+            var host = HttpContext.Request.Host;
+            var path = HttpContext.Request.Path;
+            var absolutepath = host + path;
+
             ViewData["ReturnUrl"] = returnurl;
+            return View();
+        }
+        //public static HttpResponseMessage CallPage(HttpRequest request, string name, string args)
+        //{
+        //    HttpClient client = new HttpClient();
+        //    using var newRequest = new HttpRequestMessage(new HttpMethod(request.Method), Routes[name] + args);
+        //    using HttpResponseMessage response = client.SendAsync(newRequest).Result;
+        //    return response;
+        //}
+        [HttpGet]
+        public IActionResult Index()
+        {
+          
             return View();
         }
 
@@ -28,6 +47,7 @@ namespace DotNet6MVCWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel, string? returnurl)
         {
+           
             ViewData["ReturnUrl"] = returnurl;
             returnurl = returnurl ?? Url.Content("~/");
 

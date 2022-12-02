@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.UserInfo>
+<div class="form-row">
+    <table>
+        <tr>
+            <td>
+                <a asp-action="CreateMemberView" class="btn btn-success">Create New</a>
+
+            </td>
+            <form method="get" action="/Animal/MemberList">
+
+            <td style="padding-right:760px">
+            </td>
+            <td>
+                <input class="form-control" type="text" placeholder="Search for..." name="SearchString" value="@ViewData["CurrentFilter"]" aria-label="Search" aria-describedby="btnNavbarSearch" />
+            </td>
+            <td>
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </td>
+            </form>
+        </tr>
+    </table>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-Id="@item.id">Edit</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

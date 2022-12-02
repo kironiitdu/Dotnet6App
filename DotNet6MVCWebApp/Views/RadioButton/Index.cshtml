@@ -1,0 +1,45 @@
+﻿@model DotNet6MVCWebApp.ViewModel.RaidioButtonFromViewBagModel
+@{
+    ViewData["Title"] = "CheckboxforFromViewBag";
+}
+<h4>Load Radio Button From ViewModel & Submit value to Controller wtih Selected Value</h4>
+
+<hr />
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+@using (Html.BeginForm("SubmitValueFromCheckBoxList", "RadioButton"))
+{
+    <table class="table-bordered">
+        <tr>
+            <th>Item Name</th>
+            <th>Is Selected</th>
+
+        </tr>
+
+        @for (int i = 0; i < Model.RadioButtons.Count; i++)
+        {
+            <tr>
+
+                <td> @Model.RadioButtons[i].ItemName</td>
+                <td><input asp-for="@Model.RadioButtons[i].ItemName" type="radio" checked="@Model.RadioButtons[i].IsAvailable" value="1" />  @Model.RadioButtons[i].IsAvailable</td>
+                @Html.HiddenFor(h => @Model.RadioButtons[i].ItemID)
+                @Html.HiddenFor(h => @Model.RadioButtons[i].ItemName)
+
+            </tr>
+
+        }
+    </table>
+    <br />
+    <input id="Button" type="submit" value="Submit To Controller" class="btn btn-primary" />
+}

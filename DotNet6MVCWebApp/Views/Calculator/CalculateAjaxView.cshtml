@@ -1,0 +1,42 @@
+﻿<div>
+    <input id="Number1" class="form-control" placeholder="Enter first number" />
+    <input id="Number2" class="form-control" placeholder="Enter second number" />
+    <input id="Total" class="form-control" value="" disabled  style="margin-bottom:5px"/>
+    <button type="submit" name="calculate" class="btn btn-primary" value="add"><strong>+</strong></button>
+    <button type="submit" name="calculate" class="btn btn-info" value="sub"><strong>-</strong></button>
+    <button type="submit" name="calculate" class="btn btn-success" value="multi"><strong>*</strong></button>
+    <button type="submit" name="calculate" class="btn btn-warning" value="divis"><strong>/</strong></button>
+</div>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("button").click(function () {
+                var operation = $(this).val();
+                var data = {
+                    Number1: $("#Number1").val(),
+                    Number2: $("#Number2").val(),
+                }
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:5094/Calculator/Post?calculate=' + operation,
+                    datatype: "json",
+                    data: data,
+                    success: function (res) {
+                        console.log(res);
+                        $("#Number1").val(res.number1);
+                        $("#Number2").val(res.number2);
+                        $("#Total").val(res.total);
+                    },
+                    error: function () {
+                        alert("It failed");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}

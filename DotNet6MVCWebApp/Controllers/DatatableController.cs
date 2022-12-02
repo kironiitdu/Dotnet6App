@@ -20,6 +20,14 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProg()
+        {
+            var listProg = _context.Animals.ToList();
+            return Json(listProg);
+        }
+
         [HttpPost]
         public ActionResult Login(Users users)
         {

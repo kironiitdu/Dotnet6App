@@ -1,0 +1,32 @@
+﻿@model DotNet6MVCWebApp.Controllers.Calculator_Model
+
+@{
+    ViewBag.Title = "Index";
+}
+<form asp-controller="Calculator" method="post" asp-action="Index">
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Number1" class="control-label"></label>
+            <input asp-for="Number1" class="form-control" placeholder="Enter first number" />
+            <span asp-validation-for="Number1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Number2" class="control-label"></label>
+            <input asp-for="Number2" class="form-control" placeholder="Enter second number" />
+            <span asp-validation-for="Number2" class="text-danger" ></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Total" class="control-label"></label>
+            <input asp-for="Total" class="form-control" value="@Model.Total" disabled />
+            <span asp-validation-for="Number2" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top:5px">
+            <button type="submit" name="calculate" class="btn btn-primary" value="add"><strong>+</strong></button>
+            <button type="submit" name="calculate" class="btn btn-info" value="sub"><strong>-</strong></button>
+            <button type="submit" name="calculate" class="btn btn-success" value="multi"><strong>*</strong></button>
+            <button type="submit" name="calculate" class="btn btn-warning" value="divis"><strong>/</strong></button>
+        </div>
+    </div>
+</form>
+

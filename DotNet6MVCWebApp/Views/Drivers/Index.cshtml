@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Driver>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.scooberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driverName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driverScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amtApproaches)
+            </th>
+            <th>
+                Driver Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.scooberId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.driverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employedTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.driverScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amtApproaches)
+                </td>
+                <td>
+                    <a asp-action="EditDriver" class="btn btn-primary" asp-route-memberId="@item.Id">Details</a> |  <a asp-action="EditDriver" class="btn btn-warning" asp-route-driverId="@item.Id">Edit</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

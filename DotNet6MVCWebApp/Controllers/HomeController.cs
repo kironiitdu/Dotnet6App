@@ -1,8 +1,10 @@
-﻿using DotNet6MVCWebApp.Models;
+﻿using DotNet6MVCWebApp.Implements;
+using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -26,8 +28,8 @@ namespace DotNet6MVCWebApp.Controllers
         }
     }
 
-    
 
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -36,13 +38,66 @@ namespace DotNet6MVCWebApp.Controllers
         {
             _logger = logger;
         }
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+
         public IActionResult Create()
         {
             return View();
+        }
+
+        
+        public async Task<IActionResult> Index()
+        {
+
+            
+
+            Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
+            var controlleractionlist = asm.GetTypes()
+                 .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
+                 .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+                 .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+                 .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+                 .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+            ViewBag.AllActionList = controlleractionlist;
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ConAction()
+        {
+            Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
+            var controlleractionlist = asm.GetTypes()
+                 .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
+                 .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+                 .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+                 .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+                 .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+            return Json(controlleractionlist);
+        }
+        public void CallThisMethodEvery5Second(int counter)
+        {
+            Console.WriteLine("Current counter: {0} Last Fired At: {1}", counter, DateTime.Now);
+        }
+        public async Task<IActionResult> GetAllControllerAction()
+        {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+
+            int counter = 0;
+            while (await timer.WaitForNextTickAsync())
+            {
+                counter++;
+                //if (counter > 5) break;
+                CallThisMethodEvery5Second(counter);
+            }
+            //Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
+
+            //var controlleractionlist = asm.GetTypes()
+            //        .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
+            //        .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+            //        .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+            //        .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+            //        .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+            //ViewBag.AllActionList = controlleractionlist;
+            return Ok();
         }
 
         [HttpPost]
@@ -52,7 +107,7 @@ namespace DotNet6MVCWebApp.Controllers
             //you will get the checkbox list by GenresList parameter
             //convert list string to string with comma
             string Genres = string.Join(",", GenresList);
-          //  book.Genres = Genres;
+            //  book.Genres = Genres;
             if (ModelState.IsValid)
             {
                 //_context.Add(book);
@@ -69,7 +124,7 @@ namespace DotNet6MVCWebApp.Controllers
             //you will get the checkbox list by GenresList parameter
             //convert list string to string with comma
             string checkBox = string.Join(",", customerCheckboxes);
-            
+
             return View();
         }
 
@@ -86,19 +141,19 @@ namespace DotNet6MVCWebApp.Controllers
         public ActionResult _CommentIndex(string Content)
         {
             List<Comment> contentList = new List<Comment>();
-            contentList.Add(new Comment() { Content = "Comment 1"});
-            contentList.Add(new Comment() { Content = "Comment 2"});
-            contentList.Add(new Comment() { Content = "Comment 3"});
-            contentList.Add(new Comment() { Content = "Comment 4"});
-          
+            contentList.Add(new Comment() { Content = "Comment 1" });
+            contentList.Add(new Comment() { Content = "Comment 2" });
+            contentList.Add(new Comment() { Content = "Comment 3" });
+            contentList.Add(new Comment() { Content = "Comment 4" });
+
 
             return PartialView(contentList);
         }
 
         public ActionResult CommentIndexWithDb()
         {
-           
-           
+
+
             return View();
         }
         [HttpPost]
@@ -110,7 +165,7 @@ namespace DotNet6MVCWebApp.Controllers
 
             if (!ModelState.IsValid)
             {
-              
+
                 return RedirectToAction(nameof(CommentIndex));
             }
             List<Comment> commentList = new List<Comment>();
@@ -136,11 +191,13 @@ namespace DotNet6MVCWebApp.Controllers
 
         public IActionResult Tax()
         {
-            return View();
+            TaxViewModel taxViewModel = new TaxViewModel();
+
+            return View(taxViewModel);
         }
 
         [HttpPost]
-        public IActionResult NewTaxes(TaxViewModel  taxData)
+        public IActionResult NewTaxes(TaxViewModel taxData)
         {
             return View();
         }

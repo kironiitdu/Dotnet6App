@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Team>
+
+@{
+    ViewData["Title"] = "Index";
+    var itemContiner = 0;
+}
+
+
+<div class="form-row">
+    <table>
+        <tr>
+            <td>
+                <a asp-action="Create" class="btn btn-success">Add New Team</a>
+
+            </td>
+            <form method="get" action="/Team/Index">
+
+            <td style="padding-right:760px">
+            </td>
+            <td>
+                <input class="form-control" type="text" placeholder="Search for..." name="SearchString" value="@ViewData["CurrentFilter"]" aria-label="Search" aria-describedby="btnNavbarSearch" />
+            </td>
+            <td>
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </td>
+            </form>
+        </tr>
+    </table>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                Member Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            itemContiner = item.TeamId;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#DetailTeam-"+item.TeamId)" onclick="focusFunc('@item.TeamId')">Detail</button>
+                    @await Html.PartialAsync("_DetailTeamPartialView", item)
+
+                </td>
+
+            </tr>
+
+
+        }
+      
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $("#orderstartpick").change(function () {
+            $('#orderstartdrop').focus();
+        });
+
+        $('#orderstartpick').onmouseover(function () {
+            $('#orderstartdrop').focus();
+        });
+        function focusFunc(data) {
+            alert(data);
+            var dynamicId = 'xyzTest_' + data
+            $('[id^=DetailTeam]').on('shown.bs.modal', function () {
+                alert("DetailTeam-1");
+                $('#' + dynamicId).focus();
+            })
+        }
+        
+    </script>
+}

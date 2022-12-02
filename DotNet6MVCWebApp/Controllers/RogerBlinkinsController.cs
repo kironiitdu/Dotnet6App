@@ -1,10 +1,12 @@
 ﻿using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 
 namespace DotNet6MVCWebApp.Controllers
 {
     public class RogerBlinkinsController : Controller
     {
+       
         public IActionResult Index()
         {
             var proPic = new List<ProfilePicture>()

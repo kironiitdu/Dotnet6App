@@ -1,6 +1,8 @@
 ﻿using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Runtime.Intrinsics.Arm;
 using System.Text.RegularExpressions;
 
 namespace DotNet6MVCWebApp.Controllers
@@ -34,6 +36,9 @@ namespace DotNet6MVCWebApp.Controllers
 
         public ActionResult Index()
         {
+            var userMessage = TempData["UserMessage"]?.ToString();
+            ViewBag.UserMessage = userMessage;
+
             return View();
         }
         public ActionResult DeleteAction(bool confirm, string other_parameter)
@@ -56,23 +61,21 @@ namespace DotNet6MVCWebApp.Controllers
         [HttpPost]
         public ActionResult PostPaymetInfo(UserModel paymentModel)
         {
+            if (paymentModel.UserPurchaseinfo.PurchaseAmount > 500)
+            {
+              
+                TempData["UserMessage"] = "Insufficient balance, Transaction Declined!";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["UserMessage"] = "Transaction Successful!";
+                return RedirectToAction("Index");
+            }
+           
 
-            var dnameate = paymentModel.FirstName;
-            dnameate.ToArray();
-
-
-            // if user confirm to delete then this action will fire
-            // and you can pass true value. If not, then it is already not confirmed.
-
-
-
-            string pattern = "(Mr\\.? |Mrs\\.? |Miss |Ms\\.? )";
-            string[] names = { "Mr. Henry Hunt", "Ms. Sara Samuels",
-                         "Abraham Adams", "Ms. Nicole Norris" };
-            foreach (string name in names)
-                Console.WriteLine(Regex.Replace(name, pattern, String.Empty));
-
-            return RedirectToAction("Index");
+           //mpData["dados2"] = JsonConvert.SerializeObject(dp.dados2);
+          
         }
         //public IActionResult Index()
         //{

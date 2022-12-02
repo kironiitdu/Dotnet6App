@@ -1,0 +1,72 @@
+﻿<div id="orderstartmodal" class="modal fade" tabindex="-1" role="dialog">
+    <form method="post" asp-page-handler="orderstart">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:blanchedalmond">
+                    <h5 class="modal-title font-italic" id="orderstartmodaltitle" value="">START ORDER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:burlywood">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td align="right" width="50%">
+                                    <div class="form-group">
+                                        <label for="orderstartpick" class="col-form-label">Pick Stn.:</label>
+                                        @*<select id="orderstartpick" name="orderpick" class="select-picker" style="width:60%"></select>*@
+                                        <input type="text" autofocus="autofocus" id="**orderstartpick**" name="orderpick" style="width:60%">
+                                        @*<script type="text/javascript">document.getElementById('orderstartpick').focus();</script>*@
+                                        @*<script>document.getElementById('orderstartpick').focus();</script>*@
+
+                                        @* <script type="text/javascript">
+                                        $(document).ready(function () {
+                                        $(function () {
+                                        $('#orderstartpick').focus();
+                                        });
+                                        });
+                                        </script>*@
+
+                                    </div>
+                                </td>
+                                <td align="right" width="50%">
+                                    <div class="form-group">
+                                        <label for="orderstartdrop" class="col-form-label">Drop Stn.:</label>
+                                        @*<select id="orderstartdrop" name="orderdrop" class="select-picker" style="width:60%"></select>*@
+                                        <input runat="server" type="text" id="**orderstartdrop**" name="orderdrop" style="width:60%">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="visibility:collapse">
+                                <td align="right" width="50%">
+                                    <div class="form-group">
+                                        <label hidden="hidden" for="orderstartpriority" class="col-form-label">Priority:</label>
+                                        <select hidden="hidden" id="orderstartpriority" name="orderpriority" class="select-picker" style="width:60%"></select>
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <div hidden="hidden" class="form-group">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" colspan="2">
+                                    <div class="form-group">
+                                        <label for="orderstartinfo" class="col-form-label">Select/Verify Parameters And Then Click:</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <button runat="server" type="submit" class="btn btn-primary">START ORDER</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer" style="background-color:blanchedalmond">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

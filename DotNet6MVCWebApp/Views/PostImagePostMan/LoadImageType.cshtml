@@ -1,0 +1,49 @@
+﻿
+@model DotNet6MVCWebApp.Controllers.QuejasSugerenciaOpinionesImagenesRequest
+<div>
+    <form asp-action="CreateImagenesQuejasOpinionesSugerencia" method="post" enctype="multipart/form-data">
+
+        <div>
+
+
+            <table class="table table-sm table-bordered table-striped">
+                <tr>
+
+                    <td>
+                        <strong>Upload New File</strong> <div id="chooseFile">
+                            <input type="file" name="files" accept="image/*" />
+                        </div>
+
+                    </td>
+                    <td>
+                        <strong>Issue Key</strong>
+                        <input name="issueKey" class="form-control" placeholder="Enter issue key" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>  <button type="submit" class="btn btn-primary" style="width:107px">Save Info</button></th>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("Back To List", "MemberList", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-success" })</th>
+                    <td> </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+<div>
+    <img  src="@Model?.fileInBase64" />
+</div>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        const input = document.getElementById("xyzTest");
+
+        // fires when a page is loaded fully
+        window.addEventListener("load", (e) => {
+            input.focus(); // adding the focus
+        });
+    </script>
+}

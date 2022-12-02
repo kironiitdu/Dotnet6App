@@ -1,0 +1,153 @@
+﻿@model IEnumerable< DotNet6MVCWebApp.Models.TaxParvande>
+<form asp-controller="LoopUpload" asp-action="SabtEditTaxParvaned" method="post" enctype="multipart/form-data">
+    <div class="container-fluid" style="overflow: auto; overflow-x: hidden; direction:ltr ">
+
+        <table class="table table-bordered table-striped table-hover  display" width="100%" style="direction:rtl;font-size:12px">
+            <thead>
+
+                <tr class="table-head-blue text-center" style="background-color: #416992; color: white; position: sticky; top: 0;">
+
+                    <th style="width:150px">وضعيت</th>
+                    <th>پروسه پرونده</th>
+                    <th>مستندات</th>
+                    <th>تاريخ</th>
+
+                </tr>
+
+            </thead>
+            @{
+                var count = 0;
+            }
+
+            @for (var i = 0; i < Model.Count(); i++)
+
+            {
+                <tr>
+                    <td style="font-size: 12px" hidden>
+                        <span>@Model.ToList()[i].prosessId</span>
+                        <input class="d-none" value="@Model.ToList()[i].prosessId" name="[@i].prosessId" />
+
+                    </td>
+                    <td style="width:150px">
+
+                        <label class="switch">
+                            <input type="checkbox" onchange="DisableRow(this)" asp-for="@Model.ToList()[i].state" value="True">
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+
+                    <td style="font-size: 12px">
+                        <span>@Model.ToList()[i].prosessName</span>
+                        <input class="d-none" value="@Model.ToList()[i].prosessName" name="[@i].prosessName" />
+
+                    </td>
+
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <div>
+
+                                <span class="text-center mt-2" id="spnImageCartMlie" style="color: black;font-size: 12px"></span>
+
+                            </div>
+                            <div>
+                                <input type="button" required onclick="UploadImage()" value="Upload" class="btn btn-outline-danger " id="btnUpLoad" />
+
+                                <div id="divmessage" class="text-center hidden m-2"></div>
+
+
+                            </div>
+
+                            <input id="mostanadPath" name="[@i].prosessMastand" type="file" class="">
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                    </td>
+
+
+                </tr>
+                count++;
+            }
+
+        </table>
+    </div>
+
+    <div class=" text-center">
+        <button class="btn btn-success  col-4 mb-2 " type="submit"> Submit ثبت اطلاعات</button>
+    </div>
+
+</form>
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+
+        var UploadImage = function () {
+            alert("Click");
+            var data = new FormData;
+            var file = $("#mostanadPath").get(0);
+
+            var files = file.files;
+            //کنترل سايز فايل
+            if (files[0].size >= 5120000) {
+                $("#spnImageCartMlie").removeClass('hidden');
+                $("#spnImageCartMlie").text('حجم فايل بيش از 500 کيلوبايت است');
+                $("#spnImageCartMlie").css("color", "red");
+                return false;
+            }
+
+
+            for (var i = 0; i < files.length; i++) {
+                data.append('filearray', files[i]);
+                data.append('filesize', files[i].size);
+            }
+            data.append('path', "img\\mostandat\\");
+
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+
+                            $('.progress-bar').width(percentComplete + '%');
+                            $('.progress-bar').html(percentComplete + '%');
+
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                url: '@Url.Action("UploadImageFile", "LoopUpload")',
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false
+            }).done(function (result) {
+                console.log(result);
+                if (result.status == "success") {
+
+                    toastr.success('فايل با موفقيت آپلود شد', {
+                        timeOut: 2000,
+                        closeButton: true,
+                    });
+
+
+                    $("#newCartMlieImagePathName").val(result.imagename);
+                }
+
+            }).fail(function (result) {
+                if (result.status != "success") {
+                    toastr.warning('در حين آپلود مشکلي بوجود آمد', {
+                        timeOut: 2000,
+                        closeButton: true,
+                    });
+
+                }
+            });
+        }
+    </script>
+}

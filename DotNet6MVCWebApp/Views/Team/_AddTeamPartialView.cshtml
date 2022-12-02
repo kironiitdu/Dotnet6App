@@ -1,0 +1,123 @@
+﻿@model DotNet6MVCWebApp.Models.Team
+@{
+    ViewData["Title"] = "_AddTeamPartialView";
+
+
+}
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="addTeam" aria-labelledby="addTeamLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Team</h3>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="TeamName" class="control-label">TeamName</label>
+                        <input asp-for="TeamName" class="form-control" />
+                        <span asp-validation-for="TeamName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Coach" class="control-label">Coach</label>
+                        <input asp-for="Coach" class="form-control" />
+                        <span asp-validation-for="Coach" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NumberTeamMembers" class="control-label">NumberTeamMembers</label>
+                        <input asp-for="NumberTeamMembers" class="form-control" id="NumberOfTeamMembers" />
+                        <span asp-validation-for="NumberTeamMembers" class="text-danger"></span>
+                    </div>
+
+                    <h3>Members</h3>
+
+                    <table class="table table-bordered" id="membersTable">
+                        <thead>
+                            <tr>
+
+                                <th>Name</th>
+                                <th>BirthDate</th>
+                                <th>Phone</th>
+                                <th>
+                                    <button id="addbtnMember" type="button" class="btn btn-sm btn-secondary visible"
+                                            onclick="AddItem(this)">
+                                        Add
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int i = 0; i < Model.TeamMembers.Count; i++)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.EditorFor(x => x.TeamMembers[i].MemberName, new { htmlAttributes = new { @class = "form-control" } })
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(x => x.TeamMembers[i].BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(x => x.TeamMembers[i].Phone, new { htmlAttributes = new { @class = "form-control" } })
+                                    </td>
+                                    <td>
+
+                                        <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger"
+                                            onclick="DeleteItem(this)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="hdnLastIndex" value="0" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="javascript:window.location.reload()">CANCEL</button>
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+<script>
+    function DeleteItem(btn) {
+
+        $(btn).closest('tr').remove();
+        document.getElementById('hdnLastIndex').value = document.getElementById('hdnLastIndex').value - 1;
+
+    }
+    function AddItem(btn) {
+        var table = document.getElementById('membersTable');
+        var rows = table.getElementsByTagName('tr');
+        var rowOuterHtml = rows[rows.length - 1].outerHTML;
+        var lastrowIdx = document.getElementById('hdnLastIndex').value;
+        var RowNumber = document.getElementById('NumberOfTeamMembers').value;
+
+        var nextrowIdx = eval(lastrowIdx) + 1;
+
+
+            document.getElementById('hdnLastIndex').value = nextrowIdx;
+            rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+
+        if (nextrowIdx < RowNumber) {
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowOuterHtml;
+
+        }
+    }
+
+</script>

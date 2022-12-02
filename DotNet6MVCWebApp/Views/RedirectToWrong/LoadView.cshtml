@@ -1,0 +1,38 @@
+﻿@model DotNet6MVCWebApp.Models.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="text-center text-white aos-item" data-aos="fade-up">@ViewData["Title"]</h1>
+
+<div class="row justify-content-center text-white text-center">
+    <div class="col-md-4">
+        <form id="registerForm" asp-action="OnPost" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="aos-item" data-aos="fade-up">Create a new account.</h2>
+            <hr class="aos-item" data-aos="fade-up" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating text-black my-2 aos-item" data-aos="fade-up">
+                <input asp-for="Email" class="form-control" placeholder="Email" autocomplete="username" aria-required="true" />
+                <label asp-for="Email"></label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating text-black my-2 aos-item" data-aos="fade-up">
+                <input asp-for="Password" class="form-control" placeholder="Password" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Password"></label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating text-black my-2 aos-item" data-aos="fade-up">
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Email" autocomplete="new-password" aria-required="true" />
+                <label asp-for="ConfirmPassword"></label>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary py-2 aos-item" data-aos="fade-up">Register</button>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

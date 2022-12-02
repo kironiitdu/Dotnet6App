@@ -1,0 +1,98 @@
+﻿@model Heating
+@inject IHttpContextAccessor _httpcontext;
+
+@{
+    var data = _httpcontext.HttpContext?.Session.GetString("Value")?.ToString();
+}
+<h3>User Current Data  :@data</h3>
+
+@{
+    _httpcontext.HttpContext?.Items.Remove("Value");
+    _httpcontext.HttpContext?.Items.Add("Value", 50);
+    
+
+    data = _httpcontext.HttpContext?.Session.GetString("Value")?.ToString();
+}
+<h3>User Updated :@data</h3>
+<hr />
+
+
+
+    <table class="table table-sm table-bordered table-striped">
+       
+        <tr><th>Select Status</th><td id="status"> @Html.DropDownListFor(m => m.Statuses, new SelectList(Model.Statuses, "StatusId", "StatusName"), new { @class = "form-control" })</tr>
+        <tr><th>Comments</th><td> <textarea class="form-control " id="textsend" style="height:100px" maxlength="2000"></textarea></tr>
+        <tr><th>Action</th><td>  <input type="button" id="buttonSubmit" value="Save" class="btn btn-success" /></tr>
+       
+    </table>
+    @section scripts {
+
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script>
+         
+            $(document).ready(function () {
+
+                $("#Statuses").change(function () {
+                    var status = $("#Statuses").val();
+                    if (status != 1) {
+                        $('#buttonSubmit').prop('disabled', false)
+                        return true;
+                    }
+                });
+                $("#textsend").change(function () {
+                    $('#buttonSubmit').prop('disabled', false)
+                });
+                $("#buttonSubmit").click(function () {
+                    var textArea = $("#textsend").val();
+                    var status = $("#Statuses").val();
+                    alert(status);
+                    var textArea = $("#textsend").val();
+                    alert(textArea);
+                    if (status == 0) {
+                        alert("Please select the correct status");
+                        $('#buttonSubmit').prop('disabled', true)
+                        return false;
+                    }
+                    if (status === 1) {
+                        alert("Pending status is not accepted!");
+                        $('#buttonSubmit').prop('disabled', true)
+                        return false;
+                    }
+                    if (textArea == "" || status == 0 || status == 1) {
+                        alert("Value cannot be empty and Pending status is not accepted ");
+                        $('#buttonSubmit').prop('disabled', true)
+                        return false;
+                    }
+                  
+                    alert("Submitted succefully...");
+                });
+
+
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:5094/Todo/GetUserList',
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log(response);
+                        $.each(response, function (index, value) {
+                            var tr = "<tr>";
+                            tr += "<td>" + value.name + "</td>";
+                            tr += "<td>" + value.fname + "</td>";
+                            tr += "<td>" + value.email + "</td>";
+                            tr += "<td>" + value.mobile + "</td>";
+                            tr += "<td>" + "<input type='button' id='" + value.id + "'  class='btn btn-info' onclick='DetailsFunc(" + value.id + ")' value='Details'>" + "  " + "<input type='button' id='" + value.id + "'  class='btn btn-warning' onclick='EditFunc(" + value.id + ")' value='Edit'>" + "  " + "<input type='button' id='" + value.id + "'  class='btn btn-danger' onclick='DeleteFunc(" + value.id + ")' value='Delete'>" + "</td>" + "</tr>";
+
+                            $("#tBody").append(tr);
+                        });
+                        $("#userTable_info").DataTable();
+                    }
+                });
+            });
+        </script>
+    }
+
+
+

@@ -1,4 +1,5 @@
 ﻿using ArrayToPdf;
+using Azure.Core;
 using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using DotNet6MVCWebApp.ViewModel;
@@ -96,7 +97,38 @@ namespace DotNet6MVCWebApp.Controllers
 
 
         }
+        public async Task<IActionResult> DownloadImage(string imageName)
+        {
+            var path = Path.GetFullPath("./wwwroot/ImageName/Cover/" + imageName);
+            MemoryStream memory = new MemoryStream();
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "image/png", Path.GetFileName(path));
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> GetRawContent()
+        {
+            string rawContent = string.Empty;
+            using (var reader = new StreamReader(Request.Body,
+                          encoding: Encoding.UTF8, detectEncodingFromByteOrderMarks: false))
+            {
+                rawContent = await reader.ReadToEndAsync();
+            }
+            
+            return Ok(rawContent);
+            
+        }
+        public async Task<IActionResult> GetImage(string imageName)
+        {
+
+            Byte[] b;
+            b = await System.IO.File.ReadAllBytesAsync(Path.Combine(_environment.ContentRootPath, "Images", $"{imageName}"));
+            return File(b, "image/jpeg");
+        }
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto pro, IFormFile Image)
         {

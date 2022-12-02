@@ -1,4 +1,4 @@
-﻿using Dotnet6App.Data;
+﻿
 using DotNet6MVCWebApp.Models;
 using DotNet6MVCWebApp.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +24,7 @@ namespace DotNet6MVCWebApp.Controllers
             ViewBag.Minutes = TempData["Minutes"];
             return View();
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> AddSolutionFrom(HataCozum solution)
         {

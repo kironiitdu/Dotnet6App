@@ -1,0 +1,76 @@
+﻿
+@inject IHttpContextAccessor _httpcontext;
+
+@{
+    var data = _httpcontext.HttpContext?.Session.GetString("DateFormat")?.ToString();
+}
+<h3>User Current Date Format :@data</h3>
+<hr />
+<table id="userTable_info" >
+    <thead>
+        <tr>
+            <th>action </th>
+            <th>controller </th>
+            <th>returnType</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tBody"> </tbody>
+</table>
+
+@section scripts {
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+        //Button Click Functions
+        function DetailsFunc(data) {
+            //alert("User Id:" + data + " Details!");
+            //console.log(data);
+            //var url = "http://localhost:5094/" + data + "";
+            //alert(url);
+            window.location.href = "http://localhost:5094/" + data + "";
+        }
+        function EditFunc(data) {
+            alert("User Id:" + data + " will be Edited!");
+        }
+        function DeleteFunc(data) {
+            alert("User Id:" + data + " will be deleted!");
+        }
+        //On Load
+        $(document).ready(function () {
+
+           
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:5094/Home/ConAction',
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    console.log(response);
+                    var id = 0;
+                    $.each(response, function (index, value) {
+                        id++;
+                        console.log(id);
+                        let controller = value.controller.substr(0,value.controller.length - 10);
+                        let action = value.action;
+                        var finalRoute = controller + "/" + action;
+                        console.log(value.controller);
+                        var tr = "<tr>";
+                        tr += "<td>" + value.action + "</td>";
+                        tr += "<td>" + value.controller + "</td>";
+                        tr += "<td>" + value.returnType + "</td>";
+                        tr += "<td>" + '<input type="button" class="btn btn-success" onClick ="DetailsFunc(\'' + finalRoute + '\')" value="View" /> ' + "</tr>";
+
+                        $("#tBody").append(tr);
+                    });
+                    $("#userTable_info").DataTable();
+                }
+            });
+        });
+    </script>
+}
+
+
+

@@ -20,33 +20,46 @@ namespace DotNet6MVCWebApp.Controllers
         public async Task<IActionResult> Index()
         
         {
+            // DateTime currentStartDate = DateTime.Parse("01/01/2022");
+            DateTime currentStartDate = DateTime.Parse("12/08/1988");
 
-            var listDate = _context.TableDateGaps.ToList();
+            var startYear = currentStartDate.Year;
+            var startMonth = currentStartDate.Month;
+            var startDay = currentStartDate.Day;
 
-            foreach (var item in listDate)
-            {
-               // DateTime currentStartDate = DateTime.Parse("01/01/2022");
-                DateTime currentStartDate = DateTime.Parse(item.StartDate);
+            DateTime currentEndDate = DateTime.Parse("08/11/2022");
 
-                var startYear = currentStartDate.Year;
-                var startMonth = currentStartDate.Month;
-                var startDay = currentStartDate.Day;
+            var endYear = currentStartDate.Year;
+            var endMonth = currentStartDate.Month;
+            var endDay = currentStartDate.Day;
+            var formatCurrentStartDate = DateTime.Parse(currentStartDate.ToString("yyyy/MM/dd"));
 
-                DateTime currentEndDate = DateTime.Parse(item.EndDate);
+            //var listDate = _context.TableDateGaps.ToList();
 
-                var endYear = currentStartDate.Year;
-                var endMonth = currentStartDate.Month;
-                var endDay = currentStartDate.Day;
-                var formatCurrentStartDate = DateTime.Parse(currentStartDate.ToString("yyyy/MM/dd"));
-            }
-            
+            //foreach (var item in listDate)
+            //{
+            //   // DateTime currentStartDate = DateTime.Parse("01/01/2022");
+            //    DateTime currentStartDate = DateTime.Parse(item.StartDate);
+
+            //    var startYear = currentStartDate.Year;
+            //    var startMonth = currentStartDate.Month;
+            //    var startDay = currentStartDate.Day;
+
+            //    DateTime currentEndDate = DateTime.Parse(item.EndDate);
+
+            //    var endYear = currentStartDate.Year;
+            //    var endMonth = currentStartDate.Month;
+            //    var endDay = currentStartDate.Day;
+            //    var formatCurrentStartDate = DateTime.Parse(currentStartDate.ToString("yyyy/MM/dd"));
+            //}
+
 
 
             //DateTime currentEndDate = DateTime.Parse("05/01/2022"); ;
-           
-          //  var formatCurrentEndDate = DateTime.Parse(currentStartDate.ToString("yyyy/MM/dd"));
 
-           // DateTime startDate = new DateTime(formatCurrentStartDate);
+            //  var formatCurrentEndDate = DateTime.Parse(currentStartDate.ToString("yyyy/MM/dd"));
+
+            // DateTime startDate = new DateTime(formatCurrentStartDate);
             DateTime endDate = new DateTime(2022, 01, 05);
             //var gapFound = (endDate! - startDate!).TotalDays;
 

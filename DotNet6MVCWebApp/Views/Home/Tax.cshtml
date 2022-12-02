@@ -4,7 +4,7 @@
     ViewData["Title"] = "Tax";
 }
 
-<h1>Tax</h1>
+@*<h1>Main Page</h1>
 
 <form asp-action="NewTaxes" asp-controller="Home" method="post" autocomplete="off">
     <div class="form-row">
@@ -16,14 +16,116 @@
         <br />
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">CREATE</button>
+                <button type="submit" class="btn btn-primary" style="margin-bottom:2px">CREATE</button>
             </div>
         </div>
     </div>
 
-</form>
+</form>*@
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@*@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }*@
+@*<div class="col-md-2 form-group">
+    <button id="btnRefreshLevels" class="btn btn-danger">Refresh</button>
+</div>
+
+<table class="table table-primary table-bordered mb-0" style="margin-top:10px;">
+    <thead class="thead-primary">
+        <tr>
+            <th style="text-align:center">#</th>
+            <th style="text-align:center">Level 1</th>
+            <th style="text-align:center">Level 2</th>
+            <th style="text-align:center">Level 3</th>
+        </tr>
+    </thead>
+    <tbody id="bindTableDataWithoutReloading">
+    </tbody>
+</table>*@
+
+<div class="col-md-2 form-group">
+    <button id="btnGetBackendData" class="btn btn-danger">Get Data</button>
+</div>
+<table class="table table-primary table-bordered mb-0" style="margin-top:10px;">
+    <thead class="thead-primary">
+        <tr>
+            <th style="text-align:center">Host</th>
+            <th style="text-align:center">UserName</th>
+            <th style="text-align:center">Password</th>
+            <th style="text-align:center">SourceDir</th>
+            <th style="text-align:center">FileName</th>
+        </tr>
+    </thead>
+    <tbody id="bindTableGetBackendData">
+    </tbody>
+</table>
+@section scripts {
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script>
+                $(document).ready(function() {
+
+
+
+             $("#btnGetBackendData").click(function(e) {
+               $('#bindTableGetBackendData').empty();
+           // alert("Clicked!");
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:5094/Animal/GetBackendData",
+                success: function(response) {
+                    $('#bindTableGetBackendData').append(
+                            '<tr>'+
+                            '<td>' + response.host + '</td>'+
+                            '<td>' + response.userName +'</td>'+
+                            '<td>' + response.password + '</td>'+
+                            '<td>' + response.sourceDir + '</td>'+
+                            '<td>' + response.fileName + '</td>'+
+                           
+                            '</tr>'
+                            );
+
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+
+        });
+
+        $("#btnRefreshLevels").click(function(e) {
+               $('#bindTableDataWithoutReloading').empty();
+           // alert("Clicked!");
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:5094/Animal/RandomMemberList",
+                success: function(response) {
+
+                    $.each(response, function(key, value) {
+                        $('#bindTableDataWithoutReloading').append(
+                            '<tr>'+
+                            '<td>' + value.name + '</td>'+
+                            '<td>' + value.category +'</td>'+
+                            '<td>' + value.description + '</td>'+
+                            '<td><img src="/images/'+ value.photoUrl +'"  height="50" width="75" /></td>'+
+                            '</tr>'
+                            );
+                    })
+
+                },
+                error: function(response) {
+                    alert(response.responseText);
+                }
+            });
+
+        });
+
+
+
+    });
+</script>
 }
+
+

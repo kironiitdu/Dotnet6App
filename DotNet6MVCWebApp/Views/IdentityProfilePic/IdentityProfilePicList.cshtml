@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.IdentityModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="form-row">
+    <table>
+        <tr>
+            <td>
+                <a asp-action="Index" class="btn btn-success">Create New</a>
+
+            </td>
+            <form method="get" action="/Animal/MemberList">
+
+            <td style="padding-right:760px">
+            </td>
+            <td>
+                <input class="form-control" type="text" placeholder="Search for..." name="SearchString" value="@ViewData["CurrentFilter"]" aria-label="Search" aria-describedby="btnNavbarSearch" />
+            </td>
+            <td>
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </td>
+            </form>
+        </tr>
+    </table>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfilePictureLocation)
+            </th>
+            <th>
+                Member Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    <img src="~/ImageName/Cover/@item.ImageName"
+                     class="rounded-square"
+                     height="50" width="75"
+                     style="border:1px"
+                     asp-append-version="true" accept="image/*" />
+                    
+                </td>
+                <td>
+                    <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.Id">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.Id">Edit</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<table>
+    <tr>
+        <td>
+             <a target="_blank" class="btn btn-info"  asp-controller="Application" asp-action="DisplayPDFFromExistingFile">Display PDF Existing File</a>
+        </td>
+        <td>
+             <a target="_blank" class="btn btn-primary" asp-controller="Application" asp-action="DisplayPdfOnBrowserFromDatabaseList">Display PDF On BrowserFrom DB</a>
+        </td>
+         <td>
+           <a target="_blank" class="btn btn-success" asp-controller="Application" asp-action="DownloadPDFOnBrowser">DownLoad PDF From DB</a>
+        </td>
+    </tr>
+</table>*@

@@ -1,4 +1,4 @@
-﻿using Dotnet6App.Data;
+﻿
 using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using ApplicationDbContext = DotNet6MVCWebApp.Data.ApplicationDbContext;

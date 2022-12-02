@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "LoadCheckBoxFromViewModel";
+}
+
+
+<div>
+    @for (var i = 1; i < 5; i++)
+    {
+        <input class="myClass btn btn-danger" id="btnId:@i" value="Delete:@i" style="margin-bottom:2px" /> <br />
+    }
+
+    <input type="submit" id="btnSubmit" class="btn btn-success" value="Submit" />
+</div>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnSubmit").on("click", function () {
+                var ids = [];
+                $(".myClass").each(function () {
+                    //Getting All Button Ids and Pusing in array
+                    ids.push($(this).attr("id"));
+                });
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:5094/stuff/GetAllButtonId',
+                    datatype: "json",
+                    data: { buttonids: ids },
+                    success: function (res) {
+                        console.log(res);
+                        alert("It works")
+                    },
+                    error: function () {
+                        alert("It failed");
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+        }
+
+
+
+

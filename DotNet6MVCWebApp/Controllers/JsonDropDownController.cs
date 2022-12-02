@@ -23,10 +23,15 @@ namespace DotNet6MVCWebApp.Controllers
             return View();
         }
 
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SelectTagGetValue(string CategoryName)
+        {
+            return RedirectToAction("Index");
+        }
 
-       
-        public IActionResult Index()
+
+            public IActionResult Index()
         {
             try
             {

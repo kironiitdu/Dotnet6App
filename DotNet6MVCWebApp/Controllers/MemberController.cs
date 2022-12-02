@@ -1,7 +1,9 @@
 ﻿using DotNet6MVCWebApp.Data;
+using DotNet6MVCWebApp.Middleware;
 using DotNet6MVCWebApp.Models;
 using DotNet6MVCWebApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -23,7 +25,7 @@ namespace DotNet6MVCWebApp.Controllers
             return View(members);
            
         }
-
+       
         public async Task<IActionResult> Edit(int memberId)
         {
             var memeber = await _context.Members.FindAsync(memberId); // Getting member by Id from database
@@ -64,6 +66,16 @@ namespace DotNet6MVCWebApp.Controllers
             }
             return RedirectToAction("Index");
 
+        }
+
+        [HttpPost]
+        public JsonResult GetShopmap(string cityName, string areaName)
+        {
+
+            // var allData = _context.Developers.Where(ct => ct.ProductCategorieId == Convert.ToInt32(cityName) && ct.ProductSubCategorieId == Convert.ToInt32(areaName));
+            var allData = _context.userLogs.ToList();
+
+            return Json(allData);
         }
     }
 }
