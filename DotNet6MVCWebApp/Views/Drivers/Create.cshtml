@@ -30,6 +30,11 @@
                 <span asp-validation-for="driverScore" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="GrossWeight" class="control-label"></label>
+                <input asp-for="GrossWeight" class="form-control" />
+                <span asp-validation-for="GrossWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="employedTime" class="control-label"></label>
                 <input asp-for="employedTime" class="form-control" />
                 <span asp-validation-for="employedTime" class="text-danger"></span>
@@ -38,6 +43,12 @@
                 <label asp-for="amtApproaches" class="control-label"></label>
                 <input asp-for="amtApproaches" class="form-control" />
                 <span asp-validation-for="amtApproaches" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Premium" class="control-label pt-2" style="font-size:18px"></label>
+                <input asp-for="Premium" id="premiumrate" class="form-control"  />
+
+                <span asp-validation-for="Premium" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

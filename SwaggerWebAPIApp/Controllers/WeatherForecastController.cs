@@ -30,6 +30,23 @@ namespace SwaggerWebAPIApp.Controllers
             })
             .ToArray();
         }
+        //[HttpPost]
+        //public async Task<IActionResult> CancelItems([FromBody] StringCompatibleClass items)
+        //{
+        //    return Ok(items);
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> CancelItems([FromBody] List<string> items)
+        //{
+        //    return Ok(items);
+        //}
+
     }
-    
+
+    public class StringCompatibleClass
+    {
+
+        public List<string> items { get; set; }
+    }
+
 }

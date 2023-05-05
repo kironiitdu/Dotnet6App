@@ -30,9 +30,15 @@ namespace DotNet6MVCWebApp.Middleware
             string? controllerName = descriptor?.ControllerName;
             string? actionName = descriptor?.ActionName;
 
-
+            if(controllerName == "Calculator" && actionName == "Index")
+            {
+                //set action parameter 
+                var ca = descriptor.MethodInfo.CustomAttributes;
+            }
             if (descriptor != null)
             {
+                var ddd = descriptor.ActionConstraints;
+                var xxx= descriptor.BoundProperties;
                 var parameters = descriptor.MethodInfo.GetParameters();
 
                 foreach (var parameter in parameters)

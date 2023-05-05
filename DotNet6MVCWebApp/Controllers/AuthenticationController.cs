@@ -28,7 +28,7 @@ namespace DotNet6MVCWebApp.Controllers
 
             if (user.Token != null)
             {
-                response = Ok(new ResponseViewModel { output = "success", msg = "Login Successfully", returnvalue = user });
+                response = Ok(new ResponseViewModel { output = "success", msg = "Login Successfully", apiResponse = user });
             }
 
             return response;

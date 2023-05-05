@@ -1,9 +1,10 @@
 ﻿using DotNet6MVCWebApp.Data;
+using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet6MVCWebApp.ViewComponents
 {
-    [ViewComponent(Name = "EntityForm")]
+    //[ViewComponent(Name = "EntityForm")]
     public class EntityFormViewComponent: ViewComponent
     {
         private readonly ApplicationDbContext _context;
@@ -14,13 +15,13 @@ namespace DotNet6MVCWebApp.ViewComponents
             _context = context;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(Animal animal)
         {
             var animalList = _context.Animals.ToList();
-            string lastUpdateTime = System.IO.File.ReadAllText("./last.txt");
-            // string lastUpdateTime = "I am from View Component";
+            //string lastUpdateTime = System.IO.File.ReadAllText("./last.txt");
+            //// string lastUpdateTime = "I am from View Component";
 
-            return View("EntityForm", animalList);
+            return View("default", animalList);
         }
     }
 }

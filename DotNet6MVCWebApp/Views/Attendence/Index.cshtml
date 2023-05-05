@@ -1,0 +1,26 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            alert("Okay");
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5094/Attendence/GetData",
+                dataType: "json",
+                data: {name: "lavlesh"},
+                success: function (res) {
+                    alert(res)
+                },
+                error: function (res) {
+                    alert(res.d)
+                }
+            });
+           
+
+        });
+    </script>
+}
+
+
+

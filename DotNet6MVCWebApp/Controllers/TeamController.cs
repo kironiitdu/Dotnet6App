@@ -45,9 +45,15 @@ namespace DotNet6MVCWebApp.Controllers
             team.TeamMembers.Add(new TeamMember() { TeamMemberId = 1 });
             return PartialView("_AddTeamPartialView", team);
         }
-
-
-        [HttpPost]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveTodoItem(int id)
+        {
+            var todoItem = await _context.Teams.FindAsync(id);
+            _context.Teams.Remove(todoItem);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+            [HttpPost]
         public IActionResult Create(Team team)
         {
             if (team != null)

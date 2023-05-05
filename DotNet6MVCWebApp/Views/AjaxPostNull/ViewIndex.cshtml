@@ -1,0 +1,28 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var TFObj = {};
+            TFObj.Id = 1;
+            TFObj.Name = "Test Name";
+            TFObj.Email = "Test Email";
+            console.log(TFObj);
+
+            $.ajax({
+                url: "/AjaxPostNull/GetItemsForRelease",
+                type: "POST",
+                data: { requestModel: TFObj },
+                dataType: "html",
+                success: function (responsedata) {
+                    $("#releaseItemsPush").html(responsedata);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+        });
+    </script>
+}

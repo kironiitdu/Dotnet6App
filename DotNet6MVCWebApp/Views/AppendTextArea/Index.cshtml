@@ -1,0 +1,39 @@
+﻿<div class="box-shadow">
+    <p>Please select an Area Path and Iteration Path below:</p>
+    <table>
+        <tr>
+            <th>Area Path</th>
+            <th>Iteration Path</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DropDownList("MySpecialAreaPathsList",((List<string>)ViewBag.myAreaPathsList).Select(m => new SelectListItem { Text = m, Value = m }),
+                null, new { @onchange =  "GetAreaPathValue()" })
+            </td>
+        <tr>
+            <td>
+                <textarea class="text-info" id="txtLog" style="width:1080px;height:200px"></textarea>
+            </td>
+    </table>
+</div>
+@section Scripts {
+   
+    <script>
+        function GetAreaPathValue() {
+            alert("Inside Func");
+            var selectedElement = document.querySelector('#MySpecialAreaPathsList');
+            var option = selectedElement.value;
+            $.ajax({
+                url: '@Url.Action("GetAreaPathChildren", "AppendTextArea")',
+                type: "GET",
+                data: { 'areapathText': option },
+                success: function (data) { 
+                    console.log(data);
+                    //$('#txtLog').value(data.message)
+                    $('#txtLog').val(data)
+
+                }
+            })
+        }
+    </script>
+}

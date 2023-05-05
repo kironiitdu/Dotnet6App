@@ -1,0 +1,22 @@
+﻿<strong><span id="appendHere"></span></strong></>
+<hr />
+<button type="button" name="submitButton" value="Edit" class="btn btn-primary form-control"
+        onclick="GetAjaxResponse()">
+    Submit Request
+</button>
+
+
+
+@section scripts {
+    <script>
+        function GetAjaxResponse() {
+            var url = 'http://localhost:5094/AjaxPostNull/Verificar';
+            var correo = "Kiron";
+            $.post(url, { correoPropietario: correo }, function (result) {
+                alert("Response");
+                console.log(result);
+                $("#appendHere").html(result);
+            });
+        }
+    </script>
+}

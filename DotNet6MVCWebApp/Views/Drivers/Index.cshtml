@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.driverScore)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.amtApproaches)
+                @Html.DisplayNameFor(model => model.GrossWeight)
             </th>
             <th>
                 Driver Details
@@ -34,6 +34,8 @@
     <tbody>
         @foreach (var item in Model)
         {
+            var ssss = string.Format("{0,15:N0}", item.employedTime);
+            Console.WriteLine(ssss);
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)
@@ -45,13 +47,17 @@
                     @Html.DisplayFor(modelItem => item.driverName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.employedTime)
+@*                    @string.Format("{0,15:N0}", item.employedTime)*@
+                    @string.Format("{0,15:N}", item.employedTime)
+                    @string.Format("{0,15:n}", item.employedTime)
+                   
+                   @* //@Html.DisplayFor(modelItem =>  item.employedTime))*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.driverScore)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.amtApproaches)
+                    @Html.DisplayFor(modelItem => item.GrossWeight)
                 </td>
                 <td>
                     <a asp-action="EditDriver" class="btn btn-primary" asp-route-memberId="@item.Id">Details</a> |  <a asp-action="EditDriver" class="btn btn-warning" asp-route-driverId="@item.Id">Edit</a> 
@@ -60,3 +66,5 @@
         }
     </tbody>
 </table>
+
+

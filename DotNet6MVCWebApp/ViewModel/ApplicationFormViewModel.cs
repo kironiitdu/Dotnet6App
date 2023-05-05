@@ -20,6 +20,7 @@ namespace DotNet6MVCWebApp.ViewModel
         [Required(ErrorMessage = "Please make a selection")]
         [Display(Name = "State")]
         public int StateId { get; set; }
+        //public IEnumerable<SelectListItem> States { get; set; }
         public IEnumerable<SelectListItem> States { get; set; }
 
         [Required(ErrorMessage = "Date of Birth is required")]

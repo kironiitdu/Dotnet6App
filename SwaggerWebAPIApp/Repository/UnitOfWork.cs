@@ -1,7 +1,8 @@
 ﻿using SwaggerWebAPIApp.Data;
 using SwaggerWebAPIApp.Interface;
+using SwaggerWebAPIApp.Repository;
 
-namespace Dotnet6App.Repository
+namespace SwaggerWebAPIApp.Repository
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
@@ -9,6 +10,10 @@ namespace Dotnet6App.Repository
         private readonly ILogger _logger;
 
         public IUserRepository Users { get; private set; }
+        public ProductRepository Products { get; private set; }
+        public IserverNamesService ServerNamesService { get; private set; }
+
+       
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -16,6 +21,8 @@ namespace Dotnet6App.Repository
             _logger = loggerFactory.CreateLogger("logs");
 
             Users = new UserRepository(context, _logger);
+            Products = new ProductRepository(context, _logger);
+            ServerNamesService = new ServerNamesService(context);
         }
         
         public async Task CompleteAsync()

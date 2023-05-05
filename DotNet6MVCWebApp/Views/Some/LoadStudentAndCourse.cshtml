@@ -1,0 +1,13 @@
+﻿@model DotNet6MVCWebApp.Controllers.StudentCourseViewModel
+<form method="post" action="Save">
+    <div class="mb-3">
+        <label asp-for="StdName" class="control-label"></label>
+        <input type="text" class="form-control" asp-for="StdName">
+    </div>
+    <div class="mb-3">
+        <label asp-for="CourseName" class="control-label"></label>
+        <select asp-for="CourseName" class="form-control" asp-items="ViewBag.StudentCourses"></select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

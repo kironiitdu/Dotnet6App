@@ -34,10 +34,11 @@ namespace Dotnet6App.Controllers
             {
                 SmtpClient objsmtp = new SmtpClient("smtp.gmail.com", 587);
                 objsmtp.UseDefaultCredentials = false;
-                objsmtp.Credentials = new NetworkCredential("Emaill", "Pass");
+              //  objsmtp.Credentials = new NetworkCredential("Emaill", "Pass");
+                objsmtp.Credentials = new NetworkCredential("dotnetkiron@gmail.com", "@kiron321418kiron");
                 objsmtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 objsmtp.EnableSsl = true;
-                MailMessage msg = new MailMessage("dotnetkiron@gmail.com", "kironiitdu@outlook.com", "Subject: MJML Test For Harish", emailBody);
+                MailMessage msg = new MailMessage("dotnetkiron@gmail.com", "kironiitdu@outlook.com", "Subject: MJML Email Template Example", emailBody);
                 msg.IsBodyHtml = true;
                 objsmtp.Timeout = 50000;
                 objsmtp.Send(msg);

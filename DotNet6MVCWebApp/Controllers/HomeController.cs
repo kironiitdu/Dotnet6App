@@ -1,5 +1,7 @@
 ﻿using DotNet6MVCWebApp.Implements;
+using DotNet6MVCWebApp.Middleware;
 using DotNet6MVCWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,33 +40,43 @@ namespace DotNet6MVCWebApp.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Create()
         {
             return View();
         }
 
-        
-        public async Task<IActionResult> Index()
+
+
+        [SessionExpire]
+        public ActionResult Index()
         {
-
-            
-
-            Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
-            var controlleractionlist = asm.GetTypes()
-                 .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
-                 .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
-                 .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
-                 .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
-                 .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
-            ViewBag.AllActionList = controlleractionlist;
-
+            ViewData["Title"] = "Test title";
             return View();
         }
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Index()
+        //{
+
+
+
+        //    Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
+        //    var controlleractionlist = asm.GetTypes()
+        //         .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
+        //         .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
+        //         .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
+        //         .Select(x => new { Controller = x.DeclaringType.Name, Action = x.Name, ReturnType = x.ReturnType.Name, Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", ""))) })
+        //         .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+        //    ViewBag.AllActionList = controlleractionlist;
+
+        //    return View();
+        //}
+
         [HttpGet]
         public IActionResult ConAction()
         {
-            Assembly asm = Assembly.GetAssembly(typeof(BookstorerRepository));
+            Assembly asm = Assembly.GetAssembly(typeof(HomeController));
             var controlleractionlist = asm.GetTypes()
                  .Where(type => typeof(Microsoft.AspNetCore.Mvc.Controller).IsAssignableFrom(type))
                  .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
@@ -73,6 +85,25 @@ namespace DotNet6MVCWebApp.Controllers
                  .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
             return Json(controlleractionlist);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public void CallThisMethodEvery5Second(int counter)
         {
             Console.WriteLine("Current counter: {0} Last Fired At: {1}", counter, DateTime.Now);

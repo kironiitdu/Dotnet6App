@@ -1,0 +1,22 @@
+﻿<form asp-action="SpesGraduate" method="get">
+    <select name="yr1" id="yr1">
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+    </select>
+   
+</form>
+
+
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"> </script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('select').on('change', function () {
+            alert("Calling");
+            $(this).closest('form').submit();
+           // location.reload();
+        });
+    });
+</script>

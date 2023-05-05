@@ -1,0 +1,32 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            
+            var ListOfIds = [1, 2, 3];
+            
+            var testModel = {};
+
+            testModel.ListOfIds = ListOfIds;
+
+
+            var someModel = JSON.stringify(testModel);
+                console.log(someModel);
+            console.log(testModel);
+            $.ajax({
+                url: "/AjaxPostNull/AjaxReject",
+                type: "POST",
+                Traditional: true,
+                data: someModel,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (ValidationErrors) {
+                    // some work here
+                }
+            });
+
+        });
+    </script>
+}

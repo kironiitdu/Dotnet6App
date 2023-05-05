@@ -71,7 +71,7 @@ namespace DotNet6MVCWebApp.Controllers
             }
 
 
-            var filePath = Path.Combine(_environment.WebRootPath, "ListUpload", filearray.FirstOrDefault()?.FileName);
+            var filePath = Path.Combine(_environment.WebRootPath, "Documents", filearray.FirstOrDefault()?.FileName);
             using (FileStream stream = new FileStream(filePath, FileMode.Create))
             {
                 await filearray.FirstOrDefault().CopyToAsync(stream);
@@ -91,7 +91,7 @@ namespace DotNet6MVCWebApp.Controllers
             foreach (var item in taxParvandes)
             {
 
-                var checkDuplicateFile = System.IO.Path.Combine(_environment.WebRootPath, "ListUpload", item.prosessMastand.FileName);
+                var checkDuplicateFile = System.IO.Path.Combine(_environment.WebRootPath, "Documents", item.prosessMastand.FileName);
 
                 if (item.prosessMastand == null)
                 {
@@ -99,7 +99,7 @@ namespace DotNet6MVCWebApp.Controllers
                 }
 
 
-                var path = Path.Combine(_environment.WebRootPath, "ListUpload", item.prosessMastand.FileName);
+                var path = Path.Combine(_environment.WebRootPath, "Documents", item.prosessMastand.FileName);
                 using (FileStream stream = new FileStream(path, FileMode.Create))
                 {
                     await item.prosessMastand.CopyToAsync(stream);
@@ -120,7 +120,24 @@ namespace DotNet6MVCWebApp.Controllers
 
             return RedirectToAction("Index");
         }
+        public IActionResult UploadFileUsingJQueryAJAX()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult UploadFileUsingJQueryAJAX(EmployeeUpload emp)
+        {
+            return View();
+        }
+
+    }
+    public class EmployeeUpload
+    {
+        public int EmpId { get; set; }
+        public string FistName { get; set; }
+        public string LastName { get; set; }
+        public IFormFile postedFile { get; set; }
     }
     public class TaxDomainModel
     {

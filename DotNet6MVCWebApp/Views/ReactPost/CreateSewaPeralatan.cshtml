@@ -1,0 +1,66 @@
+﻿
+<div class="form-group">
+    <input type="button" onclick="AddProduct()" value="Submit" id="submit" class="btn btn-primary" />
+</div>
+
+@section Scripts
+    {
+    <script>
+
+        //async function AddProduct() {
+
+        //    const sewa = {
+        //        NotaSewa: "NotaSewa Value From Client Side",
+        //        PelangganId: 101,
+        //        TempatAcara: "TempatAcara",
+        //    };
+
+        //    console.log(sewa);
+
+        //    let result = await fetch("http://localhost:5094/ReactPost/CreateSewaPeralatan", {
+        //        method: "POST",
+        //        headers: { "Content-Type": "application/json;charset=utf-8" },
+        //        body: JSON.stringify(sewa),
+        //    });
+        //    console.log(result.status);
+
+        //}
+
+        //function AddProduct() {
+
+        //    const sewa = {
+        //        NotaSewa: "NotaSewa Value From Client Side",
+        //        PelangganId: 101,
+        //        TempatAcara: "TempatAcara",
+        //    };
+
+        //    console.log(sewa);
+
+        //     fetch("http://localhost:5094/ReactPost/CreateSewaPeralatan", {
+        //        method: "POST",
+        //        headers: { "Content-Type": "application/json;charset=utf-8" },
+        //        body: JSON.stringify(sewa),
+        //    });
+        //    //console.log(result.status);
+
+        //}
+
+
+        function AddProduct() {
+
+            const FeeScheduleRequest1Dto = {
+                Name: "Md Kiron",
+                Id: 101,
+                Description: "Some Description",
+            };
+
+            console.log(FeeScheduleRequest1Dto);
+
+            fetch("http://localhost:5094/ReactPost/UpdateFeeSchedule", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json;charset=utf-8" },
+                body: JSON.stringify(FeeScheduleRequest1Dto),
+            });
+        }
+    </script>
+}

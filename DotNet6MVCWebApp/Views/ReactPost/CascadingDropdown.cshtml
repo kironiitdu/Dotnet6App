@@ -1,0 +1,90 @@
+﻿
+<div class="form-group">
+    <input type="button" onclick="LoadCascadingDropdownUsingAjax()" value="Submit" id="submit" class="btn btn-primary" />
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">State</label>
+    <div class="col-md-6">
+        <select class="form-control" id="ddlState"></select>
+        <br />
+
+    </div>
+</div>
+
+
+
+
+@section Scripts
+    {
+    <script>
+      function LoadCascadingDropdownUsingAjax() {
+
+            var ddlState = $('#ddlState');
+            ddlState.empty();
+            ddlState.append($("<option></option>").val('').html('Please wait ...'));
+
+
+            let data = new URLSearchParams();
+            data.append("type", "INDIA");
+            data.append("id", 101);
+
+            $.ajax({
+                url: 'http://localhost:5094/ReactPost/CascadeDropDowns',
+                type: 'POST',
+               // data: data,
+                data: { type: "INDIA", id:101 },
+                success: function (response) {
+
+                    ddlState.empty(); 
+                    ddlState.append($("<option></option>").val('').html('Select State'));
+                    $.each(response, function (i, states) {
+                        ddlState.append($("<option></option>").val(states.cityId).html(states.cityName));
+                    });
+                },
+                error: function (response) {
+                    alert('Error!');
+                }
+            });
+        }
+
+        async function LoadCascadingDropdown() {
+
+            var ddlState = $('#ddlState');
+            ddlState.empty();
+            ddlState.append($("<option></option>").val('').html('Please wait ...'));
+
+
+            let data = new URLSearchParams();
+            data.append("type", "INDIA");
+            data.append("id", 101);
+
+            fetch("http://localhost:5094/ReactPost/CascadeDropDowns", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                },
+                body: data
+            })
+
+                .then(response => {
+                    return response.json();
+                })
+                .then(result => {
+
+                    console.log(result);
+                    var ddlState = $('#ddlState');
+                    ddlState.empty(); 
+                    ddlState.append($("<option></option>").val('').html('Select State'));
+
+                    $.each(result, function (index, states) {
+                        ddlState.append($("<option></option>").val(states.cityId).html(states.cityName));
+                    });
+
+
+                })
+
+        }
+
+    </script>
+}

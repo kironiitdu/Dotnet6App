@@ -60,6 +60,12 @@ namespace DotNet6MVCWebApp.Controllers
         }
 
 
+        //public IActionResult Index()
+        //{
+
+        //    return View(ListOfTodos);
+        //}
+
         //[HttpPost]
         //[Route("account/istatement")]
         //public async Task<ActionResult> TestCon(Test cif)

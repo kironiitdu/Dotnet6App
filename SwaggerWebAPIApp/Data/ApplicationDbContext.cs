@@ -12,12 +12,20 @@ namespace SwaggerWebAPIApp.Data
         {
         }
         public DbSet<User> User { get; set; }
+        public DbSet<Product> Products { get; set; }
        
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Suppliers> Suppliers { get; set; }
+        public DbSet<ServerNames> ServerNames { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //  base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().ToTable("User");
-           
+            modelBuilder.Entity<Product>().ToTable("Products");
+            modelBuilder.Entity<Categories>().ToTable("Categories");
+            modelBuilder.Entity<Suppliers>().ToTable("Suppliers");
+
         }
 
     }

@@ -44,6 +44,15 @@
                 @Html.DisplayNameFor(model => model.ImageName)
             </th>
             <th>
+                Ashley Beck Image Issue
+            </th>
+            <th>
+                Correct Way
+            </th>
+            <th>
+                Another Way
+            </th>
+            <th>
                 Member Details
             </th>
         </tr>
@@ -67,16 +76,29 @@
                      class="rounded-square"
                      height="50" width="75"
                      style="border:1px"
-                     asp-append-version="true" accept="image/*"
-              
-                     
-                     />
+                     asp-append-version="true" accept="image/*" />
+
                     @*<span><a href="@item.ImageName">@item.ImageName</a></span>
-                        <input type="checkbox" id="CheckBoxId" class="form-check-input" style="margin-top:16px;border:1px solid" /><span><strong>Upload New File</strong></span>
-                        <div id="chooseFile"><input type="file" name="photo" accept="image/*" /></div>*@
+                <input type="checkbox" id="CheckBoxId" class="form-check-input" style="margin-top:16px;border:1px solid" /><span><strong>Upload New File</strong></span>
+                <div id="chooseFile"><input type="file" name="photo" accept="image/*" /></div>*@
                 </td>
                 <td>
-                    <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.MemberId">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.MemberId">Edit</a> |  <a asp-controller="Application"  asp-action="DownloadImage" class="btn btn-info" asp-route-imageName="@item.ImageName">Download</a>
+                    <object class="card-img-top" height="50" width="75" data="~/ImageName/Cover/@Html.DisplayFor(modelItem=>item.ImageName)" type="image/*">
+                    </object>
+                </td>
+                <td>
+                    <object class="card-img-top" height="50" width="75" data="~/ImageName/Cover/@Html.DisplayFor(modelItem=>item.ImageName)" accept="image/*">
+                    </object>
+                </td>
+                <td>
+                    <object class="card-img-top" height="50" width="75" data="~/ImageName/Cover/@item.ImageName" accept="image/*">
+                    </object>
+                </td>
+                @* <td>
+            <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.MemberId">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.MemberId">Edit</a> |  <a asp-controller="Application"  asp-action="DownloadImage" class="btn btn-info" asp-route-imageName="@item.ImageName">Download</a>
+            </td>*@
+                <td>
+                    <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.MemberId">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.MemberId">Edit</a>
                 </td>
             </tr>
         }
@@ -86,16 +108,17 @@
 <table>
     <tr>
         <td>
-             <a target="_blank" class="btn btn-info"  asp-controller="Application" asp-action="DisplayPDFFromExistingFile">Display PDF Existing File</a>
+            <a target="_blank" class="btn btn-info" asp-controller="Application" asp-action="DisplayPDFFromExistingFile">Display PDF Existing File</a>
         </td>
         <td>
-             <a target="_blank" class="btn btn-primary" asp-controller="Application" asp-action="DisplayPdfOnBrowserFromDatabaseList">Display PDF On BrowserFrom DB</a>
+            <a target="_blank" class="btn btn-primary" asp-controller="Application" asp-action="DisplayPdfOnBrowserFromDatabaseList">Display PDF On BrowserFrom DB</a>
         </td>
-         <td>
-           <a target="_blank" class="btn btn-success" asp-controller="Application" asp-action="DownloadPDFOnBrowser">DownLoad PDF From DB</a>
+        <td>
+            <a target="_blank" class="btn btn-success" asp-controller="Application" asp-action="DownloadPDFOnBrowser">DownLoad PDF From DB</a>
         </td>
-         <td>
-           <a target="_blank" class="btn btn-info" asp-controller="Animal" asp-action="Excel">DownLoad Excel</a>
+        <td>
+            <a target="_blank" class="btn btn-info" asp-controller="Animal" asp-action="Excel">DownLoad Excel</a>
         </td>
     </tr>
 </table>
+@Html.ActionLink("<a><a/>Anchor Tag Using Action Link", "SomeMethod", "Restaurant", new { @href="javascript:void(0);", @onclick = "return Submit()", id = "anchortag" })

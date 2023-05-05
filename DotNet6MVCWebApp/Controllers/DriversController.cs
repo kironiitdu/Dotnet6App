@@ -1,4 +1,5 @@
-﻿using DotNet6MVCWebApp.Data;
+﻿using DocumentFormat.OpenXml.InkML;
+using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,25 +30,54 @@ namespace DotNet6MVCWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,scooberId,driverName,driverScore,employedTime,amtApproaches,amtEvaluated,lastEvaluated")] Driver driver)
+        public async Task<IActionResult> Create([Bind("Id,scooberId,driverName,driverScore,employedTime,GrossWeight,Premium,amtApproaches,amtEvaluated,lastEvaluated")] Driver driver)
         {
             try
             {
                 if (ModelState.IsValid)
+
                 {
                     _context.Add(driver);
                     await _context.SaveChangesAsync();
                     int lastensertedId = driver.Id;
                     ViewBag.lastensertedId = lastensertedId;
                     ModelState.Clear();
-                    return View("Create") ;
+                    return View("Index");
                 }
             }
 
 
-            catch (Exception ex )
+            catch (Exception ex)
             {
-              
+
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return View(driver);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateWithRangesAndGetIDs([Bind("Id,scooberId,driverName,driverScore,employedTime,GrossWeight,amtApproaches,amtEvaluated,lastEvaluated")] Driver driver)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                   
+
+                    _context.Add(driver);
+                    await _context.SaveChangesAsync();
+                    int lastensertedId = driver.Id;
+                    ViewBag.lastensertedId = lastensertedId;
+                    ModelState.Clear();
+                    return View("Index");
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(driver);

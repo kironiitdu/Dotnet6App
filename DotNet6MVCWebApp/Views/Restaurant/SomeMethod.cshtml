@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-    alert("Ckicl");
+    
     function Submit() {
             if (confirm("Are you sure you want to submit ?")) {
                 document.getElementById('anchortag').href += "?isTrue=true";
@@ -9,15 +9,23 @@
             return true;
         }
 </script>
-
+<a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
+@Html.ActionLink("<a><a/>Anchor Tag Using Action Link  Profile", "MemberList", "Animal", new { @href="javascript:void(0);", @onclick = "return Submit()" })
+<br />
 @Html.ActionLink("Submit", "SomeMethod", "Restaurant", new { @onclick = "return Submit()", id = "anchortag" })
-
+<br />
 @Html.ActionLink(
-    "Delete",
-    "DeleteAction",
-    "Restaurant",
-    new { confirm = true, other_parameter = "some_more_parameter" },
-    new { onclick = "return confirm('Do you really want to delete this product?')" })
+    "<a><a/>Anchor Tag Using Action Link  Profile",
+    "MemberList",
+    "Animal",
+    null,
+    null,
+    null,
+    null,
+    new { @href="javascript:void(0);", @onclick = "return Submit()" })
+
+
+   
 
 <div id="dialog-confirm" title="Custom Button">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span></p>

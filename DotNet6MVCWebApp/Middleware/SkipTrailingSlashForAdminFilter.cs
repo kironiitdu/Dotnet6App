@@ -8,6 +8,9 @@ namespace DotNet6MVCWebApp.Middleware
         {
             base.OnActionExecuting(filterContext);
             var originalUrl = filterContext.HttpContext.Request.Path.ToString();
+            var extraQuote = '"';
+            var addExtraQuote = extraQuote + originalUrl + extraQuote;
+
             var newUrl = originalUrl.TrimEnd('/');
             if (originalUrl.Length != newUrl.Length)
                 filterContext.HttpContext.Response.Redirect(newUrl);

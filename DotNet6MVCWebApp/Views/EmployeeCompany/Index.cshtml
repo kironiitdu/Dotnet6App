@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.ViewModel>
+
+@{
+    Layout = null;
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>EmployeeId</th>
+            <th>First_Name</th>
+            <th>Last_Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Phone</th>
+
+            <th>CompanyId</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Logo</th>
+            <th>Website</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.employee.EmployeeId</td>
+                <td>@item.employee.First_Name</td>
+                <td>@item.employee.Last_Name</td>
+                <td>@item.employee.Company</td>
+                <td>@item.employee.Email</td>
+                <td>@item.employee.Phone</td>
+
+                <td>@item.companies.CompanyId</td>
+                <td>@item.companies.Name</td>
+                <td>@item.companies.Email</td>
+                <td>@item.companies.Logo</td>
+                <td>@item.companies.Website</td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>

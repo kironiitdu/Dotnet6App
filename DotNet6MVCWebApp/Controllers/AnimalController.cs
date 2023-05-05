@@ -5,6 +5,7 @@ using DotNet6MVCWebApp.Middleware;
 using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
@@ -22,6 +23,9 @@ namespace DotNet6MVCWebApp.Controllers
             _environment = environment;
             _context = context;
         }
+
+
+
         public async Task<string> File([FromForm] CreateAnimalViewModel model)
         {
             string wwwPath = _environment.WebRootPath;
@@ -63,6 +67,8 @@ namespace DotNet6MVCWebApp.Controllers
                 return Content("File not selected");
             }
             var path = Path.Combine(_environment.WebRootPath, "ImageName/Cover", photo.FileName);
+
+
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {
                 await photo.CopyToAsync(stream);
@@ -89,7 +95,7 @@ namespace DotNet6MVCWebApp.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 Exception innerException = ex;
@@ -108,7 +114,7 @@ namespace DotNet6MVCWebApp.Controllers
 
                 return View();
             }
-            
+
 
 
             return RedirectToAction("MemberList");
@@ -283,12 +289,22 @@ namespace DotNet6MVCWebApp.Controllers
     7.Set New Value Into The Member Object You Have Founded In Step 6
     8.Save The Context And Redirect To Member List
 */
+       
+        public async Task<IActionResult> DetailsLess()
+        {
+            ViewBag.Message = "No Data Found By This ID";
+            return View();
+        }
+
+        
         public async Task<IActionResult> EditMember(int memberId)
         {
 
-            var data = GetAllFilter(1);
-
-            var memeber = await _context.Members.FindAsync(memberId); // Getting member by Id from database
+            var memeber = await _context.Members.FindAsync(11); // This member  Id doesn't exist in database
+            if (memeber == null)
+            {
+                return RedirectToAction("DetailsLess");
+            }
             return View(new MemberViewModel() { Member = memeber });
 
         }

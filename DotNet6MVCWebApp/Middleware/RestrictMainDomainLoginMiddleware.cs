@@ -1,4 +1,6 @@
-﻿namespace DotNet6MVCWebApp.Middleware
+﻿using DocumentFormat.OpenXml.InkML;
+
+namespace DotNet6MVCWebApp.Middleware
 {
     public class RestrictMainDomainLoginMiddleware
     {
@@ -11,6 +13,11 @@
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
+            var myError = @"""Test Error Message""";
+            
+            var newErrorMessage = myError.Trim('"');
+
+            httpContext.Response.Headers.Add("authorization", "Kiron Test Auth Header");
 
             //var pathToRestrict = "/login";
 

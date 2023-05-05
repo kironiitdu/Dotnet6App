@@ -1,0 +1,74 @@
+﻿<div>
+    <table id="table-maincategories">
+    </table>
+</div>
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            alert("Load");
+            var id = "1";
+            var mrow = "mrow-Test";
+            var mcol = "mcol-Test";
+            $.ajax({
+                url: "/Calculator/GameBoard",
+                type: 'POST',
+                async: true,
+                dataType: 'text',
+               // processData: false,
+                data: {
+                    id: id,
+                    mrow: mrow,
+                    mcol: mcol
+                },
+                success: function (data) { 
+                    alert("success");
+                    alert(data);
+                    console.log(data);
+                },
+                error: function (xhr) { 
+                    alert("false"); 
+                }
+            });
+            
+            //$.ajax({
+            //    url: "/Calculator/MainCategories",
+            //    contentType: "application/json",
+            //    dataType: "json",
+            //    type: "Get",
+            //    success: function (data) {
+            //        console.log(data);
+            //        $("#table-maincategories").empty();
+            //        //Its already in json so no need to parse again
+            //        $.each(data, function (index, element) {
+            //            console.log(element);
+            //            console.log(element.image);
+            //            $("#table-maincategories").append(`<tr class="text-center">
+            //                                                            <td><img src="data:image/png;base64, ${element.image}" style="height:80px;" /></td>
+            //                                                    <td>${element.name}</td>
+            //                                            <td>
+            //                                                <div class="form-check">
+            //                                                    <a href="/Admin/BusinessCategories/MainShowMenu/${element.id}" onclick="location.href=this.href;">
+            //                                                                        <input checked="${element.showMenu}" class="form-check-input" type="checkbox" id="flex_${element.id}">
+            //                                                    </a>
+            //                                                    <label class="form-check-label" for="flex_${element.Id}">Menüde Göster</label>
+            //                                                </div>
+            //                                            </td>
+            //                                            <td>
+            //                                                        <a asp-action="EditMainCategory" asp-route-id="${element.id}" class="btn btn-primary"><i class="bx bx-edit"></i> Düzenle</a>
+            //                                                        <a asp-action="DeleteMainCategory" asp-route-id="${element.id}" data-name="${element.name}" class="btn btn-danger delete-button"><i class="bx bx-trash"></i> Sil</a>
+            //                                            </td>
+            //                                        </tr>`);
+            //        });
+            //    }
+            //})
+
+        });
+    </script>
+}
+
+
+
+

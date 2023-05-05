@@ -1,0 +1,32 @@
+﻿<input type="file" multiple onchange="AddProduct(this.files)" />
+<div class="form-group">
+    <input type="button" value="Submit" id="submit" class="btn btn-primary" />
+</div>
+
+@section Scripts
+    {
+    <script>
+       
+       async function AddProduct(productImage) {
+
+            var form = new FormData();
+            if (productImage.length > 0) {
+              
+                for (var i = 0; i < productImage.length; i++) {
+                    var files = productImage[i];
+                    form.append('files', files);
+                }
+                
+            }
+
+            let result = await fetch("http://localhost:5094/ReactPost/AddProduct", {
+                method: "POST",
+                headers: {},
+                body: form,
+            });
+            console.log(result.status);
+
+        }
+        
+    </script>
+}

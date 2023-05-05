@@ -1,0 +1,6 @@
+﻿@model DotNet6MVCWebApp.Controllers.FakeModel
+@using (Html.BeginForm("FakeMethod", "Yonny", FormMethod.Post))
+{
+    <input class="form-control mb-4" asp-for="NewName" />
+    <button type="submit" class="btn btn-primary">New Name</button>
+}

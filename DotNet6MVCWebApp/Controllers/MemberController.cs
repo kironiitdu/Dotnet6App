@@ -3,7 +3,10 @@ using DotNet6MVCWebApp.Middleware;
 using DotNet6MVCWebApp.Models;
 using DotNet6MVCWebApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.IO;
 using System.Security.Claims;
+using System.Text;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -19,8 +22,9 @@ namespace DotNet6MVCWebApp.Controllers
             _webHostEnviroment = environment;
             _context = context;
         }
-        public IActionResult Index()
+        public async Task< IActionResult> Index()
         {
+            
             var members = _context.Members.ToList();
             return View(members);
            
@@ -77,5 +81,12 @@ namespace DotNet6MVCWebApp.Controllers
 
             return Json(allData);
         }
+    }
+
+    public class ContentClass
+    {
+        public string? HttpVerb { get; set; }
+        public string? RequestPath { get; set; }
+        public string RequestRawData { get; set; }
     }
 }

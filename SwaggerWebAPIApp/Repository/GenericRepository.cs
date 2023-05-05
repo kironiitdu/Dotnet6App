@@ -3,7 +3,7 @@ using SwaggerWebAPIApp.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Dotnet6App.Repository
+namespace SwaggerWebAPIApp.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

@@ -1,0 +1,11 @@
+﻿<a onclick="CreateOrganization('@Url.Action("AddOrEdit","Todo",null,Context.Request.Scheme)','New Organization')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Organization</a>
+
+<a onclick="CreateOrganization('@Url.Action("SameNameAction","SameName", new { page=1, pageSize= 5})" class="btn btn-success text-white"><i class="fas fa-random"></i> Using Url.Action</a>
+<h3>Output:</h3> @Url.Action("SameNameAction","SameName", new { page=1, pageSize= 5})
+<br />
+<a onclick="CreateOrganization('@Url.RouteUrl("default", new{httproute = "", controller="SameName",action="SameNameAction",page=1, pageSize= 5})" class="btn btn-success text-white"><i class="fas fa-random"></i> Using Url.RouteUrl</a>
+<h3>Output:</h3> @Url.RouteUrl("default", new{httproute = "", controller="SameName",action="SameNameAction",page=1, pageSize= 5})
+
+
+<a class="nav-link text-dark" href="@Url.Action("SameNameAction","SameName", new { page=1, pageSize= 5})">Submit Multiple Parameter</a>
+<a class="nav-link text-dark" href="@Url.RouteUrl("default", new{httproute = "", controller="SameName",action="SameNameAction",page=1, pageSize= 5})">Submit Multiple Parameter</a>

@@ -1,0 +1,21 @@
+﻿@model DotNet6MVCWebApp.Controllers.AddAssignmentViewModel
+<form method="post" action="Add">
+    <div class="mb-3">
+        <label for="" class="form-label">Title</label>
+        <input type="text" class="form-control" asp-for="title">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="description">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Assignee</label>
+        <select asp-for="assignee" class="form-control" asp-items="ViewBag.assignee"></select>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Due Date</label>
+        <input type="date" class="form-control" asp-for="dueDate">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,25 @@
+﻿@section Scripts
+    {
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+
+        const CompanyId = "CompnayId:";
+        const Name = "Name:";
+        const Email = "Email:";
+       
+
+        const companyDetails = [];
+
+        for (let i = 1; i <= 10; i++) {
+            const companyObject = {
+                CompanyId: CompanyId + i,
+                Name: Name + i,
+                Email: Email + i
+            }
+            companyDetails.push(companyObject);
+        }
+        console.log(companyDetails);
+        axios.post("http://localhost:5094/api/AxiosWebApi/CompanyDetails", companyDetails);
+    </script>
+}

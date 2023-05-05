@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Dotnet6MVC.Models.Users>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoginId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+            
+            <th>
+                User Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoginId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                
+                <td>
+                    <a asp-action="EditDriver" class="btn btn-primary" asp-route-memberId="@item.UserId">Details</a> |  <a asp-action="EditDriver" class="btn btn-warning" asp-route-driverId="@item.UserId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

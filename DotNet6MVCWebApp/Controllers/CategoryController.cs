@@ -50,6 +50,7 @@ namespace DotNet6MVCWebApp.Controllers
         }
         public IActionResult Index()
         {
+
             return View();
         }
         public class RefreshTokenClass
@@ -137,7 +138,19 @@ namespace DotNet6MVCWebApp.Controllers
             }
             return View("Index");
         }
+        public async Task<IActionResult> AppendRequestHeader()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Clear();
 
+            var message = new HttpRequestMessage(HttpMethod.Get, "https://url/api/someMethod");
+            message.Headers.Add("Host", "somesite.site");
+            message.Headers.Add("Test", "Test");
+            message.Headers.Add("Authorization", "Bearer " + "token_nndafdfad");
+          //var response = await httpClient.SendAsync(message);
+            Console.WriteLine(message.ToString());
+            return Json(message.ToString());
+        }
         private class UserPasswordCredential
         {
             private string userName;

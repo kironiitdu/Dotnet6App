@@ -1,0 +1,44 @@
+﻿@model DotNet6MVCWebApp.Models.Toolreq
+
+<h1>@ViewBag.Message</h1>
+<div>
+    <h4>Toolreq</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Request)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Request)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qty)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = 1}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

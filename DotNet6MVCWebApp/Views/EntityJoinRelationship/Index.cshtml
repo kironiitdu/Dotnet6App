@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Equipment>
+
+
+<table class="table table table-bordered">
+    <thead>
+        <tr>
+            <th>Equipment Id
+            <th>Equipment Name
+            <th>Amount
+            <th>Status
+            <th>Department
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Amount</td>
+                <td>@item.Status</td>
+                <td>@item.Department?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

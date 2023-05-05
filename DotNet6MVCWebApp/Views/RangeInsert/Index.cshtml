@@ -1,0 +1,23 @@
+﻿@*<form method="post">
+    <div class="col-md-12">
+        @for (int i = 18; i < 40; i++)
+        {
+            <input asp-for="ClientServices.CliId" class="form-control" value="@Model.CliIdOk" hidden />
+            <input class="form-control" asp-for="ClientServices.ServId" value="@i" hidden />
+            <div class="border-0" style="width: 6%; height: 150px; min-width: 30px; float: left; ">
+                <div class="form-group form-check" style="position:relative;left:-15px;">
+                    <label class="form-check-label btn btn-sm fw-bold border m-1 p-1" style="border-radius:16px;">
+                        <input asp-for="ClientServices.Active"
+                           style="border-radius:16px;position:relative;" />
+                        <br />
+                        @i
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+    <button class="btn btn-sm btn-outline-primary fw-bold" type="submit" name="id"
+            style="font-size: 120%;float:unset;min-width:120px;">
+        Save
+    </button>
+</form>*@

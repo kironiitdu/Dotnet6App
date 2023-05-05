@@ -1,0 +1,59 @@
+﻿@using DotNet6MVCWebApp.Controllers
+@model List<DotNet6MVCWebApp.Controllers.CalculativeProductByCateory>
+
+<h2>Product List</h2>
+<table class="table table table-bordered">
+    <thead>
+        <tr>
+            <th>Category Name
+            <th>Product Name
+            <th>Price
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ProductByCateory item in ViewBag.ProductList)
+        {
+            <tr>
+                <td>@item.Category</td>
+                <td>@item.ProductName</td>
+                <td>@item.Price</td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    double totalSum = 0;
+}
+<h2>Sum By Category and Total Sum</h2>
+<table class="table table table-bordered">
+    <thead>
+        <tr>
+            <th>Category Name
+            <th>Product Name
+            <th>PriceSumByEachCategory
+           
+        </tr>
+    </thead>
+    <tbody>
+      
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Category</td>
+                <td>@item.ProductName</td>
+                <td>@item.PriceSumByEachCategory</td>
+                <td hidden> @{
+                        var total = @item.TotalPriceOfAllCategory;
+                        totalSum = total;
+                    }</td>
+                
+            </tr>
+           
+        }
+       
+    </tbody>
+   
+</table>
+<h3>Total:<strong style="margin-left:640px">@totalSum</strong> </h3>

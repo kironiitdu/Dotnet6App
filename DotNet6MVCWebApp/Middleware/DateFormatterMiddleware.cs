@@ -27,8 +27,15 @@ namespace DotNet6MVCWebApp.Middleware
             {
                 DateTime currentDate = DateTime.Now;
 
-                if (item.Contains("en-US") || item.Contains("it-IT"))
+                if (item.Contains("en-US") || item.Contains("it-IT") || item.Contains("ar-sa"))
                 {
+                    if (item == "ar-sa")
+                    {
+                        var saDateTime = new DateTime(1318,1,1,07,45,43,UmAlQuraCalendar.UmAlQuraEra);
+                        var saudiFormat = saDateTime.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("ar-sa"));
+                        context.Session.SetString("DateFormat", saudiFormat);
+                        break;
+                    }
                     if (item == "en-US")
                     {
                         var enUS_Format = currentDate.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
@@ -41,7 +48,7 @@ namespace DotNet6MVCWebApp.Middleware
                         context.Session.SetString("DateFormat", italy_Format);
                         break;
                     }
-
+                    //Implemenetation can be found at Toto Controller and action : IndexUserList
 
                 }
             }

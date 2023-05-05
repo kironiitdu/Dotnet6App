@@ -23,7 +23,7 @@ namespace DotNet6MVCWebApp.Controllers
 
             };
            
-          return Json(new { data = empList });
+          return Json(empList);
          
         }
     }

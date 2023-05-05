@@ -7,17 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Documents\KironGitHub.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\Documents\KironGitHub.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ArrayToPdf" Version="2.0.4" />
     <PackageReference Include="AspNetCore.Unobtrusive.Ajax" Version="2.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="ClosedXML" Version="0.96.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EPPlus" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+    <PackageReference Include="Microsoft.Exchange.WebServices" Version="2.2.0" />
     <PackageReference Include="Microsoft.Graph" Version="4.28.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.43.2" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.9" />
@@ -30,10 +40,13 @@
 
   <ItemGroup>
     <Folder Include="Page\Components\" />
-    <Folder Include="RazorPage\" />
     <Folder Include="wwwroot\ImageName\Cover\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\ListUpload\" />
+    <Folder Include="wwwroot\DatabaseBcakup\" />
+    <Folder Include="wwwroot\Image\" />
+    <Folder Include="wwwroot\WriteIFromJson\" />
+    <Folder Include="wwwroot\WordAutomation\" />
   </ItemGroup>
 
 </Project>

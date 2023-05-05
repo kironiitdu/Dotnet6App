@@ -1,0 +1,96 @@
+﻿@model DotNet6MVCWebApp.Controllers.SearchByGroupName
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<form asp-action="Index2" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <select asp-for="String02NameSelected" id="allId" asp-items="Model.String02NameSelection"> <option value="All">All</option></select>
+            Title: <input type="text" asp-for="SearchString" />
+            <input type="submit" name="searchString" />
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Class01NameList[0].String01Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class01NameList[0].String02Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class01NameList[0].Int01Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class01NameList[0].DateTime01Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Class01NameList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.String01Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.String02Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Int01Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime01Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#allId").change(function () {
+                alert("Click");
+                var allId = $('#allId').val();
+                console.log(allId);
+
+                if (allId == "All") {
+                    alert("Alert");
+                    $.ajax({
+                        url: 'http://localhost:5094/Search/Index2',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { String02NameSelected: "All", searchString: "" },
+                        success: function (response) {
+                        },
+                        error: function () {
+                              window.location.href = "@Url.Action("Index2", "Search")?String02NameSelected=All&SearchString=";
+                        }
+                    });
+
+                }
+
+
+            });
+
+        });
+    </script>
+}

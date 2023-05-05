@@ -20,7 +20,7 @@ namespace DotNet6MVCWebApp.Controllers
             _linkGenerator = linkGenerator;
         }
 
-
+       
         public IActionResult Index()
         {
 

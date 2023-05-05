@@ -1,0 +1,33 @@
+﻿@model DotNet6MVCWebApp.Models.UploadComponentModel
+<div class="col-sm-4">
+    <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="card-body">
+            <form asp-controller="FileUploadViewComponent" asp-action="Index" enctype="multipart/form-data">
+                <div class="card card-body">
+                    <strong>Select PDF file to convert</strong> <div id="chooseFile"><input type="file" asp-for="MyUploadedFile" accept="image/*" /></div>
+                    <br />
+                </div>
+                <br />
+                <input type="submit" value="Upload" class="btn btn-primary" />
+                <input asp-action="Clear" type="submit" value="Clear" class="btn btn-outline-primary" />
+                <br />
+                @{
+                    if (Model.FileExtntionName == string.Empty || Model.UploadedFileName == string.Empty || Model.FileExtentionMessage == string.Empty)
+                    {
+
+                    }
+                    else
+                    {
+                        <label asp-for="FileExtntionName" class="control-label">File Type: @Model.FileExtntionName</label>
+                        <br />
+                        <label asp-for="UploadedFileName" class="control-label">File Name: @Model.UploadedFileName</label>
+                        <br />
+                        <label asp-for="UploadedFileName" class="control-label" style="color:red">Note: @Model.FileExtentionMessage</label>
+                        <a asp-action="DownloadFile" class="bi bi-download" asp-route-downloadlink="@Model.DownloadLink">Download File</a>
+                    }
+                }
+            </form>
+        </div>
+    </div>
+
+</div>

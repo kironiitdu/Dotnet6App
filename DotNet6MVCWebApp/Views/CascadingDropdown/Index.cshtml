@@ -1,166 +1,198 @@
 ﻿<div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Country</label>
-                <div class="col-md-6">
-                    <select class="form-control" id="ddlCountry"></select><br />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-4 control-label">State</label>
-                <div class="col-md-6">
-                    <select class="form-control" id="ddlState"></select>
-                    <br />
-
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                <label class="col-md-4 control-label">District</label>
-                <div class="col-md-6">
-                    <select class="form-control" id="ddlDistrict"></select>
-
-                </div>
-            </div>
-               <div class="form-group">
-                <label class="col-md-4 control-label"></label>
-                <div class="col-md-6">
-                     <input id="Submit" value="Submit" class="btn btn-primary" />
-
-                </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Country</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlCountry"></select><br />
             </div>
         </div>
-        <div class="col-lg-3"></div>
-       
-       
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">State</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlState"></select>
+                <br />
+
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="col-md-4 control-label">District</label>
+            <div class="col-md-6">
+                <select class="form-control" id="ddlDistrict"></select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-6">
+                <input id="Submit" value="Submit" class="btn btn-primary" />
+
+            </div>
+        </div>
     </div>
+    <div class="col-lg-3"></div>
+
+
+</div>
 
 
 
 
 @section scripts {
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-       var ddlCountry = $('#ddlCountry');
-    ddlCountry.append($("<option></option>").val('').html('Please Select Country'));
-    $.ajax({
-        url: 'http://localhost:5094/CascadingDropdown/LoadCountry',
-        type: 'GET',
-        dataType: 'json',
-        success: function (d) {
-            console.log(d);
-            $.each(d, function (i, country) {
-                console.log(i);
-                console.log(country);
-
-                ddlCountry.append($("<option></option>").val(country.countryId).html(country.countryName));
-            });
-        },
-        error: function () {
-            alert('Error!');
-        }
-    });
-
-    //State details by country id
-
-    $("#ddlCountry").change(function () {
-
-        //alert("On ddlCountry change");
-        var CountryId = parseInt($(this).val());
-        console.log(CountryId);
-        if (!isNaN(CountryId)) {
-            var ddlState = $('#ddlState');
-            ddlState.empty();
-            ddlState.append($("<option></option>").val('').html('Please wait ...'));
-
-
+            var ddlCountry = $('#ddlCountry');
+            ddlCountry.append($("<option></option>").val('').html('Please Select Country'));
             $.ajax({
-                url: 'http://localhost:5094/CascadingDropdown/GetState',
+                url: 'http://localhost:5094/CascadingDropdown/LoadCountry',
                 type: 'GET',
                 dataType: 'json',
-                data: { CountryId: CountryId },
                 success: function (d) {
+                    console.log(d);
+                    $.each(d, function (i, country) {
+                        console.log(i);
+                        console.log(country);
 
-                    ddlState.empty(); // Clear the please wait
-                    ddlState.append($("<option></option>").val('').html('Select State'));
-                    $.each(d, function (i, states) {
-                        ddlState.append($("<option></option>").val(states.stateId).html(states.stateName));
+                        ddlCountry.append($("<option></option>").val(country.countryId).html(country.countryName));
                     });
                 },
                 error: function () {
                     alert('Error!');
                 }
             });
-        }
+
+            //State details by country id
+
+            $("#ddlCountry").change(function () {
+
+                //alert("On ddlCountry change");
+                var CountryId = parseInt($(this).val());
+                console.log(CountryId);
+                if (!isNaN(CountryId)) {
+                    var ddlState = $('#ddlState');
+                    ddlState.empty();
+                    ddlState.append($("<option></option>").val('').html('Please wait ...'));
 
 
-    });
+                    $.ajax({
+                        url: 'http://localhost:5094/CascadingDropdown/GetState',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { CountryId: CountryId },
+                        success: function (d) {
 
-    //District Bind By satate id
-    $("#ddlState").change(function () {
-        var StateId = parseInt($(this).val());
-        if (!isNaN(StateId)) {
-            var ddlDistrict = $('#ddlDistrict');
-            ddlDistrict.append($("<option></option>").val('').html('Please wait ...'));
-            $.ajax({
-                url: 'http://localhost:5094/CascadingDropdown/GetDistrict',
-                type: 'GET',
-                dataType: 'json',
-                data: { stateId: StateId },
-                success: function (d) {
-
-
-                    ddlDistrict.empty(); // Clear the plese wait
-                    ddlDistrict.append($("<option></option>").val('').html('Select District Name'));
-                    $.each(d, function (i, districts) {
-                        ddlDistrict.append($("<option></option>").val(districts.districtId).html(districts.districtName));
+                            ddlState.empty(); // Clear the please wait
+                            ddlState.append($("<option></option>").val('').html('Select State'));
+                            $.each(d, function (i, states) {
+                                ddlState.append($("<option></option>").val(states.stateId).html(states.stateName));
+                            });
+                        },
+                        error: function () {
+                            alert('Error!');
+                        }
                     });
-                },
-                error: function () {
-                    alert('Error!');
                 }
+
+
             });
-        }
+
+            //District Bind By satate id
+            $("#ddlState").change(function () {
+                //Check
+                var getStateName = $("#ddlState").find('option:selected').text();
+                //Check Your condition
+                var checkRestriction = checkStateAccess(getStateName);
+                console.log(checkRestriction);
+                // console.log("restic:" + checkRestriction);
+                //Take action what you want
+                if (checkRestriction == true) {
+                    alert("Sorry,this city has restiction!");
+                    $('#Submit').attr('disabled', 'disabled');
+                    return false;
+                }
+                //End
+                var StateId = parseInt($(this).val());
+                if (!isNaN(StateId)) {
+                    var ddlDistrict = $('#ddlDistrict');
+                    ddlDistrict.append($("<option></option>").val('').html('Please wait ...'));
+                    $.ajax({
+                        url: 'http://localhost:5094/CascadingDropdown/GetDistrict',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { stateId: StateId },
+                        success: function (d) {
 
 
-    });
+                            ddlDistrict.empty(); // Clear the plese wait
+                            ddlDistrict.append($("<option></option>").val('').html('Select District Name'));
+                            $.each(d, function (i, districts) {
+                                ddlDistrict.append($("<option></option>").val(districts.districtId).html(districts.districtName));
+                            });
+                        },
+                        error: function () {
+                            alert('Error!');
+                        }
+                    });
+                }
 
-    //On Submit Method
-    
-        $("#Submit").click(function(){
-               var ddlCountry =  parseInt($("#ddlCountry").val());
-               var ddlState =  parseInt( $("#ddlState").val());
-               var ddlDistrict =  parseInt($("#ddlDistrict").val());
-               
-               var data = {
-                ddlCountry: ddlCountry,
-                ddlState: ddlState,
-                ddlDistrict: ddlDistrict
-                
-            };
-             console.log(data);
-                  $.ajax({
-                    url: 'http://localhost:5094/CascadingDropdown/AddCountryStateDistrict',
-                    type: 'POST',
+
+            });
+
+            function checkStateAccess(stateName) {
+                var restrictionStatus = false;
+                $.ajax({
+                    url: 'http://localhost:5094/CascadingDropdown/CheckStateAccess',
+                    type: 'GET',
                     dataType: 'json',
-                    data: data,
-                    success: function (d) {
-                       alert("Submitted To Database");
+                    data: { stateName: stateName },
+                    success: function (response) {
+                        // console.log(response);
+                        restrictionStatus = response;
+                        //console.log(restrictionStatus);
                     },
                     error: function () {
                         alert('Error!');
                     }
                 });
-                
-        });
+                return restrictionStatus;
+            }
 
-    });
-</script>
+            //On Submit Method
+
+            $("#Submit").click(function () {
+                var ddlCountry = parseInt($("#ddlCountry").val());
+                var ddlState = parseInt($("#ddlState").val());
+                var ddlDistrict = parseInt($("#ddlDistrict").val());
+               
+                var data = {
+                    ddlCountry: ddlCountry,
+                    ddlState: ddlState,
+                    ddlDistrict: ddlDistrict
+
+                };
+                console.log(data);
+                $.ajax({
+                    url: 'http://localhost:5094/CascadingDropdown/AddCountryStateDistrict',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: data,
+                    success: function (d) {
+                        alert("Submitted To Database");
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                });
+
+            });
+
+        });
+    </script>
         }

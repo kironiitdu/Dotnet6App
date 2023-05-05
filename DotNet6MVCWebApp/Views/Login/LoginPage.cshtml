@@ -1,0 +1,85 @@
+﻿<h1 class="text-info">Log in</h1>
+<div class="row">
+    <div class="col-md-8">
+        <hr />
+        <div class="form-group">
+            <label class="col-md-2">Email</label>
+            <div class="col-md-10">
+                <input type="text" id="userName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <label class="col-md-2">Password</label>
+            <div class="col-md-10">
+                <input type="password" id="password" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2"></label>
+            <div class="col-md-10">
+                <button type="submit" id="btnSubmit" class="btn btn-success form-control">Submit & Get Response</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="responseModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h5 class="modal-title"></h5>
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary button button4">Sign</button>
+                <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                    Hide
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnSubmit").click(function () {
+                alert("Okay");
+                var userName = $('#userName').val();
+                var password = $('#password').val();
+                $.ajax({
+                    url: "http://localhost:5094/ESmsDialoglk/Login",
+                    type: 'POST',
+                    async: true,
+                    dataType: 'application/json',
+                    data: {
+                        userName: userName,
+                        password: password
+                    },
+                    success: function (data) {
+
+                        $("#responseModal").find(".modal-header").html("User Name:" + data.userName);
+                        $("#responseModal").find(".modal-body").html("User ID:" + data.userId);
+                        $("#responseModal").find(".modal-title").html("Response From Server");
+                        $("#responseModal").modal('show');
+                    },
+                    error: function (xhr) {
+                        alert("false");
+                    }
+                });
+
+
+
+            });
+
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,33 @@
+﻿@using DotNet6MVCWebApp.ViewModel
+@model DotNet6MVCWebApp.Controllers.NewRoleVM
+
+<div class="mainContainer">
+
+    <form id="registerForm" method="post" asp-action="CreateNew">
+        <h1 class="span2">Create New Job Application</h1>
+        <label asp-for="RoleOpenning.RoleId"></label>
+        <select asp-for="RoleOpenning.RoleId" asp-items="@Model.RoleList">
+            <option selected disabled>PLEASE SELECT</option>
+        </select>
+
+        <label class="span2" asp-for="RoleOpenning.Description"></label>
+        <textarea class="span2" asp-for=RoleOpenning.Description rows="10" style="width:100%;resize:none;padding:10px;"></textarea>
+
+        <label asp-for="RoleOpenning.DepartmentId"></label>
+        <select asp-for="RoleOpenning.DepartmentId" asp-items="@Model.DepartmentList">
+            <option selected disabled>PLEASE SELECT</option>
+        </select>
+
+        <label asp-for="RoleOpenning.OpeningDate"></label>
+        <input asp-for=RoleOpenning.OpeningDate type="date" id="txtDate" />
+
+        <label asp-for="RoleOpenning.CloseDate"></label>
+        <input asp-for="RoleOpenning.CloseDate" type="date" id="txtDate" />
+
+        <div id="#buttonContainer">
+            <button type="submit">PUBLISH</button>
+        </div>
+
+    </form>
+
+</div>

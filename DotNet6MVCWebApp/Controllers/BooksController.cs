@@ -10,22 +10,22 @@ namespace DotNet6MVCWebApp.Controllers
             return View();
         }
 
-        public IActionResult Create()
-        {
-            var genreList = new List<Genre>()
-            {
-                new Genre(){ Id =1, Name = "Thrillere"},
-                new Genre(){ Id =2, Name = "Comedy"},
-                new Genre(){ Id =3, Name = "Horror"}
+        //public IActionResult Create()
+        //{
+        //    var genreList = new List<Genre>()
+        //    {
+        //        new Genre(){ Id =1, Name = "Thrillere"},
+        //        new Genre(){ Id =2, Name = "Comedy"},
+        //        new Genre(){ Id =3, Name = "Horror"}
                
              
 
-            };
+        //    };
 
-            CreateViewModel model = new CreateViewModel();
-            model.Book = new Book();
-            model.Genres = genreList;
-            return View(model);
-        }
+        //    CreateViewModel model = new CreateViewModel();
+        //    model.Book = new Book();
+        //    model.Genres = genreList;
+        //    return View(model);
+        //}
     }
 }

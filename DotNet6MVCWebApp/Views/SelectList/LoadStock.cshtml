@@ -1,0 +1,40 @@
+﻿@Html.DropDownList("Category", ViewBag.ListCategories, null, new { @class = "form-control", @onchange = "GetStocks(this.value)" })
+<select id="stocks" name="stocks" class="form-control"></select>
+
+<script language="javascript" type="text/javascript">
+    function GetStocks(_catId) {
+
+        alert(_catId);
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#stocks").html(procemessage).show();
+        var url = '@Url.Action("GetStockByCat", "SelectList")';
+
+        $.ajax({
+            url: url,
+            data: { CatId: _catId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                console.log(data);
+                var markup = "<option value='0'>---------</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += '<option value="' + data[x].value + '">' + data[x].text + '</option>';
+                }
+                $("#stocks").html(markup).show();
+
+                //$.each(d, function (i, country) {
+                //    console.log(i);
+                //    console.log(country);
+
+                //    ddlCountry.append($("<option></option>").val(country.countryId).html(country.countryName));
+                //});
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>
+    

@@ -11,6 +11,7 @@ namespace RazorPageDemoApp.Pages
         public string? RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string errorCode { get; set; }   
 
         private readonly ILogger<ErrorModel> _logger;
 
@@ -19,8 +20,10 @@ namespace RazorPageDemoApp.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(string code)
+        
         {
+            errorCode = code;
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
     }

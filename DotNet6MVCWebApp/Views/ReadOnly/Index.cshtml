@@ -1,0 +1,46 @@
+﻿@model DotNet6MVCWebApp.Controllers.TestViewModel
+<div class="form-group row">
+    <div class="col-3">
+        <label for="Renda Bruta">Associado Desde:</label>
+        <input type="text" name="Associado" class="form-control">
+    </div>
+    <div class="col-3">
+        <label for="Renda Liquida">Cota Capital</label>
+        <input type="text" name="Cota" class="form-control">
+    </div>
+    <div class="col-6" style="text-align:center">
+        <label for="ServidorPublico">IAP:</label>
+        <div class="input-group mb-3">
+            <input type="text" name="Quantidade" class="form-control" placeholder="Quantidade" value="Test Value" />
+            <input type="text" name="Produtos" class="form-control" placeholder="Produtos" value="Test Value Products" />
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-4">
+        <label for="Renda Bruta">Margem Contribuição</label>
+        <input type="text" name="Margem" class="form-control">
+    </div>
+    <div class="col-8" style="text-align:center">
+        <label for="ServidorPublico">Cheque Especial</label>
+        <div class="input-group mb-3">
+            <input type="text" name="Dias" class="form-control" placeholder="Dias de Utilização" />
+            <input type="text" name="Utili" class="form-control" placeholder="Valor Utilizado" />
+            <input type="text" name="Contra" class="form-control" placeholder="Valor Contratado" />
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("input[type='text']").each(function (index, item) {
+                console.log(item);
+                if ($(item).val() != "") {
+                    $(item).attr('readonly', true);
+                }
+            });
+        });
+    </script>
+}

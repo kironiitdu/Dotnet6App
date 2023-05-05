@@ -1,0 +1,41 @@
+﻿@*<form asp-controller="Workflow" method="post" asp-action="UpdateStatus">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input name="Id"  value="1"/>
+            <div class="form-group">
+                <button type="submit"  class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>*@
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/Workflow/OnPostDelete",
+                type: "DELETE",
+                data: {
+                    'ID': 1
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+
+                    window.location.href = "@Url.Action("AnotherIndex", "Workflow")?message=" + response.message;
+                    if (!response.success) {
+                        alert("here1");
+                    }
+                },
+                error: function (xhr, error, thrown) {
+                    alert("here2" + xhr.responseText);
+                }
+            });
+
+        });
+    </script>
+}

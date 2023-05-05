@@ -8,5 +8,10 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return View();
         }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

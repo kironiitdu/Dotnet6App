@@ -1,0 +1,15 @@
+﻿@model DotNet6MVCWebApp.Controllers.TestAssetViewModel
+
+<form asp-controller="ImageNotBind" asp-action="Create" enctype="multipart/form-data" class="dropzone">
+    <div class="fallback">
+        <input asp-for="ImageFile" onchange="javascript:this.form.submit();" accept="image/*">
+       
+    </div>
+    <div class="dz-message needsclick">
+        <div class="mb-3">
+            <i class="display-4 text-muted bx bx-cloud-upload"></i>
+        </div>
+        <h5>Drop files here or click to upload.</h5>
+        
+    </div>
+</form>

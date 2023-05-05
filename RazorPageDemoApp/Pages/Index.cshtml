@@ -1,5 +1,7 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home page";
 }
@@ -8,3 +10,39 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@{
+    var data = HttpContext.Request.Cookies["_count"];
+}
+
+@*<h1>current cookie value: @data</h1>*@
+<h1>From WWWRoot</h1>
+<div class="grid-item">
+    <img src="~/Images/HighRes.jpg" alt="HighRes" />
+</div>
+<h1>From Outside Of WWWRoot </h1>
+<div class="grid-item">
+    <img src="~/ImagesOutsideRoot/HighRes.jpg" alt="HighRes" />
+</div>
+
+@*@using RazorPageDemoApp.Enum
+<form class="form-group" method="post">
+    <div class="row">
+        <div class="form-group">
+            <table style="border-spacing: 12px;">
+                <tr>
+                </tr>
+                <tr>
+                    <td><strong>Setting Dropdown Default Value From Enum</strong></td>
+                    <td>@Html.DropDownList("Animal", Html.GetEnumSelectList<Animal>(),  new { @class = "form-control" })</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+*@
+
+
+

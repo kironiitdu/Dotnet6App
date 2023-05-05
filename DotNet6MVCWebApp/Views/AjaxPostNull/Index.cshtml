@@ -1,0 +1,42 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$.ajax({
+            //    url: "/Workflow/OnPostDelete",
+            //    type: "DELETE",
+            //    data: {
+            //        'ID': 1
+            //    },
+            //    dataType: "json",
+            //    success: function (response) {
+            //        console.log(response);
+
+            //        window.location.href = "@Url.Action("AnotherIndex", "Workflow")?message=" + response.message;
+            //        if (!response.success) {
+            //            alert("here1");
+            //        }
+            //    },
+            //    error: function (xhr, error, thrown) {
+            //        alert("here2" + xhr.responseText);
+            //    }
+            //});
+            $.ajax({
+                url: "/AjaxPostNull/GetCustomer",
+                type: "POST",
+                data: { 'id': 5 },
+                dataType: "json",
+                contentType: "application/json;",
+                success: function (response, textStatus, xhr) {
+                    alert(response);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+
+        });
+    </script>
+}

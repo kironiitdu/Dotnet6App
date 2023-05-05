@@ -1,0 +1,46 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var things = [{ Name: "Shoe" }, { Name: "House" }, { Name: "Boat" }];
+            var foo = { Id: 123, Things: things };
+            data = foo;
+            console.log(data);
+            $.ajax({
+                type: "Post",
+                cache: false,
+                url: '@Url.Action("ProcessFoo", "AjaxPostNull")',
+                data: { foo: data },
+                dataType: "json",
+                async: false,
+                traditional: true,
+                success: function (model) {
+                    //Do Something
+                }
+            });
+
+
+            //var TFObj = {};
+            //TFObj.Id = 1;
+            //TFObj.Name = "Test Name";
+            //TFObj.Email = "Test Email";
+            //console.log(TFObj);
+
+            //$.ajax({
+            //    url: "/AjaxPostNull/GetItemsForRelease",
+            //    type: "POST",
+            //    data: { requestModel: TFObj },
+            //    dataType: "html",
+            //    success: function (responsedata) {
+            //        $("#releaseItemsPush").html(responsedata);
+            //    },
+            //    error: function (error) {
+            //        console.log(error);
+            //    }
+            //});
+
+        });
+    </script>
+}

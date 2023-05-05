@@ -1,0 +1,44 @@
+﻿<button type="button" name="submitButton" value="Edit" class="btn btn-primary form-control"
+        onclick="EditbreakDown()">
+    Edit
+</button>
+
+
+
+@section scripts {
+    <script>
+        function EditbreakDown() {
+
+            alert("Working");
+
+            var fleets = [];
+            for (let i = 1; i <= 10; i++) {
+                var items = {
+                    CustomerCode: "CustomerCode:" + i,
+                    RegNo: "RegNo:" + i,
+                    FleetNo: "FleetNo:" + i,
+
+                }
+                fleets.push(items);
+
+                
+            }
+
+            console.log(fleets);
+
+            var json = JSON.stringify(fleets);
+
+            console.log(json);
+            var url = '@Url.Action("SummaryReport","AjaxPostNull")';
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype: "JSON",
+                data: { fleets: json },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+    </script>
+}

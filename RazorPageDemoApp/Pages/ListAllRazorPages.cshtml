@@ -1,0 +1,25 @@
+﻿@page
+@model ListAllRazorPagesModel
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Display Name
+            <th>URL
+            <th>Route Pattern
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pageName in @Model.EndpointSources)
+        {
+            <tr>
+                <td>@pageName.DisplayName?.TrimStart('/')</td>
+                <td>@pageName</td>
+                <td>@pageName.RoutePattern.RawText</td>
+            </tr>
+        }
+    </tbody>
+</table>

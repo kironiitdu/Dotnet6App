@@ -1,0 +1,29 @@
+﻿@{
+    var data = @Html.Raw(ViewBag.message);
+
+}
+
+<h1>@Html.Raw(ViewBag.message)</h1>
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+           
+            var message = "@Html.Raw(ViewBag.message)";
+
+            var span = document.createElement("span");
+            span.innerHTML = message
+           
+
+            $(function () {
+                swal({
+                    content: span,
+                    icon: "success",
+                    button: "Ok",
+                });
+            });
+        });
+    </script>
+        }

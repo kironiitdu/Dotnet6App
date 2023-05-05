@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Institution>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.District)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstitutionCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstitutionName)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.District)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstitutionCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstitutionName)
+                </td>
+                <td>
+                    <a asp-action="EditMember" class="btn btn-primary" asp-route-memberId="@item.Id">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

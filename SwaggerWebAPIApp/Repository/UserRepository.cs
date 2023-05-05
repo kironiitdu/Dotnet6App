@@ -3,7 +3,7 @@ using SwaggerWebAPIApp.Interface;
 using SwaggerWebAPIApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dotnet6App.Repository
+namespace SwaggerWebAPIApp.Repository
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
@@ -13,6 +13,7 @@ namespace Dotnet6App.Repository
         {
             try
             {
+                
                 var users = context.User.FromSqlRaw("EXEC GetAllUsers").ToList();
                 return await dbSet.ToListAsync();
             }

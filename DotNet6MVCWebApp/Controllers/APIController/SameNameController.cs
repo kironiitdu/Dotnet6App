@@ -13,5 +13,6 @@ namespace DotNet6MVCWebApp.Controllers.APIController
         {
             yield return Ok();
         }
+       
     }
 }

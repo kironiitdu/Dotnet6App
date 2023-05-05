@@ -1,0 +1,41 @@
+﻿<button type="button" name="submitButton" value="Edit" class="btn btn-primary form-control"
+        onclick="CallAjaxFunc()">
+    Edit
+</button>
+
+
+
+@section scripts {
+    <script>
+
+        function createObject(x) {
+
+            alert("Func called")
+            var obj = {};
+            obj.Name = x;
+
+            $.ajax({
+                type: "POST",
+                url: "/AjaxPostNull/Tire",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess,
+                failure: function (response) {
+                    //failure  message
+                }
+            });
+            function OnSuccess(response) {
+                //do your stuff after success response
+            }
+
+            
+        }
+        function CallAjaxFunc() {
+            alert("Click");
+            var testObject = "Test String Data";
+            var callFunc =  createObject(testObject);
+            console.log(callFunc);
+        }
+    </script>
+}

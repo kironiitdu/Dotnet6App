@@ -1,0 +1,38 @@
+﻿
+<form method="post">
+    <div clss="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Amount</td>
+                    <td>Type</td>
+                    <td>Description</td>
+                    <td>Location</td>
+                    <td>State</td>
+                    <td>Transaction ID</td>
+                </tr>
+            </thead>
+            <tbody>
+          
+                @for (var i = 0; i < Model.Transactions.Count; i++)
+                {
+                   
+                    <tr>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].Date" value="@Model.Transactions[i].Date" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].Amount" value="@Model.Transactions[i].Amount" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].Type" value="@Model.Transactions[i].Type" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].Description" value="@Model.Transactions[i].Description" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].Location" value="@Model.Transactions[i].Location" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].State" value="@Model.Transactions[i].State" /></td>
+                        <td><input class="form-control" type="text" name="UploadTransactions[@i].TransId" value="@Model.Transactions[i].TransId" /></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary mt-3" type="submit" style="min-width:100%" id="button-submit">Upload</button>
+    </div>
+</form>

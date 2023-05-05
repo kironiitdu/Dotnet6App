@@ -1,0 +1,62 @@
+﻿@*@page
+@model MinerDetailsModel
+
+
+<h1>Miner Details</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                PowerSerialNumber
+            </th>
+            <th>
+                MinerSerialNumber
+            </th>
+            <th>
+                WorkerName
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <td>
+                @Model.minerCustomModel?.PowerSerialNumber
+                </td>
+                <td>
+                @Model.minerCustomModel?.MinerSerialNumber
+                </td>
+                <td>
+                @Model.minerCustomModel?.WorkerName
+                </td>
+            </tr>
+       
+    </tbody>
+</table>
+*@
+
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using Microsoft.AspNetCore.Routing
+@inject EndpointDataSource EndpointsDataSource
+
+@{
+    HashSet<string> Pages = new HashSet<string>();
+    foreach (var endpoint in EndpointsDataSource.Endpoints)
+    {
+        foreach (var metadata in endpoint.Metadata)
+        {
+            if (metadata is PageActionDescriptor)
+            {
+                Pages.Add(((PageActionDescriptor)metadata).RelativePath);
+            }
+        }
+    }
+}
+<ul>
+    @foreach (var p in Pages)
+    {
+        <li>@p</li>
+    }
+</ul>

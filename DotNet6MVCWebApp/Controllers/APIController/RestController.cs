@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Core;
+using DotNet6MVCWebApp.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using static DotNet6MVCWebApp.Controllers.BadRequestController;
 
 namespace DotNet6MVCWebApp.Controllers.APIController
 {
@@ -7,19 +11,44 @@ namespace DotNet6MVCWebApp.Controllers.APIController
     [ApiController]
     public class RestController : ControllerBase
     {
-        [HttpPost("issue/{issue}/attachments")]
-        public IActionResult Rest([FromRoute]string issue, [FromBody]string attachments)
-        {
-            return Ok(attachments);
-        }
+        //[HttpPost("issue/{issue}/attachments")]
+        //public IActionResult Rest([FromRoute]string issue, [FromBody]string attachments)
+        //{
+        //    return Ok(attachments);
+        //}
+        private readonly ApplicationDbContext _appDbContext;
 
-        [HttpPost]
-        [Route("CreateException")]
-        public async Task<IActionResult> CreateException([FromBody] string obj)
+
+        public RestController(ApplicationDbContext dbContext)
         {
-            //await _exceptionDetailsService.AddExceptionDetails(exceptionDetails);
-            return Ok();
+            _appDbContext = dbContext;
         }
+        
+        [HttpPost]
+        [Route("CheckDocumentStatus")]
+        public async Task<IActionResult> CheckDocumentStatus([FromBody] StatusRequestModel obj)
+        {
+            try
+            {
+                var checkStatus = _appDbContext.Progs.Where(id => id.BookId == obj.RequestId).FirstOrDefault();
+
+                return Ok(checkStatus?.Status);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
+           
+        }
+        //authorization
+
     }
-    
+
+    public class StatusRequestModel
+    {
+        public int RequestId { get; set; }
+    }
+
 }

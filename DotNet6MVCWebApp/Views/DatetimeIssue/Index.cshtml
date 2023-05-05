@@ -1,0 +1,53 @@
+﻿@model DotNet6MVCWebApp.Controllers.TicketViewModel
+
+
+<form asp-action="Create">
+    <div class="col-6">
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="chk-sdate" asp-for="TicketDetails.NoStartDate" checked="@(Model.TicketDetails.NoStartDate)" />
+        </div>
+        <div class="form-row  align-items-left">
+            <div class="col-4">
+                <label class="custom-control-label" asp-for="TicketDetails.NoStartDate"></label>
+            </div>
+            <div class="col-8">
+                <input type="text" class="form-control datepick" id="input-sdate" asp-for="TicketDetails.StartDate" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            //On btnClear Method
+
+            $("#btnClear").click(function () {
+               alert("Clera")
+
+            });
+
+            $('#chk-sdate').on('change', function () {
+                
+                if ($(this).prop('checked')) {
+                    alert("IF")
+                    $('#input-sdate').prop('disabled', false);
+                } else {
+                    alert("Else")
+                    $('#input-sdate').attr('value', '');
+                  
+                    $('#input-sdate').prop('disabled', true);
+                }
+            })
+
+        });
+    </script>
+        }

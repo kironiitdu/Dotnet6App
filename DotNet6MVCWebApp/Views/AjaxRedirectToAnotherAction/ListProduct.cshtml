@@ -1,0 +1,22 @@
+﻿@model List<DotNet6MVCWebApp.Controllers.ProductViewModel>
+
+
+<table class="table table table-bordered">
+    <thead>
+        <tr>
+            <th>ProductName
+            <th>ProductCode
+            <th>Cost
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.ProductCode</td>
+                <td>@item.Cost</td>
+            </tr>
+        }
+    </tbody>
+</table>

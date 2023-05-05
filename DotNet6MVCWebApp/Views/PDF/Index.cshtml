@@ -1,0 +1,35 @@
+﻿
+<div class="container-bg">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <a target="_blank" class="btn btn-info" asp-controller="PDF" asp-action="ViewPDF">Download PDF</a>
+        </main>
+    </div>
+</div>
+
+@Html.Raw(TempData["Embed"])
+
+<br />
+<input type="button"
+       onclick="printEmbeddedObject()"
+       class="btn btn-success"
+       value="Print PDF" />
+
+<script>
+    let printEmbeddedObject = () => {
+      
+        const getObjectElement = document.querySelector('object');
+        let pdfFileLocation = getObjectElement.getAttribute('data');
+        console.log(pdfFileLocation);
+       
+        let instanceIframeObject = document.createElement('iframe');   
+        instanceIframeObject.style.visibility = 'hidden';
+        instanceIframeObject.src = pdfFileLocation;
+
+        document.body.appendChild(instanceIframeObject);
+
+        instanceIframeObject.contentWindow.focus();
+        instanceIframeObject.contentWindow.print();
+    }
+
+</script>

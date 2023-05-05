@@ -1,21 +1,29 @@
 ﻿using ArrayToPdf;
 using Azure.Core;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using DotNet6MVCWebApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using OfficeOpenXml;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace DotNet6MVCWebApp.Controllers
 {
+  
     public class ApplicationController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _environment;
 
-
+        
         public ApplicationController(IWebHostEnvironment environment, ApplicationDbContext context)
         {
             _environment = environment;
@@ -23,6 +31,25 @@ namespace DotNet6MVCWebApp.Controllers
         }
         public IActionResult Index()
         {
+
+            IEnumerable<long> mymsgIds = new List<long>
+            {
+               1, 221, 3, 4055, 5, 6, 700
+            };
+
+            var checkIdStaus = _context.userLogs.Select(x => x.ulogo_id).ToList().Contains(mymsgIds.FirstOrDefault());
+
+            var allMyTableIds = _context.userLogs.Select(x => x.ulogo_id).ToList();
+
+            //Check Each
+            foreach (var eachIds in mymsgIds)
+            {
+                var isExist = allMyTableIds.Contains(eachIds);
+            }
+            // 
+
+         var ststus =   mymsgIds.First(eachIds => allMyTableIds.Contains(eachIds));
+
             return View();
         }
         public class CheckBoxRequired : ValidationAttribute
@@ -65,7 +92,7 @@ namespace DotNet6MVCWebApp.Controllers
         }
         public ActionResult DisplayPDFFromExistingFile()
         {
-            string physicalPath = "wwwroot/KironGitHub.pdf";
+            string physicalPath = "wwwroot/Documents/KironGitHub.pdf";
             byte[] pdfBytes = System.IO.File.ReadAllBytes(physicalPath);
             MemoryStream ms = new MemoryStream(pdfBytes);
             return new FileStreamResult(ms, "application/pdf");
@@ -121,6 +148,52 @@ namespace DotNet6MVCWebApp.Controllers
             
             return Ok(rawContent);
             
+        }
+       
+        public IActionResult IndexExportExcel()
+        {
+            return View();
+        }
+        private byte[] ExporttoExcel<T>(List<T> table, string filename)
+        {
+            using ExcelPackage pack = new ExcelPackage();
+            ExcelWorksheet ws = pack.Workbook.Worksheets.Add(filename);
+            ws.Cells["A1"].LoadFromCollection(table, true, TableStyle:OfficeOpenXml.Table.TableStyles.Light1);
+            return pack.GetAsByteArray();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExportToExcel()
+        {
+
+            var arraylist = _context.Drivers.ToList();
+            string reportname = $"User_Wise_{Guid.NewGuid():N}.xlsx";
+           
+            if (arraylist.Count > 0)
+            {
+                var exportbytes = ExporttoExcel<Driver>(arraylist, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+            else
+            {
+                return NotFound();
+            }
+            //var getDataTable = ConversionClass.GenericToDataTableToDataTable(arraylist);
+
+            //using (XLWorkbook xl = new XLWorkbook())
+            //{
+            //    xl.Worksheets.Add(getDataTable);
+
+            //    using (MemoryStream mstream = new MemoryStream())
+            //    {
+            //        xl.SaveAs(mstream);
+            //        return File(mstream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Customer.xlsx");
+            //    }
+            //}
+
+
+
+
         }
         public async Task<IActionResult> GetImage(string imageName)
         {
@@ -222,4 +295,31 @@ namespace DotNet6MVCWebApp.Controllers
             return View();
         }
     }
+
+    public static class ConversionClass
+    {
+        public static DataTable GenericToDataTableToDataTable<T>(this IList<T> data)
+        {
+            var json = JsonConvert.SerializeObject(data);
+            DataTable dt = (DataTable)JsonConvert.DeserializeObject(json, (typeof(DataTable)));
+            return dt;
+        }
+        public static DataTable ToDataTable<T>(this IList<T> data)
+        {
+            PropertyDescriptorCollection properties =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+    }
+
 }

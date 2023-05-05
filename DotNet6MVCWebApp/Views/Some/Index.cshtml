@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Models.Cookie>
+
+
+<table class="table table table-bordered">
+    <thead>
+        <tr>
+            <th>Id
+            <th>Cookie
+            <th>Ingredient Details
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    @item.Name
+
+                </td>
+                <td>
+                    @foreach (var ingredient in item.Ingridients)
+                    {
+
+                        <li> @ingredient.IngredientName </li>
+                        <br />
+                    }
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

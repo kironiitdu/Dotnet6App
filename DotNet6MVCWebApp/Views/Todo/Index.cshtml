@@ -27,34 +27,46 @@
     </thead>
     <tbody>
         @{
-            foreach (var v in Model)
+            foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @(count=count+1)
+                        @(count = count + 1)
                     </td>
                     <td>
-                        @v.ItemId
+                        @item.ItemId
                     </td>
                     <td>
-                        @v.Description
+                        @item.Description
                     </td>
                     <td>
-                        @v.StartDate.ToShortDateString()
+                        @item.StartDate.ToShortDateString()
                     </td>
                     <td>
-                        @v.EndDate.ToShortDateString()
+                        @item.EndDate.ToShortDateString()
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = v.ItemId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }, new { @class = "btn btn-primary" })
                     </td>
                     <td>
-                        @Html.ActionLink("Delete", "Delete", new { id = v.ItemId }, new { @class = "btn btn-danger" })
-
+                       
+                        <input type="button" class="btn btn-primary mx-1" value="Delete From Razor To Js Func" onclick="deletePill('@item.ItemId')" />
                     </td>
                 </tr>
             }
         }
     </tbody>
 </table>
-and Edit.cshtml as below
+@section scripts {
+    <script>
+        //Function Button Delete
+        function deletePill(Id) {
+            alert("User Id:" + Id + " will be Deleted!");
+            console.log(Id);
+        }
+        
+    </script>
+}
+
+
+

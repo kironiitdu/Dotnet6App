@@ -125,3 +125,26 @@
 
     </script>
 }
+
+    @{
+    DisclosureCardViewModel disclosureCard = new DisclosureCardViewModel();
+    disclosureCard.DisclosureCardTitle = "Title From Component Class Instance";
+    disclosureCard.DisclosureCardName = "Name From Component Class Instance";
+}
+
+<div>
+    
+    @await Component.InvokeAsync("Default",disclosureCard)
+</div>
+<br />
+
+   @* @{
+    UploadComponentModel fileUplaoder = new UploadComponentModel();
+    fileUplaoder.MyUploadedFile = null;
+    fileUplaoder.FileExtntionName = "";
+    fileUplaoder.UploadedFileName = "";
+}
+<div>
+
+    @await Component.InvokeAsync("FileUploader",fileUplaoder)
+</div>*@

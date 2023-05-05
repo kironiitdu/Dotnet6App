@@ -10,7 +10,7 @@ namespace DotNet6MVCWebApp.Middleware
         {
             if (context.HttpContext.Request.Path.StartsWithSegments("/api/Operations"))
             {
-
+               // var sss = System.Net.WebUtility.HtmlDecode();
                 context.Result = new JsonResult(new { HttpStatusCode.Unauthorized });
 
             }

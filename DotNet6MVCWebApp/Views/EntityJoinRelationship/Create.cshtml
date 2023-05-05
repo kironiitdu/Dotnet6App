@@ -1,0 +1,63 @@
+﻿@model DotNet6MVCWebApp.Models.Equipment
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Entity Type Dropdown</h4>
+<hr />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount" class="control-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    @*   <div class="form-group">
+    <label asp-for="entityType" class="control-label"></label>
+    @Html.DropDownListFor(model => model.entityType, @ViewBag.DepartmentId as SelectList, "Select Type", new { @class = "custom-select"})
+    </div>*@
+    <div class="form-group">
+        <label asp-for="InternalConsigned" class="control-label"></label>
+        <select asp-for="InternalConsigned" class="form-control">
+            <option value="Select">Select...</option>
+            <option value="Internal">Internal</option>
+            <option value="Consigned">Consigned</option>
+        </select>
+        <span asp-validation-for="InternalConsigned"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="EOLDate" class="control-label"></label>
+        <input asp-for="EOLDate" class="form-control" />
+        <span asp-validation-for="EOLDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="entityType" class="control-label"></label>
+        @Html.DropDownListFor(model => model.entityType, @ViewBag.entityType as SelectList, "Select Type", new { @class = "custom-select"})
+        <span asp-validation-for="entityType" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+@*@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.custom-select option:contains("Select Type")').attr("disabled", "disabled");
+        });
+    </script>
+}
+*@
+
+

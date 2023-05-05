@@ -1,0 +1,30 @@
+﻿@model DotNet6MVCWebApp.Controllers.ClientModel
+<form asp-action="Create">
+    <div>
+        @Html.DropDownList("ClientID",(IEnumerable<SelectListItem>)ViewBag.ClientsSelectList , "Select Client")
+        @Html.ValidationMessageFor(model => model.ClientID)
+    </div>
+    @Html.CheckBox("CreateNew", false, new {id = "chkShowForm2"}) Add new client
+
+    <div id="addForm">
+        <div class="form-group">
+            <label asp-for="ClientName" class="control-label"></label>
+            <input asp-for="ClientName" class="form-control" />
+            <span asp-validation-for="ClientName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

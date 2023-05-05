@@ -1,8 +1,12 @@
-﻿
+﻿@{
+    var item = "";
+}
 
 <script>
-    var FromComTaskLibType = '@TempData["FromComTaskLibType"]';
-    alert(JSON.stringify(FromComTaskLibType));
+    var fromC_Sharp = '@TempData["FromC#TOJavascript"]';
+    alert(JSON.stringify(fromC_Sharp));
+
+ 
 
     var data = JSON.stringify(FromComTaskLibType);
     alert(data.replace(/"/g, '\''));
@@ -10,3 +14,7 @@
    
     console.log(JSON.stringify(FromComTaskLibType));
 </script>
+
+@{
+    Console.WriteLine(item);
+}

@@ -1,0 +1,59 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using BlazorServerApp.Data
+@inject WeatherForecastService ForecastService
+
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Employee Name
+            </th>
+            <th>
+                Employee Picture
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employees in NorWindsEmployeeList)
+        {
+            <tr>
+                <td>
+                    @employees.EmployeeName
+                </td>
+                <td>
+                    <img src="Image/@employees.ImageName"
+                     class="rounded-square"
+                     height="50" width="75"
+                     style="border:1px"
+                     accept="image/*" />
+                </td>
+                
+              
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@code {
+
+    public class NorWindsEmployees
+    {
+        public string EmployeeName { get; set; }
+        public string ImageName { get; set; }
+    }
+
+    List<NorWindsEmployees> NorWindsEmployeeList = new List<NorWindsEmployees>()
+            {
+                new NorWindsEmployees(){ EmployeeName ="A",ImageName = "China_Flag.jpg"},
+                new NorWindsEmployees(){ EmployeeName ="B",ImageName = "du.png"},
+                new NorWindsEmployees(){ EmployeeName ="C",ImageName = "Kiron.gif"},
+            };
+}
+
+

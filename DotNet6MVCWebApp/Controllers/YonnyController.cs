@@ -1,6 +1,7 @@
 ﻿using DotNet6MVCWebApp.Data;
 using DotNet6MVCWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -53,7 +54,17 @@ namespace DotNet6MVCWebApp.Controllers
 
             return View();
         }
+        [HttpPost]
+        public IActionResult FakeMethod(FakeModel fakeModel)
+        {
+            var vName = fakeModel.NewName;
+            return RedirectToAction("Home", "Home");
+        }
 
+        public IActionResult SaveIndex()
+        {
+            return View();
+        }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create(Basket model)
@@ -112,6 +123,14 @@ namespace DotNet6MVCWebApp.Controllers
         }
 
 
+    }
+
+    public class FakeModel
+    {
+        public string NewName { get; set; }
+    }
+    public class QuarterlyNonComplianceReportDTO
+    {
     }
 
 

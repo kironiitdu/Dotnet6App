@@ -1,0 +1,32 @@
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            var data = {
+                Id: 101,
+                No_activo: 1,
+                Cobro_indebido: true,
+                ApellidoP: "Test P ",
+                ApellidoM: "Test M ",
+            }
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5094/EntityJoinRelationship/Post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (res) {
+                    alert(res)
+                },
+                error: function (res) {
+                    alert(res)
+                }
+            });
+            
+        });
+    </script>
+}

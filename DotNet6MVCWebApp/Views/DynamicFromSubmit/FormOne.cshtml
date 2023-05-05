@@ -1,0 +1,11 @@
+﻿@*<form asp-action="Create" method="POST">
+    <input type="text" name="firstName">
+    <input type="text" name="lastName">
+    <button type="submit">Submit</button>
+</form>*@
+
+<form asp-controller="Demo" asp-action="Index" method="POST">
+    <input type="text" name="firstName">
+    <input type="file" name="files" accept="image/*" />
+    <button type="submit">Submit</button>
+</form>

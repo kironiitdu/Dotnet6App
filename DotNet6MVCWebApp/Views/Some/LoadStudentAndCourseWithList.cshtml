@@ -1,0 +1,12 @@
+﻿@model DotNet6MVCWebApp.Controllers.StudentClass
+<form method="post" action="Save">
+    <div class="mb-3">
+        <label asp-for="StdName" class="control-label"></label>
+        <input type="text" class="form-control" asp-for="StdName">
+    </div>
+   @foreach (var item in Model.StudentCourses)
+    {
+        <input type="text" class="form-control" asp-for="@item.CourseName">
+    }
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

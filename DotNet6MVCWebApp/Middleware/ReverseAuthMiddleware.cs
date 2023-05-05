@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
+using System.Security.Policy;
 
 namespace DotNet6MVCWebApp.Middleware
 {
@@ -17,10 +18,12 @@ namespace DotNet6MVCWebApp.Middleware
             _linkGenerator = linkGenerator;
         }
        
+       
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
+             
                 if (httpContext.Response.StatusCode == 404)
                 {
                     httpContext.Response.Redirect("/ShowthatController/Index");

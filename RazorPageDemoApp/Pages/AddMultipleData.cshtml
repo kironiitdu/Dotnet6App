@@ -1,0 +1,35 @@
+﻿@page "/AddMultipleData"
+@model RazorPageDemoApp.Pages.AddMultipleDataModel
+
+
+
+<form method="post">
+    <div class="col-md-12">
+        @for (int i = 0; i <Model.clientServices.Count(); i++)
+        {
+            <input asp-for="@Model.clientServices[i].CliId" class="form-control" value="@Model.clientServices[i].CliId" hidden />
+            <input class="form-control" asp-for="@Model.clientServices[i].ServId" value="@Model.clientServices[i].ServId" hidden />
+            <div class="border-0" style="width: 6%; height: 150px; min-width: 30px; float: left; ">
+                <div class="form-group form-check" style="position:relative;left:-15px;">
+                    <label class="form-check-label btn btn-sm fw-bold border m-1 p-1" style="border-radius:16px;">
+                        <input asp-for="@Model.clientServices[i].Active" value="@Model.clientServices[i].CliId"
+                           style="border-radius:16px;position:relative;" />
+                        <br />
+                        @i
+                    </label>
+                </div>
+            </div>
+           
+        }
+        
+    </div>
+
+    <div>
+
+        <button class="btn btn-sm btn-outline-primary fw-bold" type="submit" name="id"
+                style="font-size: 120%;float:unset;min-width:120px; margin-top:100px">
+            Save
+        </button>
+    </div>
+
+</form>

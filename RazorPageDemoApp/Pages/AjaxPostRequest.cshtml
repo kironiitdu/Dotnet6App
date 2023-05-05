@@ -1,0 +1,42 @@
+﻿@page
+@model RazorPageDemoApp.Pages.AjaxPostRequestModel
+@{
+}
+<strong><span id="appendHere"></span></strong></>
+<hr />
+<button type="button" name="submitButton" value="Edit" class="btn btn-primary"
+        onclick="GetAjaxResponse()">
+    Submit Request
+</button>
+
+
+
+@section scripts {
+    <script>
+        function GetAjaxResponse() {
+
+
+
+            var selectedDep = [{ prop1: "value1", prop2: "value2" }];
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/AjaxPostRequest',
+                data: JSON.stringify([{ prop1: "value1", prop2: "value2" }]),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    RequestVerificationToken:
+                        $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                success: function (data) {
+                    alert('Data sent to backend!');
+                },
+                error: function (xhr, status, error) {
+                    alert('Data was not sent to backend!');
+                }
+            });
+        }
+    </script>
+}

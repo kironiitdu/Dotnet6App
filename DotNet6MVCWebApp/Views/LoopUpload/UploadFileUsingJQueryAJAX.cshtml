@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Upload File Using jQuery AJAX";
+}
+<h1>@ViewData["Title"]</h1>
+<form id="myForm" method="post" enctype="multipart/form-data" asp-action="UploadFileUsingJQueryAJAX" asp-controller="LoopUpload">
+    <table>
+        <tr>
+            <td>First name:</td>
+            <td><input type="text" id="txtFirstName" name="txtFirstName" /></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><input type="text" id="txtLastName" name="txtLastName" /></td>
+        </tr>
+        <tr>
+            <td>Photo:</td>
+            <td><input type="file" id="photo" name="postedFile" /></td>
+        </tr>
+        <tr>
+            <td>Photo:</td>
+            <td><input type="button" value="Submit" onclick="AjaxFormSubmit()" /></td>
+        </tr>
+    </table>
+</form>
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+            function AjaxFormSubmit() {
+                alert("Click");
+            var formData = new FormData();
+            formData.append("FistName", $("#txtFirstName").val());
+            formData.append("LastName", $("#txtLastName").val());
+            formData.append("postedFile", $("#photo")[0].files[0]);
+          
+            //var url = $('#myForm').attr('action');
+            //var firstName = $('#txtFirstName').val();
+            //var lastName = $('#txtLastName').val();
+            //var photo = $('#photo')[0].files[0];
+
+            //var model = {
+            //    url: url,
+            //    FirstName: firstName,
+            //    LastName: lastName,
+            //    Photo: photo
+            //};
+
+            var callFunc = SubmitForm(formData);
+        }
+        function SubmitForm(formData) {
+            alert("Submit");
+            console.log(formData);
+            $.ajax({
+                type: 'POST',
+                url: '/LoopUpload/UploadFileUsingJQueryAJAX',
+                data: formData,
+                contentType: false,
+                processData: false,
+                //beforeSend: function (xhr) {
+                //    xhr.setRequestHeader("XSRF-TOKEN",
+                //        $('input:hidden[name="__RequestVerificationToken"]').val());
+                //},
+                success: function (response) {
+                    //console.log(response.responseText);
+                    //if (response.status == "success") {
+                    //    //alert("File : " + response.filename + " is uploaded successfully");
+                    //    console.log(response.responseText);
+                    //}
+                },
+                error: function (err) {
+                    alert("Error occurs" + err.responseText);
+                }
+            });
+        }
+       
+    </script>
+
+}

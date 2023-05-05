@@ -1,4 +1,5 @@
 ﻿using DotNet6MVCWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +44,11 @@ namespace DotNet6MVCWebApp.Controllers
             return View();
         }
 
+        public IActionResult LoginPage()
+        {
+            return View();
+        }
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel, string? returnurl)
@@ -74,5 +80,7 @@ namespace DotNet6MVCWebApp.Controllers
 
             return View(loginViewModel);
         }
+
+
     }
 }

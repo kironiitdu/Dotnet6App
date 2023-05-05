@@ -1,0 +1,107 @@
+﻿@page
+@model RazorPageDemoApp.Pages.RazorSetGetSessionObjectModel
+<div class="row">
+    <div class="col-sm-3">
+        <form method="post">
+            <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                <div class="card-body">
+                    <h5 class="card-title">C# Fundamental</h5>
+                    <p class="card-text">A-Z of csharp</p>
+                    <p class="card-text">$10.00</p>
+                    <input asp-for="@Model.CourseName" class="form-control" value="C# Fundamental" hidden />
+                    <input asp-for="@Model.Price" class="form-control" value="10" hidden />
+                    <input type="submit" value="Add to cart" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-3">
+        <form method="post">
+            <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                <div class="card-body">
+                    <h5 class="card-title">Asp.net core</h5>
+                    <p class="card-text">A-Z of Asp.net core</p>
+                    <p class="card-text">$15.00</p>
+                    <input asp-for="@Model.CourseName" class="form-control" value="Asp.Net Core" hidden />
+                    <input asp-for="@Model.Price" class="form-control" value="15" hidden />
+                    <input type="submit" value="Add to cart" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-3">
+        <form method="post">
+            <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                <div class="card-body">
+                    <h5 class="card-title">Asp.net Core Razor</h5>
+                    <p class="card-text">A-Z of Razor</p>
+                    <p class="card-text">$18.00</p>
+                    <input asp-for="@Model.CourseName" class="form-control" value="Asp.net Core Razor" hidden />
+                    <input asp-for="@Model.Price" class="form-control" value="18" hidden />
+                    <input type="submit" value="Add to cart" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    @{
+
+        var shoppingCart = HttpContext!.Session.GetComplexObjectSession<ShoppingCartObject>("ShoppingCart");
+        decimal totalPrice = 0;
+        if (shoppingCart != null)
+        {
+            <div class="col-sm-2">
+                <div class="card" style="width: 18rem; margin-bottom:20px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Shopping Cart</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                       Item
+                                    </th>
+                                    <th>
+                                       Price
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in shoppingCart!.Courses!)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CourseName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </td>
+                                        <td>
+                                            <form asp-page-handler="delete">
+                                                <input asp-for="@Model.CourseName" class="form-control" value="@item.CourseName" hidden />
+                                                <input type="submit" value="Remove" class="btn btn-warning" />
+                                            </form>
+                                           
+                                        </td>
+                                    </tr>
+                                    totalPrice += item.Price;
+                                }
+                            </tbody>
+                        </table>
+                        <strong style="margin-right:153px">Total</strong> <strong><i>$ @totalPrice</i></strong>
+                        <input type="submit" style="margin-top:20px;margin-left: 146px" value="Check Out" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    }
+</div>
+
+
+
+
+
+
+

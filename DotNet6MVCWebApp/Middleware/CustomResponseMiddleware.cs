@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Routing;
+using System.Globalization;
 
 namespace DotNet6MVCWebApp.Middleware
 {
@@ -13,10 +14,11 @@ namespace DotNet6MVCWebApp.Middleware
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            if (httpContext.Response.StatusCode == 404)
-            {
-                httpContext.Response.Redirect("/WrongControllerName/WrongAction");
-            }
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            //if (httpContext.Response.StatusCode == 404)
+            //{
+            //    httpContext.Response.Redirect("/WrongControllerName/WrongAction");
+            //}
             await _next(httpContext);
         }
 

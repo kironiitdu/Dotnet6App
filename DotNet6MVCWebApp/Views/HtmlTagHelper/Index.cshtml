@@ -1,0 +1,8 @@
+﻿
+<a class="nav-link text-dark" href="@Url.Action("DoubleParamter","HtmlTagHelper", new { category="Technical",topic="Instalattion"})">Way: 1 : Submit Double Parameter</a>
+<a class="nav-link text-dark" href="@Url.RouteUrl("default", new{httproute = "", controller="HtmlTagHelper",action="DoubleParamter",category="Technical",topic="Instalattion"})">Way: 2 : Submit Double Parameter</a>
+<hr />
+
+
+<a class="nav-link text-dark" href="@Url.Action("TripleParamter","HtmlTagHelper", new { page=1,category="Technical",topic="Instalattion"})">Way: 1 :Submit Triple Parameter</a>
+<a class="nav-link text-dark" href="@Url.RouteUrl("default", new{httproute = "", controller="HtmlTagHelper",action="TripleParamter",category="Technical",topic="Instalattion",page=1})">Way: 2 :Submit Triple Parameter</a>

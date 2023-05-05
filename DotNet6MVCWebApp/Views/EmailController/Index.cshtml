@@ -1,0 +1,25 @@
+﻿@model DotNet6MVCWebApp.Controllers.EmailModel
+
+<div class="container mt-5">
+
+    <div class="mb-3">
+        <label for="sender" class="form-label">Nadawca:</label>
+        <input type="text"
+               id="sender"
+               name="Sender.Email"
+               value="@Model.Sender.Email"
+               class="form-control"
+               required />
+    </div>
+    <div class="mb-3">
+        <label for="recipients" class="form-label">Odbiorcy (oddziel przecinkami):</label>
+        <input type="text"
+               id="recipients"
+               name="recipients"
+               value="@string.Join(", ", @Model.Recipients.Select(r => r.Email))"
+               class="form-control"
+               required />
+    </div>
+  
+
+</div>

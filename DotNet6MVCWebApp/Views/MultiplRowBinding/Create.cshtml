@@ -1,0 +1,63 @@
+﻿@model List<DotNet6MVCWebApp.Controllers.Orders>
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table id="tblOrders">
+                <thead>
+                    <tr>
+                        <th style="width:150px">Cust. Id</th>
+                        <th style="width:150px">Item Name</th>
+                        <th style="width:150px">Price</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tblOrdersBody">
+                    <tr>
+                        <td><input name='Orders[0].CustomerId' class="form-control" /></td>
+                        <td><input name='Orders[0].ItemName' class="form-control" /></td>
+                        <td><input name='Orders[0].Price' class="form-control" /></td>
+                    </tr>
+                </tbody>
+                <tfooter>
+                    <tr><a hre="#" class="btn btn-success" id="addOrder">Add New Item</a> </tr>
+                </tfooter>
+            </table>
+
+
+            <div class="row">
+                <div class="tile-footer d-flex justify-content-around">
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-danger" })
+                    <input id="btnSave" type="submit" value="Save Order" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+
+    <script>
+        var i = 1;
+        $(document).on("click", "#addOrder", function () {
+
+            $("#tblOrdersBody").append("<tr>"
+                + "<td><input name='Orders[" + i + "].CustomerId' class='form-control' /></td>"
+                + "<td><input name='Orders[" + i + "].ItemName' class='form-control'/></td>"
+                + "<td><input name='Orders[" + i + "].Price' class='form-control'/></td>"
+                + "<td><button type='button' class='btn btn-danger' id='btnRemove' </buuton> Delete</td>"
+                + "</tr > ");
+            i++;
+        });
+    </script>
+}

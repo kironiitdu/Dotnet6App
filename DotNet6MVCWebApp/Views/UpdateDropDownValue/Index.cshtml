@@ -1,0 +1,135 @@
+﻿@model List<DotNet6MVCWebApp.Controllers.Game>
+<table class="table" id="Table_ID">
+    <thead>
+        <tr>
+            <th>
+                Game_ID
+            </th>
+            <th>
+                Game_Name
+            </th>
+            <th>
+                Game_Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => Model[i].Game_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => Model[i].Game_Name, new { @class = "Game_Name" })
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => Model[i].Game_Type_ID, Model[i].Game_Type_List, new { @class = "custom-select"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<input type="button" value="Click me" id="updateDropDown">
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#updateDropDown").click(function () {
+                var options = $(".custom-select option");
+                var allDropdownList = $.map(options, e => $(e).text())
+                console.log(allDropdownList);
+                $(`.custom-select option[value='None']`).prop('selected', true);
+                //$(".custom-select option").each(function () {
+                //    if ($(this).text() == "Type B" || $(this).text() == "Type C") {
+                //        $.each(allDropdownList, function (index, item) {
+                //            console.log(item);
+                //            var dropdown = $(".custom-select");
+                //            dropdown.empty();
+                //            dropdown.append(
+                //                $('<option>', {
+                //                    value: item,
+                //                    text: item
+                //                }, '</option>'))
+                          
+                //        });
+                       
+                //    }
+                //});
+                //var options = $(".custom-select option");
+                //var allDropdownList = $.map(options, e => $(e).text())
+                //console.log(allDropdownList);
+
+                $("tbody tr td:nth-of-type(3)").each(function (i, el) {
+
+
+                    //getting the each dropdown list by its Id
+
+                    //var dropDownValue = $(el).text();
+                    //$('.custom-select option:contains("Type A")').attr("disabled", "disabled");
+                });
+
+                //var table = $("#Table_ID")[0];
+
+                //////Loop through each dropdown and implement the algorithm
+                //$("#Table_ID tr").each(function (e, i) {
+                //    //Get the each dropdown Id
+                //    var getEachDropdownId = "." + $(i).attr("name");
+
+                //    //getting the each dropdown list by its Id
+                //    var options = $(getEachDropdownId + " option");
+                //    var allDropdownList = $.map(options, e => $(e).val())
+
+                //   // console.log(col1);
+                //    console.log(allDropdownList);
+                //    var dropdown = $("#z1__Game_Type_ID");
+                //    dropdown.empty();
+                //    dropdown.append(
+                //        $('<option>', {
+                //            value: "AAA",
+                //            text: "AAA"
+                //        }, '</option>'))
+                //});
+
+
+                ////getting the each dropdown list by its Id
+                //var options = $(getEachDropdownId + " option");
+                //var allDropdownList = $.map(options, e => $(e).val())
+
+                ////Get Each Dropdown List Item and Shuffle the array
+                //var shuffleddItemList = funcArrayShuffle(allDropdownList);
+
+                ////Getting Each Dropdown Id
+                //var getEachDropdownId = $(i).attr("id");
+
+                ////Set qoute on each Id for Making it as ID
+                //var getEachDropdownId = `#${getEachDropdownId}`
+
+                ////Get Each Dropdown By its Id and make the older dropdown empty
+                //var dropdown = $(getEachDropdownId);
+                //dropdown.empty();
+
+                ////Loop through each Dropdown shuffle Item and populate each dropdownList
+                //$.each(shuffleddItemList, function (index, item) {
+                //    // console.log(index,item);
+                //    dropdown.append(
+                //        $('<option>', {
+                //            value: item,
+                //            text: item
+                //        }, '</option>'))
+                //});
+
+
+                // });//End of Each
+
+
+            });// End Of BTN
+
+
+        });// End Of Ready
+    </script>
+        }

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SwaggerWebAPIApp.Models.Product>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ProductId
+            <th>ProductName
+            <th>Supplier Name
+            <th>Category Name
+            <th>UnitPrice
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Supplier?.CompanyName</td>
+                <td>@item.Category?.CategoryName</td>
+                <td>@item.UnitPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>

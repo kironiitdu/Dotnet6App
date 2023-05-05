@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.Cart>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                CartId
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Product Desc
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductTable!.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductTable!.Desc)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

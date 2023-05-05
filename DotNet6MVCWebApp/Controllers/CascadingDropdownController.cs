@@ -53,6 +53,26 @@ namespace DotNet6MVCWebApp.Controllers
             new State() { CountryId =104, StateId =11, StateName = "Ontario" },
             new State() { CountryId =104, StateId =12, StateName = "Manitoba" },
         };
+
+        public static List<City> ListOfCity = new List<City>()
+        {
+            //INDIA
+            new City() { CountryId =101, CityId =1, CityName = "Delhi" },
+            new City() { CountryId =101, CityId =2, CityName = "Haydrabad" },
+            new City() { CountryId =101, CityId =3, CityName = "Pune" }, 
+            //USA
+            new City() { CountryId =102, CityId =4, CityName = "New York" },
+            new City() { CountryId =102, CityId =5, CityName = "Silicon Valley" },
+            new City() { CountryId =102, CityId =6, CityName = "Dallaus" },
+            //UK
+            new City() { CountryId =103, CityId =7, CityName = "London" },
+            new City() { CountryId =103, CityId =8, CityName = "Cardif" },
+            new City() { CountryId =103, CityId =9, CityName = "Sundarland" },
+             //Candada
+            new City() { CountryId =104, CityId =10, CityName = "Alberta" },
+            new City() { CountryId =104, CityId =11, CityName = "Ontario" },
+            new City() { CountryId =104, CityId =12, CityName = "Manitoba" },
+        };
         public static List<District> ListOfDistrict = new List<District>()
         {
             //INDIA
@@ -75,7 +95,10 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return View();
         }
-
+        public IActionResult CountryCity()
+        {
+            return View();
+        }
         public IActionResult IndexProduct()
         {
             return View();
@@ -86,6 +109,18 @@ namespace DotNet6MVCWebApp.Controllers
             var productCategories =  ListOfProductCategory.ToList();
 
             return Ok(productCategories);
+
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CheckStateAccess(string stateName)
+        {
+            if (stateName == "London")
+            {
+                return Ok(true);
+            }
+
+            return Ok(false);
 
         }
         [HttpGet]
@@ -118,6 +153,14 @@ namespace DotNet6MVCWebApp.Controllers
             var state = ListOfState.Where(cId => cId.CountryId == countryId).ToList() ;
 
             return Ok(state);
+
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetCity(int countryId)
+        {
+            var citys = ListOfCity.Where(cId => cId.CountryId == countryId).ToList();
+
+            return Ok(citys);
 
         }
         [HttpGet]
@@ -168,6 +211,12 @@ namespace DotNet6MVCWebApp.Controllers
     {
         public int StateId { get; set; }
         public string StateName { get; set; }
+        public int CountryId { get; set; }
+    }
+    public class City
+    {
+        public int CityId { get; set; }
+        public string CityName { get; set; }
         public int CountryId { get; set; }
     }
     public class District

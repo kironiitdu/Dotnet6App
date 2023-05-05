@@ -1,0 +1,19 @@
+﻿@model Dictionary<string, object>
+<h4>Dynamic Data</h4>
+<table class="table">
+    @foreach (var key in Model.Keys)
+    {
+        <tbody>
+
+            <tr>
+                <th>
+                    @key
+                </th>
+                <td>
+                    @Model[key]
+                </td>
+            </tr>
+
+        </tbody>
+    }
+</table>

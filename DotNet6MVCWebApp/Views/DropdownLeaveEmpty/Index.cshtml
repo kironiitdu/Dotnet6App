@@ -1,0 +1,163 @@
+﻿@using System.Text.Json;
+
+<div id="toolipn" class="form-group">
+    <select id="txtCupA" class="form-control">
+        <option value=""></option>
+    </select>
+</div>
+
+@*<script>
+    var resin = document.createElement("div");
+    resin.setAttribute("class", "col-md-4");
+    var resinGrup = document.createElement("div");
+    resinGrup.setAttribute("class", "form-grup");
+    var resinLabel = document.createElement("label");
+    resinLabel.setAttribute("class", "form-label fs-6");
+    resinLabel.innerHTML = "Tool";
+    var jsonObj = @Html.Raw(JsonSerializer.Serialize(ViewBag.ToolCategories));
+    var resinSelect = document.createElement("select");
+    resinSelect.setAttribute("id", "CategoryId");
+    resinSelect.setAttribute("class", "form-control");
+    resinSelect.setAttribute("required", "");
+   // resinSelect.setAttribute("name", `[${toolID}].ToolCategories`);
+    $.each(jsonObj, function (index, ToolCategories) {
+        console.log(ToolCategories);
+       
+        var option = document.createElement("option");
+        option.value = ToolCategories.CategoryId;
+        option.text = ToolCategories.CategoryName;
+        resinSelect.append(option);
+    })
+</script>*@
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var card = document.createElement("div"); // ini bertambah
+            card.setAttribute("id", `toolCard${toolID}`); // ini bertambah
+            var row = document.createElement("div");
+            row.setAttribute("class", "row toolID" + toolID);
+            row.setAttribute("data-IPNIndex", 0); // ini bertambah
+
+            var dp = document.createElement("div");
+            dp.setAttribute("class", "col-md-4");
+            var dpGrup = document.createElement("div");
+            dpGrup.setAttribute("class", "form-group");
+            var dpLabel = document.createElement("label");
+            dpLabel.setAttribute("class", "form-label fs-6");
+            dpLabel.innerHTML = "Deco Proccess";
+            var dpObj = @Html.Raw(JsonSerializer.Serialize(ViewBag.ToolCategories));
+            var dpSelect = document.createElement("select");
+            dpSelect.setAttribute("id", "CategoryId");
+            dpSelect.setAttribute("class", `${toolID}CategoryId2 form-control`);
+            dpSelect.setAttribute("required", "");
+            dpSelect.setAttribute("name", `${toolID}.ToolCategories`);
+            var option = document.createElement("option");
+            option.text = "--SELECT PROCCESS--";
+            dpSelect.add(option);
+
+            console.log(dpObj);
+            $.each(dpObj, function (index, ToolCategories) {
+                var option = document.createElement("option");
+                option.text = ToolCategories.Text;
+                option.value = ToolCategories.Value;
+                dpSelect.append(option);
+            })
+            dpGrup.appendChild(dpLabel);
+            dpGrup.appendChild(dpSelect);
+            dp.appendChild(dpGrup);
+
+            card.appendChild(row); // ini bertambah
+            document.getElementById("toolipn").appendChild(card); // ini berubah
+
+            console.log(card);
+            console.log(dpGrup);
+            console.log(dp);
+            //var resin = document.createElement("div");
+            //resin.setAttribute("class", "col-md-4");
+            //var resinGrup = document.createElement("div");
+            //resinGrup.setAttribute("class", "form-grup");
+            //var resinLabel = document.createElement("label");
+            //resinLabel.setAttribute("class", "form-label fs-6");
+            //resinLabel.innerHTML = "Tool";
+            //var jsonObj = @Html.Raw(JsonSerializer.Serialize(ViewBag.ToolCategories));
+            //console.log(jsonObj);
+            //var resinSelect = document.createElement("select");
+            //resinSelect.setAttribute("id", "CategoryId");
+            //resinSelect.setAttribute("class", "form-control");
+            //resinSelect.setAttribute("required", "");
+            //// resinSelect.setAttribute("name", `[${toolID}].ToolCategories`);
+            ////$.each(jsonObj, function (index, ToolCategories) {
+            ////    console.log(ToolCategories);
+
+            ////    var option = document.createElement("option");
+            ////    option.value = ToolCategories.CategoryId;
+            ////    option.text = ToolCategories.CategoryName;
+            ////    resinSelect.append(option);
+            ////})
+            //var dropdown = $('#txtCupA');
+            //dropdown.empty();
+
+            //$.each(jsonObj, function (index, item) {
+            //    dropdown.append(
+            //        $('<option>', {
+            //            value: item.CategoryId,
+            //            text: item.CategoryName
+            //        }, '</option>'))
+            //});
+
+            var toolID;
+            toolID = 0;
+
+            function addTool() {
+                if (toolID <= 3) {
+                    toolID++;
+                    var card = document.createElement("div"); // ini bertambah
+                    card.setAttribute("id", `toolCard${toolID}`); // ini bertambah
+                    var row = document.createElement("div");
+                    row.setAttribute("class", "row toolID" + toolID);
+                    row.setAttribute("data-IPNIndex", 0); // ini bertambah
+
+                    var dp = document.createElement("div");
+                    dp.setAttribute("class", "col-md-4");
+                    var dpGrup = document.createElement("div");
+                    dpGrup.setAttribute("class", "form-group");
+                    var dpLabel = document.createElement("label");
+                    dpLabel.setAttribute("class", "form-label fs-6");
+                    dpLabel.innerHTML = "Deco Proccess";
+                    var dpObj = @Html.Raw(JsonSerializer.Serialize(ViewBag.ToolCategories));
+                    var dpSelect = document.createElement("select");
+                    dpSelect.setAttribute("id", "CategoryId");
+                    dpSelect.setAttribute("class", `${toolID}CategoryId2 form-control`);
+                    dpSelect.setAttribute("required", "");
+                    dpSelect.setAttribute("name", `${toolID}.ToolCategories`);
+                    var option = document.createElement("option");
+                    option.text = "--SELECT PROCCESS--";
+                    dpSelect.add(option);
+
+                    console.log(dpObj);
+                    $.each(dpObj, function (index, ToolCategories) {
+                        var option = document.createElement("option");
+                        option.text = ToolCategories.Text;
+                        option.value = ToolCategories.Value;
+                        dpSelect.append(option);
+                    })
+                    dpGrup.appendChild(dpLabel);
+                    dpGrup.appendChild(dpSelect);
+                    dp.appendChild(dpGrup);
+
+                    card.appendChild(row); // ini bertambah
+                   document.getElementById("toolipn").appendChild(card); // ini berubah
+
+                      var xxx=    document.getElementById("toolipn").innerHTML;
+                    console.log(xxx);
+                   
+                }
+            }
+
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,94 @@
+﻿
+<div class="form-group">
+    <input type="button" onclick="WithRequestBody()" value="Submit" id="submit" class="btn btn-primary" />
+</div>
+<div class="form-group">
+    Would write response here:  <strong id="result"></strong>
+    
+</div>
+
+
+
+
+@section Scripts
+    {
+    <script>
+
+        var username = "kiron@testemail.com";
+        var password = "123456";
+        //document.getElementById("calculator-form").addEventListener("submit", async function (event) {
+        //    event.preventDefault();
+        //    const numbers = event.target.elements.numbers.value;
+
+        //    try {
+        //        const response = await fetch("http://localhost:44313/api/TextCalculator", {
+        //            method: "POST",
+        //            headers: {
+        //                "Content-Type": "application/json",
+        //            },
+        //            body: JSON.stringify({ numbers: numbers }),
+        //        });
+
+        //        if (!response.ok) {
+        //            throw new Error(response.statusText);
+        //        }
+
+        //        const result = await response.text();
+        //        document.getElementById("result").innerHTML = result;
+        //    } catch (error) {
+        //        document.getElementById("result").innerHTML = error.message;
+        //    }
+        //});
+        async function LoadCascadingDropdown() {
+
+
+            const numbers = "100";
+            const response = await fetch("http://localhost:5094/api/TextCalculator?input=" + numbers, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+               
+            });
+            console.log("Rquest Submitted");
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const result = await response.text();
+
+            console.log(result);
+            document.getElementById("result").innerHTML = result;
+
+
+        }
+
+
+        async function WithRequestBody() {
+            const response = await fetch("http://localhost:5094/api/Authenticate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify({
+                    Email: username,
+                    Password: password,
+                   
+                })
+            });
+            console.log("Rquest Submitted");
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const result = await response.text();
+
+            console.log(result);
+            document.getElementById("result").innerHTML = result;
+
+
+        }
+
+    </script>
+}

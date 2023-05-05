@@ -16,7 +16,7 @@ namespace DotNet6MVCWebApp.ViewComponents
         public IViewComponentResult Invoke()
         {
             var memberList = _context.Members.ToList();
-            string lastUpdateTime = System.IO.File.ReadAllText("./last.txt");
+            //string lastUpdateTime = System.IO.File.ReadAllText("./last.txt");
             // string lastUpdateTime = "I am from View Component";
 
             return View("MainFooter", memberList);

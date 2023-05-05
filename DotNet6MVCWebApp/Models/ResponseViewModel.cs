@@ -4,6 +4,6 @@
     {
         public string output { get; set; }
         public string msg { get; set; }
-        public object returnvalue { get; set; }
+        public object apiResponse { get; set; }
     }
 }
