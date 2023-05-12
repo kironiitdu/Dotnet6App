@@ -1,6 +1,6 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false,
+    "windowsAuthentication": true,
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:21384",
@@ -14,7 +14,9 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5094",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        //"DbConnection": "Server=MyServerName;Database=DataBaseName;Trusted_Connection=True;MultipleActiveResultSets=true"
+        "DbConnection": "Server=WX-6899;Database=WsAttendance;Trusted_Connection=True;MultipleActiveResultSets=true"
       }
     },
     "IIS Express": {

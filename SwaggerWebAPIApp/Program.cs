@@ -1,4 +1,5 @@
 //using Dotnet6App.Repository;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -9,6 +10,7 @@ using SwaggerWebAPIApp.Middleware;
 using SwaggerWebAPIApp.Repository;
 using System.Text;
 using System.Text.Json.Serialization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +75,15 @@ builder.Services.AddSwaggerGen(modifyEnumDefultValue =>
 //    options.Filters.Add<RestrictSwaggerAccess>();
 //});
 
+builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+   .AddNegotiate();
+
+builder.Services.AddAuthorization(options =>
+{
+    // By default, all incoming requests will be authorized according to the default policy.
+    options.FallbackPolicy = options.DefaultPolicy;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -85,12 +96,13 @@ if (app.Environment.IsDevelopment())
 
 }
 app.UseCors(builder => builder.AllowAnyOrigin());
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseRouting();
+//app.UseRouting();
 
 
 //app.UseMiddleware<SwaggerDocumentAuthenticatorMiddleware>();

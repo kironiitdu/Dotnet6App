@@ -51,6 +51,7 @@ namespace DotNet6MVCWebApp.Controllers
         [SessionExpire]
         public ActionResult Index()
         {
+            var environmentVariable = Environment.GetEnvironmentVariable("DbConnection");
             ViewData["Title"] = "Test title";
             return View();
         }

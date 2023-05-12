@@ -10,39 +10,44 @@ namespace RazorPageDemoApp.Pages
         public string? CourseName { get; set; }
         public decimal Price { get; set; }
 
-        public IActionResult OnPostDelete(Course course)
+        public IActionResult OnPostDelete(CartItem course)
         {
             if (course == null)
             {
                 return RedirectToPage("./RazorSetGetSessionObject");
             }
-
-            var cart = HttpContext.Session.GetComplexObjectSession<ShoppingCartObject>("ShoppingCart");
-            cart!.Courses!.Remove(cart.Courses.Find(crs => crs.CourseName == course.CourseName));
-            HttpContext.Session.SetComplexObjectSession("ShoppingCart", cart);
+            //Calling Item Remove Method and passing cart item
+            RemoveItemFromCart(course);
 
             return RedirectToPage("./RazorSetGetSessionObject");
         }
 
-        public IActionResult OnPost(Course course)
+        public void RemoveItemFromCart(CartItem course)
+        {
+            var cart = HttpContext.Session.GetComplexObjectSession<ShoppingCartObject>("ShoppingCart");
+            cart!.CartItems!.Remove(cart.CartItems.Find(crs => crs.CourseName == course.CourseName));
+            HttpContext.Session.SetComplexObjectSession("ShoppingCart", cart);
+        }
+
+        public IActionResult OnPost(CartItem course)
         {
             AddToCart(course);
 
             return RedirectToPage("./RazorSetGetSessionObject");
         }
-        public void AddToCart(Course course)
+        public void AddToCart(CartItem course)
         {
 
             var cart = HttpContext.Session.GetComplexObjectSession<ShoppingCartObject>("ShoppingCart");
             if (cart != null)
             {
-                cart!.Courses!.Add(course);
+                cart!.CartItems!.Add(course);
                 HttpContext.Session.SetComplexObjectSession("ShoppingCart", cart);
             }
             else
             {
                 cart = new ShoppingCartObject();
-                cart!.Courses!.Add(course);
+                cart!.CartItems!.Add(course);
                 HttpContext.Session.SetComplexObjectSession("ShoppingCart", cart);
             }
 
@@ -51,10 +56,10 @@ namespace RazorPageDemoApp.Pages
 
     public class ShoppingCartObject
     {
-        public List<Course>? Courses { get; set; } = new List<Course>();
+        public List<CartItem>? CartItems { get; set; } = new List<CartItem>();
       
     }
-    public class Course
+    public class CartItem
     {
         public int CourseId { get; set; }
         public string? CourseName { get; set; }

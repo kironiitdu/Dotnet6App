@@ -76,6 +76,22 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IEnumerable<Role> GetRole()
+        {
+            var roleList = new List<Role>()
+            {
+                new Role(){ Id = 1,Name ="Plan A", Description= "Plan Description A", Date=DateTime.Now,Deleted= true},
+                new Role(){ Id = 2,Name ="Plan B", Description= "Plan Description B", Date=DateTime.Now,Deleted= false},
+                new Role(){ Id = 3,Name ="Plan C", Description= "Plan Description C", Date=DateTime.Now,Deleted= true},
+                new Role(){ Id = 4,Name ="Plan D", Description= "Plan Description D", Date=DateTime.Now,Deleted= false},
+                new Role(){ Id = 5,Name ="Plan E", Description= "Plan Description E", Date=DateTime.Now,Deleted= true},
+
+
+            };
+            return roleList;
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetProg()
@@ -134,6 +150,14 @@ namespace DotNet6MVCWebApp.Controllers
         public string? StoreName { get; set; }
         public string? PackageName { get; set; }
         public string? Contact { get; set; }
+    }
+    public class Role
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public DateTime Date { get; set; }
+        public bool Deleted { get; set; }
     }
 
 }

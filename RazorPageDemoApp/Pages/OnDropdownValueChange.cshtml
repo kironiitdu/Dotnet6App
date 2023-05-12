@@ -1,0 +1,18 @@
+﻿@page
+@model RazorPageDemoApp.Pages.OnDropdownValueChangeModel
+@{
+}
+<form method="post" asp-page-handler="MyMethod">
+    <select class="form-control"
+            asp-for="ProductTypeId"
+            asp-items="Model.selectListItems"
+            onchange="this.form.submit();">
+    </select>
+</form>
+
+@if (@Model.SelectedValue != null)
+{
+    <div class="alert alert-success">
+       <label>Your seleted value were:</label> @Model.SelectedValue
+    </div>
+}

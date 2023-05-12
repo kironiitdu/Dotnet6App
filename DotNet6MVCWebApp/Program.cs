@@ -28,7 +28,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("DbConnection")!));
+builder.Services.AddDbContext<ApplicationDbContext>(options => { 
+    options.UseSqlServer(Environment.GetEnvironmentVariable("DbConnection")!);
+});
 
 
 //builder.Services.AddSingleton<SearchValueTransformer>();

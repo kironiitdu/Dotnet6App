@@ -12,38 +12,38 @@
     </thead>
 </table>
 @section scripts {
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script>
-            $(document).ready(function () {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
 
-                $.ajax({
-                    type: "GET",
-                    url: "https://localhost:7132/api/Values/",
-                    success: function (response) {
-                        console.log(response);
-                        $('#myTable').DataTable({
-                            data: response,
-                            columns: [
-                                { data: 'id' },
-                                { data: 'name' },
-                                { data: 'description' },
-                                { data: 'date' },
-                                { data: 'deleted' }
-                                 
+            $.ajax({
+                type: "GET",
+                url: "/Datatable/GetRole",
+                success: function (response) {
+                    console.log(response);
+                    $('#myTable').DataTable({
+                        data: response,
+                        columns: [
+                            { data: 'id' },
+                            { data: 'name' },
+                            { data: 'description' },
+                            { data: 'date' },
+                            { data: 'deleted' }
 
-                            ]
-                        });
 
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
+                        ]
+                    });
 
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
             });
-</script>
+
+        });
+    </script>
 }
 
 

@@ -11,7 +11,7 @@ namespace SwaggerWebAPIApp.Controllers
     {
 
         [HttpPost("NewFromFormUpload")]
-        public async Task<IActionResult> NewFromFormUpload([FromForm] IFormFile file, [FromForm] FileMetaDataDto metaData)
+        public async Task<IActionResult> NewFromFormUpload([FromForm] IFormFile file)
         {
             return Ok();
         }

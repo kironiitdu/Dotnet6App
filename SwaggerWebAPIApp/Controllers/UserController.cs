@@ -24,10 +24,11 @@ namespace SwaggerWebAPIApp.Controllers
         //{
         //   return Ok(userModel);
         //}
-        [HttpGet("GetUserDetailsByUserName/{userName}")]
-        public IActionResult GetUserDetailsByUserName(string userName)
+        [HttpGet("GetUserWindowsUserName")]
+        public IActionResult GetUserWindowsUserName()
         {
-            var responseMessage = string.Format("You have requested for User : {0}", userName);
+            string gettingWindowsUser = HttpContext.User.Identity?.Name;
+            var responseMessage = string.Format("You have requested for User : {0}", gettingWindowsUser);
             return Ok(responseMessage);
         }
 
