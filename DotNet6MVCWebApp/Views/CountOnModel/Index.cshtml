@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.HMOPremisesViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if(Model.Any())
+{
+    Console.WriteLine(Model.Count());
+}
+else{
+   Console.WriteLine("else executed because model is zero");
+}
+<input class="js-filter-item" type="radio" name="Performance_Type" value="Standard" id="filter-group-Performance_Type--item-Standard" checked />
+<input class="js-filter-item" type="radio" name="Performance_Type" value="VIP" id="filter-group-Performance_Type--item-VIP" />
+
+<input class="js-filter-item" type="radio" name="Price" value="Up_to_&#xA3;55" id="filter-group-Price--item-Up_to_&#xA3;55" />
+<input class="js-filter-item" type="radio" name="Price" value="Up_to_&#xA3;70" id="filter-group-Price--item-Up_to_&#xA3;70" checked />
+
+
+
+@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var options = document.querySelectorAll('.js-filter-item');
+            var optionsArray = (Array.from(options).map(el => ([el.name, el.value, el.id, el.checked])));
+       
+            var listRadio = [];
+            for (let i = 0; i < optionsArray.length; i++) {
+                console.log("array: ", i, optionsArray[i]);
+                    var items = {
+                        Name: optionsArray[i][0],
+                        Value: optionsArray[i][1],
+                        Id: optionsArray[i][2],
+                        IsChecked: optionsArray[i][3],
+                       
+                       
+
+                    }
+                    listRadio.push(items);
+            }
+            console.log(listRadio);
+            var url = '@Url.Action("PostRadioBUtton","CountOnModel")';
+            $.ajax({
+                url: url,
+                type: "POST",
+                datatype: "JSON",
+                data: { radioButtonModels: listRadio },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    </script>
+    }
+
+
