@@ -47,17 +47,21 @@ namespace DotNet_3_1_Core
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync(Configuration["MyAppKey"]);
-                });
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync(Configuration["MyAppKey"]);
+            //    });
+            //});
 
             app.UseAuthorization();
+            app.Use((corsContext, next) =>
+            {
+                corsContext.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                return next.Invoke();
+            });
             
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -188,6 +188,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+  
 }
 //app.UseMiddleware<RedirectionMiddleware>();
 app.UseStaticFiles();
@@ -282,10 +283,12 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 //    return next();
 //});
 
-//app.UseMiddleware<IFromToJsonMiddleware>();
+//app.UseMiddleware<TimerMiddleware>();
 //app.UseMiddleware<RemoveEncodingFromURLMiddleware>();
 //app.UseMiddleware<SetRequestPathMiddleware>();
 app.UseAuthentication();
+
+
 
 app.MapControllerRoute(
     name: "default",

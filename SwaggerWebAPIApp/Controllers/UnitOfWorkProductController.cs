@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SwaggerWebAPIApp.Interface;
+using SwaggerWebAPIApp.Models;
 
 namespace SwaggerWebAPIApp.Controllers
 {
@@ -24,7 +25,10 @@ namespace SwaggerWebAPIApp.Controllers
         {
 
             var users = await _unitOfWork.Products.All();
+
             return Ok(users);
         }
     }
+
+    
 }

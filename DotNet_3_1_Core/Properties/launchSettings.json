@@ -1,43 +1,27 @@
 {
-  "profiles": {
-    "DotNet_3_1_Core": {
-      "commandName": "Project"
-    },
-    "Profile 1": {
-      "commandName": "Project"
-    }
-  },
-  "Kestrel": {
-    "Endpoints": {
-      "Http": {
-        "Url": "http://localhost:53211"
-      },
-      "useSSL": false
-    },
-    "profiles": {
-      "IIS Express": {
-        "commandName": "IISExpress",
-        "launchBrowser": true,
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
-        }
-      },
-      "DotNet_3_1_Core": {
-        "commandName": "Project",
-        "launchBrowser": true,
-        "applicationUrl": "https://localhost:5001;http://localhost:5000",
-        "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
-        }
-      }
-    }
-  },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53211",
-      "sslPort": 44380
+      "applicationUrl": "http://localhost:4400",
+      "sslPort": 44361
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "DotNet_3_1_Core": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

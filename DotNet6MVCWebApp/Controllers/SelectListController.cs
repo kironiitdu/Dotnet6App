@@ -64,6 +64,34 @@ namespace DotNet6MVCWebApp.Controllers
             ViewBag.ListCategories = entityTypeList;
             return View();
         }
+
+        public IActionResult LoadArea()
+        {
+            List<SelectListItem> areaList = new List<SelectListItem>();
+            areaList.Add(new SelectListItem { Text = "Area-A", Value = "Area-A" });
+            areaList.Add(new SelectListItem { Text = "Area-B", Value = "Area-B" });
+            areaList.Add(new SelectListItem { Text = "Area-C", Value = "Area-C" });
+
+
+            ViewBag.ListAreas = areaList;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CheckPassByArea(string areaId)
+        {
+
+            var gatePass = new List<GatePass>()
+                 {
+                  new GatePass {Id = 1,Name = "Gete-A", Area = "Area-A"},
+                  new GatePass {Id = 2,Name = "Gete-B", Area = "Area-B"},
+                  new GatePass {Id = 3,Name = "Gete-C", Area = "Area-C"},
+                 };
+
+            SelectList stocksList = new SelectList(gatePass.Where(ar => ar.Area == areaId), "Id", "Name");
+            return Json(stocksList);
+        }
+
         public async Task<IActionResult> Material()
         {
 
@@ -220,6 +248,13 @@ namespace DotNet6MVCWebApp.Controllers
     {
         public int StockId { get; set; }
         public string Name { get; set; }
+
+    }
+    public class GatePass
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Area { get; set; }
 
     }
     public class Cars

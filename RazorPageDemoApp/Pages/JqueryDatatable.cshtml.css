@@ -1,0 +1,4 @@
+﻿::deep input[type=search]:focus {
+    border: 3px solid red !important;
+}
+

@@ -1,0 +1,32 @@
+﻿Area DropDown: @Html.DropDownList("Area", ViewBag.ListAreas, null, new { @class = "form-control", @onchange = "CheckGatePassValue(this.value)" })
+<hr />
+Gate Pass Dropdown: <select id="GatePass" name="GatePass" class="form-control"></select>
+
+<script language="javascript" type="text/javascript">
+    function CheckGatePassValue(areaId) {
+
+        alert(areaId);
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#GatePass").html(procemessage).show();
+        var url = '@Url.Action("CheckPassByArea", "SelectList")';
+
+        $.ajax({
+            url: url,
+            data: { areaId: areaId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                console.log(data);
+                var markup = "<option value='0'>Select Gate Pass</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += '<option value="' + data[x].value + '">' + data[x].text + '</option>';
+                }
+                $("#GatePass").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+</script>

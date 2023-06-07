@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Net;
@@ -130,15 +131,15 @@ namespace Dotnet6App.Controllers
         //{
         //    return Ok(names);
         //}
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllFilter()
-        //{
+        [HttpGet]
+        public async Task<IActionResult> GetAllFilter()
+        {
 
-        //    string VehicleName = "Hatchback";
-        //    var sqlCommand = $"EXEC GetVehicleByTile {VehicleName}";
-        //    var vehicleFilterValues = await _context.VehicleFilter.FromSqlRaw(sqlCommand).ToListAsync();
-        //    return Ok(vehicleFilterValues);
-        //}
+            string VehicleName = "Hatchback";
+            var sqlCommand = $"EXEC GetVehicleByTile {VehicleName}";
+            var vehicleFilterValues = await _context.VehicleFilter.FromSqlRaw(sqlCommand).ToListAsync();
+            return Ok(vehicleFilterValues);
+        }
 
         public class UserViewModel
         {

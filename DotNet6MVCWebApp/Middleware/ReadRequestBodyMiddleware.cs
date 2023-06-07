@@ -48,23 +48,23 @@ namespace DotNet6MVCWebApp.Middleware
                 stream.Close();
             }
 
-            //if (retrieveObject)
-            //{
-            //    //My Custom Response Class 
-            //    var readingRequestBody = new RequstBodyReaderModel();
-            //    readingRequestBody.HttpVerb = request.Method;
-            //    readingRequestBody.RequestPath = request.Path;
-            //    readingRequestBody.RequestRawData = originalContent;
-            //    readingRequestBody.HttpStatusCode = HttpStatusCode.OK.ToString();
-            //    readingRequestBody.Message = "One of the model binding faild!";
+            if (retrieveObject != null)
+            {
+                //My Custom Response Class 
+                var rebindRequestBody = new RequstBodyReaderModel();
+                readingRequestBody.HttpVerb = request.Method;
+                readingRequestBody.RequestPath = request.Path;
+                readingRequestBody.RequestRawData = originalContent;
+                readingRequestBody.HttpStatusCode = HttpStatusCode.OK.ToString();
+                readingRequestBody.Message = "One of the model binding faild!";
 
-            //    //converting my custom response class to jsontype
-            //    var json = JsonConvert.SerializeObject(readingRequestBody);
-            //    //Modifying existing stream
-            //    var requestData = Encoding.UTF8.GetBytes(json);
-            //    stream = new MemoryStream(requestData);
-            //    request.Body = stream;
-            //}
+                //converting my custom response class to jsontype
+                var json = JsonConvert.SerializeObject(rebindRequestBody);
+                //Modifying existing stream
+                var requestData = Encoding.UTF8.GetBytes(json);
+                stream = new MemoryStream(requestData);
+                request.Body = stream;
+            }
 
 
             request.Body = stream;

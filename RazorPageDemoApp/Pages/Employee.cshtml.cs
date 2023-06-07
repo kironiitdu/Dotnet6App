@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace RazorPageDemoApp.Pages
 {
@@ -27,8 +28,16 @@ namespace RazorPageDemoApp.Pages
     public class Employee
     {
         public int ID { get; set; }
+        [Required]
+        [Display(Name = "Employee First Name")]
+        [StringLength(60,MinimumLength =3)]
         public string FirstName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+
+        [Required]
+        [Display(Name = "Validation Test")]
+        [StringLength(60, MinimumLength = 3)]
+        public string InputValidationTest { get; set; }
     }
 }

@@ -1,0 +1,39 @@
+﻿@{
+    var SMs = ((DotNet6MVCWebApp.Controllers.Stage_Media)ViewBag.Stage_Media);
+}
+
+<div class="form-group row">
+    <div class="col-3">
+        <button type="button" name="Save" onclick="return saveStage(@ViewBag.Stage_Media.stage_id,
+             @ViewBag.Stage_Media.Branch_id);" class="btn btn-success">
+            Save Stage
+        </button>
+    </div>
+</div>
+<strong><span id="appendHere"></span></strong></>
+<script language="javascript" type="text/javascript">
+    function saveStage(branchId, stageId) {
+        alert(branchId);
+        var valueFromViewModel = {
+            stage_id: stageId,
+            Id: branchId
+        }
+
+        var requestUrl = '@Url.Action("SaveStage", "NullViewModel")';
+
+        $.ajax({
+            type: "POST",
+            url: requestUrl,
+            data: { model: valueFromViewModel },
+            success: function (data) {
+                console.log(data);
+                $("#appendHere").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert('Data was not sent to backend!');
+            }
+        });
+
+    }
+</script>
+

@@ -69,8 +69,8 @@ app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-           Path.Combine(builder.Environment.ContentRootPath, "ImagesOutsideRoot")),
-    RequestPath = "/ImagesOutsideRoot"
+           Path.Combine(builder.Environment.ContentRootPath, "Pages")),
+    RequestPath = "/Pages"
 });
 app.UseRouting();
 app.UseSession();

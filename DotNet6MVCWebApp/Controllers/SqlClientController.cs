@@ -103,7 +103,7 @@ namespace DotNet6MVCWebApp.Controllers
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-
+                var query = "Select * from ";
                 SqlCommand cmd = new SqlCommand("SP_GetEmployeePrintInfo", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();

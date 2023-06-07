@@ -1,0 +1,8 @@
+﻿<a asp-action="Edit" class="btn btn-primary" asp-route-editId="555">Submit</a>
+
+@if (TempData["Param"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Param"]
+    </div>
+}

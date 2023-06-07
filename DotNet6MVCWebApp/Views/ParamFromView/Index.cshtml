@@ -1,0 +1,12 @@
+﻿@model DotNet6MVCWebApp.Controllers.APIController.ResponseViewModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" asp-route-editId="@Model.Id">
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

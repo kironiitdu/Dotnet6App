@@ -17,10 +17,12 @@ namespace Dotnet6App.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<RawMaterial> RawMaterials { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<MentorRep> MentorReps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //  base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<MentorRep>().ToTable("MentorRep");
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<VehicleFilter>().ToTable("VehicleFilter");
             modelBuilder.Entity<Student>().ToTable("Student");

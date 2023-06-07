@@ -3,8 +3,31 @@
 @{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="TestNumber"  class="control-label pt-2" style="font-size:18px"></label>
+        <input asp-for="TestNumber"  class="form-control" />
+        <span asp-validation-for="TestNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TestString" class="control-label pt-2" style="font-size:18px"></label>
+        <input asp-for="TestString" class="form-control" />
+        <span asp-validation-for="TestString" class="text-danger"></span>
+    </div>
+    <br />
 
-<p>Use this page to detail your site's privacy policy.</p>
-<h2>@TempData["Url"]</h2>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@*@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+*@
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
 

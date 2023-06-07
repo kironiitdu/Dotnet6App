@@ -10,5 +10,7 @@
         public string VehicleFilterName { get; set; }
 
         public string VehicletFilterTitle { get; set; }
+
+        public int UserId { get; set; }
     }
 }

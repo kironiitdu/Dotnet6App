@@ -92,7 +92,7 @@ if (app.Environment.IsDevelopment())
     //app.UseMiddleware<SwaggerDocumentAuthenticatorMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseAuthentication();
+  //  app.UseAuthentication();
 
 }
 app.UseCors(builder => builder.AllowAnyOrigin());

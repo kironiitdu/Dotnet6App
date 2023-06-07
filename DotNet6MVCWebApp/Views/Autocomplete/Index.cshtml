@@ -1,0 +1,37 @@
+﻿<div class="form-group row">
+    <label id="lbl1" class="col-sm-2 control-label">Code 1</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="textCode1" />
+    </div>
+</div>
+
+
+@section scripts {
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#textCode1").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Autocomplete/GetData",
+                        type: "POST",
+                        dataType: "json",
+                        data: { searchKey: $("#textCode1").val() },
+                        success: function (data) {
+                            response($.map(data, function (val, item) {
+                                console.log(data);
+                                console.log(val + "-" + item);
+                                return {
+                                    label: val.countryName,
+                                    value: val.countryId
+                                };
+                            }));
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

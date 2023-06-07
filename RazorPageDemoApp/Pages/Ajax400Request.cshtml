@@ -1,0 +1,62 @@
+﻿@page
+@model RazorPageDemoApp.Pages.Ajax400RequestModel
+@{
+}
+<strong><span id="appendHere"></span></strong></>
+<hr />
+<button type="button" name="submitButton" value="Edit" class="btn btn-primary"
+        onclick="PostAjaxRequest()">
+    Submit Request
+</button>
+
+
+
+@section scripts {
+    <script>
+        function PostAjaxRequest() {
+
+
+
+            //var selectedDep = [{ prop1: "value1", prop2: "value2" }];
+
+
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/AjaxPostRequest',
+            //    data: JSON.stringify([{ prop1: "value1", prop2: "value2" }]),
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    headers: {
+            //        RequestVerificationToken:
+            //            $('input:hidden[name="__RequestVerificationToken"]').val()
+            //    },
+            //    success: function (data) {
+            //        alert('Data sent to backend!');
+            //    },
+            //    error: function (xhr, status, error) {
+            //        alert('Data was not sent to backend!');
+            //    }
+            //});
+
+            $.ajax({
+                url: "/Ajax400Request?handler=UpdateQuantity",
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                method: "POST",
+                async: false,
+                data: {
+                    barcode: 5,
+                    palletQuantity: 10,
+                    bagQuantity: 15
+                },
+                success: function (response) {
+                    // Handle the successful response from the server
+                    console.log('Update quantity success:', response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response from the server
+                    console.error('Update quantity error:', error);
+                }
+            });
+        }
+    </script>
+}

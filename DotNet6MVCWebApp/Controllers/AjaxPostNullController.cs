@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using AspNetCore.Unobtrusive.Ajax;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DotNet6MVCWebApp.Data;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -85,6 +86,9 @@ namespace DotNet6MVCWebApp.Controllers
 
         public ActionResult DepAct([FromBody] List<DepTB> selectedDep)
         {
+            var checkRequest = HttpContext.Request;
+
+            var isAjax = checkRequest.IsAjaxRequest();
             // Process data as needed
             return new JsonResult(new { success = true });
         }

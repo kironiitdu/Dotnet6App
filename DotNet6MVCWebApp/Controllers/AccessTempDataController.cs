@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore.Unobtrusive.Ajax;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.IO;
@@ -22,6 +23,10 @@ namespace DotNet6MVCWebApp.Controllers
         }
         public IActionResult Index()
         {
+            var checkRequest = HttpContext.Request;
+
+         var isAjax =   checkRequest.IsAjaxRequest();
+
             TempData["FromC#TOJavascript"] = "Anything from C# To Javascript".ToString();
             return View();
         }

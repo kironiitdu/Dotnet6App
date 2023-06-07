@@ -23,7 +23,11 @@ namespace DotNet_3_1_Core.Controllers
 
             return View();
         }
+        public IActionResult Index2()
+        {
 
+          return RedirectToAction("Index", "Home", new { test="MyQueryStringvalue"});
+        }
         //public List<ProductOrderDto> GetProductOrderDetails()
         //{
         //    using (EtnContext context = new EtnContext())

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace RazorPageDemoApp.Pages
 {
@@ -11,14 +12,20 @@ namespace RazorPageDemoApp.Pages
         {
             _logger = logger;
         }
-        public string Name { get; set; }
+        [BindProperty]
+        [Required]
+        [Range(5, 50, ErrorMessage = "Number is invalid")]
+        public int TestNumber { get; set; }
+
+        [BindProperty]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Email address is invalid")]
+        public string TestString { get; set; }
 
         public void OnGet()
         {
-            var host = HttpContext.Request.Host;
-            var path = HttpContext.Request.Path;
-            var absolutepath = host + path;
-            TempData["Url"] = absolutepath;
+           
         }
     }
 }
