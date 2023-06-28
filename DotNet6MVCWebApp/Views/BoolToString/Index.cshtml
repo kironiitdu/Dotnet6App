@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.EmployeeInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Employee List</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Empid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empsalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empgender)
+            </th>
+            <th>
+                Employees Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            var gender = @item.Empgender ? "Male" : "Female";
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empsalary)
+                </td>
+                <td>
+                <td>     
+                    @Html.DisplayName(gender)
+                </td>
+                <td>
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Empid">Details</a> |  <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Empid">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

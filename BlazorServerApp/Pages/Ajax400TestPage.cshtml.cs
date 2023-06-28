@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
-namespace RazorPageDemoApp.Pages
+namespace BlazorServerApp.Pages
 {
     [IgnoreAntiforgeryToken]
-    public class Ajax400RequestModel : PageModel
+    public class Ajax400TestPageModel : PageModel
     {
         public IActionResult OnPostTest()
         {
@@ -17,6 +16,5 @@ namespace RazorPageDemoApp.Pages
         {
             return Content("Success", "text/plain");
         }
-
     }
 }

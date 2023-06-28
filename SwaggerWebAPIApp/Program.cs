@@ -14,7 +14,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+//builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
@@ -31,9 +31,9 @@ builder.Services.AddScoped<IEfFeatureDal, EfFeatureDal>();
 //builder.Services.AddScoped<IProductReposiotry, ProductRepository>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    
 
-   // options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+    // options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
 });
 

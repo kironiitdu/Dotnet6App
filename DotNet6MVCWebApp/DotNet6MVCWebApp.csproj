@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.Graph" Version="4.28.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.43.2" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.9" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Ocelot" Version="18.0.0" />
     <PackageReference Include="RestSharp" Version="108.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />

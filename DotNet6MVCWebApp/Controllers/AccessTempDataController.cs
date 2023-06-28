@@ -1,9 +1,14 @@
 ﻿using AspNetCore.Unobtrusive.Ajax;
+using DotNet6MVCWebApp.Controllers.APIController;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.IO;
+using System.Net.Http;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Runtime.Versioning;
+using System.Text;
 using System.Threading;
 
 namespace DotNet6MVCWebApp.Controllers
@@ -16,13 +21,53 @@ namespace DotNet6MVCWebApp.Controllers
 
             return RedirectToAction("IndexView");
         }
+      
+        
+        public async Task<string> UpdateAddress(UpdateAddressModel model)
+        {
+            string text = "";
 
-        public IActionResult IndexView()
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var PayLoad = JsonConvert.SerializeObject(model);
+                    HttpContent content = new StringContent(PayLoad, Encoding.UTF8, "application/json");
+
+                    var Response = await client.PostAsync("http://localhost:5094/api/user/EditAddress/", content);
+
+                    Response.EnsureSuccessStatusCode();
+
+                    var response = await Response.Content.ReadAsStringAsync();
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                text = ex.Message;
+            }
+            return text;
+        }
+        public async Task<IActionResult> IndexView()
+        {
+            UpdateAddressModel requestMdoel = new UpdateAddressModel();
+            requestMdoel.Email = "mytestemail@outlook.com";
+
+            var callMethod = await UpdateAddress(requestMdoel);
+
+            
+            return View();
+        }
+        public IActionResult Edit()
         {
             return View();
         }
         public IActionResult Index()
         {
+            var envVer = Environment.Version;
+            string currentVersion = Assembly.GetEntryAssembly()?.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
+
             var checkRequest = HttpContext.Request;
 
          var isAjax =   checkRequest.IsAjaxRequest();
@@ -30,6 +75,9 @@ namespace DotNet6MVCWebApp.Controllers
             TempData["FromC#TOJavascript"] = "Anything from C# To Javascript".ToString();
             return View();
         }
+
+
+
         public ActionResult LoginFromCOM(string libType)
         {
             TempData["FromComTaskLibType"] = libType;
