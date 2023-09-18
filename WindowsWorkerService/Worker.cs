@@ -1,20 +1,24 @@
 using System.Net.Http.Headers;
 using System.Net;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace WindowsWorkerService
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        
 
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
+          
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+           
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

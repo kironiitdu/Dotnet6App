@@ -1,0 +1,45 @@
+﻿@model DotNet6MVCWebApp.Controllers.TestValidationModel
+<form id="validateFrom">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" id="txtName" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-secondary" id="btnSubmit">Submit</button>
+    </div>
+</form>
+@section Scripts
+    {
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(function () {
+            $('#btnSubmit').click(function () {
+                if ($("#validateFrom").valid()) {
+                    $('#validateFrom').submit();
+                }
+                else {
+                    return false;
+                }
+            });
+
+            $("#validateFrom").on("submit", function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                console.log("data is" + formData)
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RequesterIndex", "ModelStateValidation")',
+                    data: formData,
+                    success: function (response) {
+                        $("#successMessage").show();
+                    }
+                });
+            });
+        })
+    </script>
+}

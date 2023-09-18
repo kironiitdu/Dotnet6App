@@ -73,6 +73,8 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return Json(foo);
         }
+
+       
         [HttpGet]
         public IActionResult SummaryReportView()
         {

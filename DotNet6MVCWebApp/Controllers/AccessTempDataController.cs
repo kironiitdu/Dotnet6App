@@ -18,6 +18,31 @@ namespace DotNet6MVCWebApp.Controllers
 
         public ActionResult HandleButtonOn(string ButtonOn)
         {
+            var cshtmlcontent = @"@model IEnumerable<DotNet6MVCWebApp.Models.Book>
+<table class=""table table table-bordered"">
+    <thead>
+        <tr>
+            <th>Book Id
+            <th>Title
+            <th>Description
+            <th>Author Name
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.Author?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>";
+
+            System.IO.File.WriteAllText(@"C:\Kiron\GitDemoApp\DotNet6MVCWebApp\wwwroot\Test.cshtml", cshtmlcontent); 
+            System.IO.File.WriteAllText(@"C:\Kiron\GitDemoApp\DotNet6MVCWebApp\Views\AccessTempData\View\Test.cshtml", cshtmlcontent); 
 
             return RedirectToAction("IndexView");
         }

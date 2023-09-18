@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -8,7 +11,7 @@ namespace DotNet6MVCWebApp.Controllers
         public IActionResult Index()
         {
 
-            
+
             //List<SelectListItem> entityTypeList = new List<SelectListItem>();
             //entityTypeList.Add(new SelectListItem { Text = "Select Type", Value = "Select Type" });
             //entityTypeList.Add(new SelectListItem { Text = "Entity-Type-C#", Value = "Entity-Type-C#" });
@@ -28,5 +31,25 @@ namespace DotNet6MVCWebApp.Controllers
             return new JsonResult(message);
 
         }
+
+        [HttpPost]
+        public JsonResult BulkPost([FromBody] List<Categoria> categorias)
+        {
+            return new JsonResult(categorias);
+        }
+
+        public IActionResult IndexBulkPost()
+        {
+            return View();
+        }
+    }
+
+    public class Categoria
+    {
+        public int IdClas { get; set; }
+       
+        [DataMember(Name = "Name")]
+        [DisplayName("Nombre de la categoría")]
+        public string Name { get; set; }
     }
 }

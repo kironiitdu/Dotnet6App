@@ -154,6 +154,12 @@ builder.Services.AddCors(options =>
 
         });
 });
+
+
+
+
+
+
 //builder.WebHost.UseUrls("http://localhost:5050/");
 
 

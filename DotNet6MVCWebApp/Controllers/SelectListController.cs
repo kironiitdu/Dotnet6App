@@ -77,6 +77,19 @@ namespace DotNet6MVCWebApp.Controllers
             return View();
         }
 
+        public IActionResult LocationSelectListDisableTextbox()
+        {
+            List<SelectListItem> locationList = new List<SelectListItem>();
+            locationList.Add(new SelectListItem { Text = "Location-A", Value = "Location-A" });
+            locationList.Add(new SelectListItem { Text = "Location-B", Value = "Location-B" });
+            locationList.Add(new SelectListItem { Text = "Location-C", Value = "Location-C" });
+            locationList.Add(new SelectListItem { Text = "Disable Textbox", Value = "Disable Textbox" });
+
+
+            ViewBag.ListLocation = locationList;
+            return View();
+        }
+
         [HttpPost]
         public IActionResult CheckPassByArea(string areaId)
         {

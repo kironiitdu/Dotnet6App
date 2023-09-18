@@ -1,6 +1,59 @@
-﻿@model DotNet6MVCWebApp.Controllers.FakeModel
+﻿@*@model DotNet6MVCWebApp.Controllers.FakeModel
 @using (Html.BeginForm("FakeMethod", "Yonny", FormMethod.Post))
 {
     <input class="form-control mb-4" asp-for="NewName" />
     <button type="submit" class="btn btn-primary">New Name</button>
 }
+*@
+
+@model IEnumerable<DotNet6MVCWebApp.Controllers.DemoModelClass>
+<form method="post" asp-controller="ctrName" asp-action="Index">
+    <input type="text" class="form-control >
+    <button type="submit">
+        Search
+    </button>
+    <table class="table" border="1">
+        <thead style="font-size:90%;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ecuType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.exp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ecuSft)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.newSerialNumber)
+                </th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ecuType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.exp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ecuSft)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.newSerialNumber)
+                    </td>
+                    <td>
+                       
+                        <a asp-action="DownloadFile" class="btn btn-primary" asp-route-newSerialNumber="@item.newSerialNumber">Download</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+

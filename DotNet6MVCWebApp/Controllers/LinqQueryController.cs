@@ -1,7 +1,10 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using DocumentFormat.OpenXml.Presentation;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Versioning;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace DotNet6MVCWebApp.Controllers
 {
@@ -82,6 +85,99 @@ namespace DotNet6MVCWebApp.Controllers
             return View(data);
         }
 
+        public IActionResult GetEmployeesNotInRole(int roleId)
+        {
+
+            //var username = HttpContext.User.Claims.FirstOrDefault(p => p.Type == ClaimTypes.Name)?.Value;
+            //var claims = HttpContext.User.Identity;
+            //var wi = (WindowsIdentity)claims;
+
+            //List<String> groupVals = new List<String>();
+
+            //foreach (var group in wi.Groups)
+            //{
+
+            //    var gn = group.Translate(typeof(NTAccount)).ToString();
+            //    groupVals.Add(gn);
+            //}
+
+
+            var employeeList = new List<EmployeeTable>()
+            {
+                new EmployeeTable(){ Id =101,FullName = "Emp-A",RoleId = 1 },
+                new EmployeeTable(){ Id =102,FullName = "Emp-B", RoleId = null},
+                new EmployeeTable(){ Id =103,FullName = "Emp-C",RoleId = 2},
+                new EmployeeTable(){ Id =104,FullName = "Emp-D", RoleId = null},
+
+
+            };
+            var roleList = new List<RoleTable>()
+            {
+                new RoleTable(){ RoleId =1,Name = "Role-Super-Admin",},
+                new RoleTable(){ RoleId =2,Name = "Role-Admin",},
+                new RoleTable(){ RoleId =3,Name = "Role-User",},
+                new RoleTable(){ RoleId =4,Name = "Role-HR",},
+
+
+            };
+
+            var employees = from employee in employeeList
+                            where employee.RoleId != roleId
+                            select new EmployeeTable
+                            {
+                                Id = employee.Id,
+                                FullName = employee.FullName,
+                                RoleId = employee.RoleId,
+                            };
+
+            return Ok(employees);
+        }
+        public IActionResult ReturnDataWithNUllForeignKey()
+        {
+            var employeeList = new List<EmployeeTable>()
+            {
+                new EmployeeTable(){ Id =101,FullName = "Emp-A",RoleId = 1 },
+                new EmployeeTable(){ Id =102,FullName = "Emp-B", RoleId = null},
+                new EmployeeTable(){ Id =103,FullName = "Emp-C",RoleId = 2},
+                new EmployeeTable(){ Id =104,FullName = "Emp-D", RoleId = null},
+
+
+            };
+            var roleList = new List<RoleTable>()
+            {
+                new RoleTable(){ RoleId =1,Name = "Role-Super-Admin",},
+                new RoleTable(){ RoleId =2,Name = "Role-Admin",},
+                new RoleTable(){ RoleId =3,Name = "Role-User",},
+                new RoleTable(){ RoleId =4,Name = "Role-HR",},
+
+
+            };
+
+
+
+            var getRoleWithoutNullValue = from emp in employeeList
+                           where emp.RoleId != null
+                           select new EmployeeTable
+                           {
+                               Id = emp.Id,
+                               FullName = emp.FullName,
+                               RoleId = emp.RoleId
+                           };
+
+
+            var getRoleWithoutNullValueWithJoin = from emp in employeeList
+                           join role in roleList on emp.RoleId equals role.RoleId
+                           where emp.RoleId != null
+                           select new 
+                           {
+                               Id = emp.Id,
+                               Name = emp.FullName,
+                               RoleName = role.Name
+                           };
+           
+
+            return Ok(getRoleWithoutNullValueWithJoin);
+        }
 
         public ActionResult GetProductDetailsFromProductIdInCart()
         {
@@ -135,5 +231,19 @@ namespace DotNet6MVCWebApp.Controllers
 
         public int ProductId { get; set; }
         public virtual ProductTable? ProductTable { get; set; }
+    }
+
+    public class EmployeeTable
+    {
+        public int Id { get; set; }
+        public string? FullName { get; set; }
+        public int? RoleId { get; set; }
+    }
+
+    public class RoleTable
+    {
+        public int RoleId { get; set; }
+        public string? Name { get; set; }
+        
     }
 }

@@ -2,21 +2,44 @@
 @model RazorPageDemoApp.Pages.AjaxPostRequestModel
 @{
 }
-<strong><span id="appendHere"></span></strong></>
-<hr />
-<button type="button" name="submitButton" value="Edit" class="btn btn-primary"
-        onclick="GetAjaxResponse()">
-    Submit Request
-</button>
 
 
+<form method="post" class="col-sm-6">
+    <div class="form-group row">
+        <label asp-for="FormValue.FirstName" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-7">
+            <input asp-for="FormValue.FirstName" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="FormValue.LastName" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-7">
+            <input asp-for="FormValue.LastName" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <div class="col-sm-7 offset-sm-3">
+            <button class="btn btn-primary" id="submit">Submit</button>
+        </div>
+    </div>
+</form>
 
 @section scripts {
     <script>
+        $(function () {
+            $('#submit').on('click', function (evt) {
+                evt.preventDefault();
+                $.post('', $('form').serialize(), function () {
+                    alert('Posted using jQuery');
+                });
+            });
+        });
+
         function GetAjaxResponse() {
 
 
-
+            //Get your form property here
             var selectedDep = [{ prop1: "value1", prop2: "value2" }];
 
 

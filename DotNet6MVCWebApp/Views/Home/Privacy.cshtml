@@ -1,6 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@section scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script>
+        function httpPost(){
 
-<p>Use this page to detail your site's privacy policy.</p>
+            var dataPacket = [];
+            for (let i = 1; i <= 10; i++) {
+                var items = {
+                    CustomerCode: "CustomerCode:" + i,
+                    RegNo: "RegNo:" + i,
+                    FleetNo: "FleetNo:" + i,
+
+                }
+                dataPacket.push(items);
+
+            }
+
+            var params = JSON.stringify(dataPacket);
+            console.log("param",params)
+            var url = 'http://localhost:5094/Home/ExportToExcel?SentData=' + params + '';
+            //var url = 'http://localhost:5094/Home/ExportToExcel';
+
+
+            var formData = new FormData();
+            formData.append('SentData', JSON.stringify(dataPacket));
+
+            console.log("url", url)
+            
+
+            var req = new XMLHttpRequest();
+            req.open('POST', url, true);
+            req.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            req.send();
+        }
+
+
+        var response = httpPost();
+        console.log(response);
+
+       
+
+    </script>
+}
+

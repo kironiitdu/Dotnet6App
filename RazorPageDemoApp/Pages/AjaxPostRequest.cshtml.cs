@@ -1,25 +1,47 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace RazorPageDemoApp.Pages
 {
-    [IgnoreAntiforgeryToken]
     public class AjaxPostRequestModel : PageModel
     {
+        [BindProperty]
+        public DemoModelClass? FormValue { get; set; }
         public void OnGet()
         {
         }
-       
-        public ActionResult OnPost([FromBody] List<DepTB> selectedDep)
+
+        public ActionResult OnPost()
         {
+
+            var checkSubmittedVaue = FormValue;
             // Process data as needed
+            // Call your database layer 
             return new JsonResult(new { success = true });
         }
+
     }
 
-    public class DepTB
+
+
+    public class DemoModelClass
     {
-        public string prop1 { get; set; }
-        public string prop2 { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+
     }
+
+
+
+
+    //public ActionResult OnPost([FromBody] List<DemoModelClass> selectedDep)
+    //{
+    //    // Process data as needed
+    //    // Call your database layer 
+    //    return new JsonResult(new { success = true });
+    //}
 }

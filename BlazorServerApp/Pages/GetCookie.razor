@@ -1,0 +1,19 @@
+﻿@page "/GetCookie"
+
+<PageTitle>GetCookie</PageTitle>
+
+@using BlazorServerApp.Data
+@inject CookieServiceBlazor CookieService
+
+<h1>Cookie Key: @cookies.CookieKey</h1>
+<h1>Cookie Value: @cookies.CookieValue</h1>
+
+
+@code {
+    private CustomCookie? cookies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cookies = await CookieService.GetCookiesAsync();
+    }
+}

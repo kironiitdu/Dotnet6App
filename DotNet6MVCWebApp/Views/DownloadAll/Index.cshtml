@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DotNet6MVCWebApp.Controllers.FileDetails>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    <img src="~/ImageName/Cover/@item.ImageName"
+                     class="rounded-square"
+                     height="50" width="75"
+                     style="border:1px"
+                     asp-append-version="true" accept="image/*" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table>
+    <tr>
+        <td>
+            <a target="_blank" class="btn btn-info" asp-controller="DownloadAll" asp-action="DownLoadAll">Download All</a>
+        </td>
+    </tr>
+</table>

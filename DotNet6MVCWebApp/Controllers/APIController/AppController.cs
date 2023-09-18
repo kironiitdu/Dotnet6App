@@ -19,6 +19,14 @@ namespace DotNet6MVCWebApp.Controllers.APIController
             _environment = environment;
 
         }
+        [Route("api/ExportToExcel")]
+        [HttpPost]
+        public ActionResult ExportToExcel(string SentData) // SentData is null
+
+        {
+
+            return Ok(SentData);
+        }
         [Route("api/GetSchoolsDetails")]
         [HttpPost("GetSchoolsDetails")]
         public ActionResult<SchoolModel> GetSchoolsDetails(string [] SchoolsUuid)

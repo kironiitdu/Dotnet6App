@@ -45,10 +45,16 @@ namespace DotNet6MVCWebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult ExportToExcel(string SentData) // SentData is null
+        
+        {
 
 
+            return Ok(SentData);
+        }
 
-        [SessionExpire]
+            [SessionExpire]
         public ActionResult Index()
         {
             var environmentVariable = Environment.GetEnvironmentVariable("DbConnection");

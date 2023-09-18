@@ -1,0 +1,49 @@
+﻿<strong><span id="appendHere"></span></strong></>
+<hr />
+
+<button type="button" name="submitButton" value="Edit" class="btn btn-primary"
+        onclick="GetAjaxResponse()">
+    Submit Request
+</button>
+
+
+
+@section scripts {
+    <script>
+        function GetAjaxResponse() {
+
+
+
+            
+
+
+            //$.ajax({
+            //    type: 'POST',
+            //    url: 'http://localhost:5094/AjaxPostNull/DepAct',
+            //    data: JSON.stringify([{ prop1: "value1", prop2: "value2" }]),
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    success: function (data) {
+            //        alert('Data sent to backend!');
+            //    },
+            //    error: function (xhr, status, error) {
+            //        alert('Data was not sent to backend!');
+            //    }
+            //});
+
+            var arr = [{ IdClas: 001, name: "TestName" }];
+             jsonObject = JSON.stringify(arr);
+            $.ajax({
+                url: 'http://localhost:5094/AppendTextArea/BulkPost',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'JSON',
+                data: jsonObject,
+                traditional: true,
+                success: function () {
+                    alert('siuuuu');
+                }
+            });
+        }
+    </script>
+}

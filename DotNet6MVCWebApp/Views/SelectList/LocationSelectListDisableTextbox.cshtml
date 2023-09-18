@@ -1,0 +1,20 @@
+﻿Location DropDown: @Html.DropDownList("Location", ViewBag.ListLocation, null, new { @class = "form-control", @onchange = "DisableTextboxByDropdownValue(this.value)" })
+<hr />
+TextBox:
+<br />
+<input type="text" id="myTextbox" class="form-control" />
+
+<script language="javascript" type="text/javascript">
+    function DisableTextboxByDropdownValue(locationId) {
+
+        alert(locationId);
+        if (locationId == "Disable Textbox") {
+            $("#myTextbox").attr("disabled", "disabled");
+        } else {
+
+            $("#myTextbox").removeAttr("disabled");
+            $("#myTextbox").focus();
+        }
+
+    }
+</script>

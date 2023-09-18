@@ -61,9 +61,21 @@ namespace DotNet6MVCWebApp.Controllers
             return RedirectToAction("Home", "Home");
         }
 
-        public IActionResult SaveIndex()
+       
+        public IActionResult DownloadFile(int newSerialNumber)
         {
             return View();
+        }
+        public IActionResult SaveIndex()
+        {
+            var demoList = new List<DemoModelClass>()
+            {
+                new DemoModelClass(){ newSerialNumber = 1001,ecuType  ="ecuType-A",exp  ="exp-X", ecuSft = "ecuSft-P"},
+                new DemoModelClass(){ newSerialNumber = 1002,ecuType  ="ecuType-B",exp  ="exp-Y", ecuSft = "ecuSft-Q"},
+                new DemoModelClass(){ newSerialNumber = 1003,ecuType  ="ecuType-C",exp  ="exp-Z", ecuSft = "ecuSft-R" }
+
+            };
+            return View(demoList);
         }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -123,6 +135,15 @@ namespace DotNet6MVCWebApp.Controllers
         }
 
 
+    }
+
+
+    public class DemoModelClass
+    {
+        public string ecuType { get; set; }
+        public string exp { get; set; }
+        public string ecuSft { get; set; }
+        public int newSerialNumber { get; set; }
     }
 
     public class FakeModel

@@ -1,0 +1,74 @@
+﻿@page
+@model RazorPageDemoApp.Pages.LocationSelectListDisableTextboxModel
+@{
+}
+
+
+@*Location DropDown: @Html.DropDownList("Location", Model.selectListItems, null, new { @class = "form-control", @onchange = "DisableTextboxByDropdownValue(this.value)", title= "This is my tooltip which is HTML title atrribute a type of string and cannot display array or collection" })*@
+Location DropDown: @Html.DropDownList("Location", Model.selectListItems, null, new { @class = "form-control", @onchange = "DisableTextboxByDropdownValue(this.value)", title= string.Join(", ", Model.selectListItems.Select(x => x.Text)) })
+<hr />
+
+TextBox:
+<br />
+<input type="text" id="myTextbox" class="form-control" />
+
+<script language="javascript" type="text/javascript">
+    function DisableTextboxByDropdownValue(locationId) {
+
+        alert(locationId);
+        if (locationId == 4) {
+            $("#myTextbox").attr("disabled", "disabled");
+        } else {
+
+            $("#myTextbox").removeAttr("disabled");
+            $("#myTextbox").focus();
+        }
+
+    }
+</script>
+<@*div class="card-body">
+    <div class="form-group">
+
+        <input type="date"  class="form-control js-datepicker" asp-format="{0:dd/MMM/yyyy}">
+
+    </div>
+
+    <div class="form-group">
+        <select type="text" id="meetingType" class="select2 form-control"  style="width:100%" multiple></select>
+
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+
+                    <th>Name</th>
+                    <th>Description</th>
+
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Test</td>
+
+                    <td><input  id="desc" /></td>
+
+                    <td>
+                        <input type="hidden" class="custom-checkbox" value="Test" />
+                        <label class="a8z-toggle-switch" data-size="sm" data-color="blue" data-text="true" data-style="rounded">
+                            <inputtype="checkbox" id="example_default_1">
+                            <span class="toggle">
+                                <span class="switch"></span>
+                            </span>
+
+                        </label>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+*@
